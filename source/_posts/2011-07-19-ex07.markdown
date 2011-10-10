@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Exercise 7: More Printing"
+title: "習題 7: 更多印出"
 ---
-# Exercise 7: More Printing
-Now we are going to do a bunch of exercises where you just type code in and make it run. I won't be explaining much since it is just more of the same. The purpose is to build up your chops. See you in a few exercises, and do not skip! Do not paste!
 
-{% highlight ruby linenos %}
+現在我們將做一批練習，在練習的過程中你需要鍵入程式碼，並且讓它們運行起來，我不會解釋太多，因為這節的內容都是以前熟悉的。這節練習的目的是鞏固你學到的東西，我們幾輪練習後再見。不要跳過這些習題，不要複製貼上！
+
+```ruby
 puts "Mary had a little lamb."
 puts "Its fleece was white as %s." % 'snow'
 puts "And everywhere that Mary went."
@@ -31,9 +31,9 @@ print end7 + end8 + end9 + end10 + end11 + end12
 
 # this just is polite use of the terminal, try removing it
 puts
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
     $ ruby ex7.rb
     Mary had a little lamb.
     Its fleece was white as snow.
@@ -42,11 +42,12 @@ puts
     CheeseBurger
     $
 
-## Extra Credit
-For these next few exercises, you will have the exact same extra credit.
+## 加分習題
 
-1. Go back through and write a comment on what each line does.
-2. Read each one backwards or out loud to find your errors.
-3. From now on, when you make mistakes write down on a piece of paper what kind of mistake you made.
-4. When you go to the next exercise, look at the last mistakes you made and try not to make them in this new one.
-5. Remember that everyone makes mistakes. Programmers are like magicians who like everyone to think they are perfect and never wrong, but it's all an act. They make mistakes all the time.
+接下來幾節的加分習題是一樣的。
+
+1. 逆向閱讀，在每一行的上面加一行註釋。
+2. 倒著閱讀出來，找出自己的錯誤。
+3. 從現在開始，把你的錯誤記錄下來，寫在一張紙上。
+4. 在開始下一節習題時，閱讀一遍你記錄下來的錯誤。並且儘量避免在下個練習中再犯相同的錯誤。
+5. 記住，每個人都會犯錯。程式設計師和魔術師一樣，他們希望大家認為他們從不犯錯，不過這只是表象而已，他們每時每刻都在犯錯。
