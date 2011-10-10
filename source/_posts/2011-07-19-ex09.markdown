@@ -1,8 +1,7 @@
 ---
 layout: post
-title: "Exercise 9: Printing, Printing, Printing"
+title: "習題 9: 印出，印出，印出"
 ---
-# Exercise 9: Printing, Printing, Printing
 
 ```ruby
 # Here's some new strange stuff, remember type it exactly.
@@ -40,5 +39,6 @@ PARAGRAPH
     We'll be able to type as much as we like.
     Even 4 lines if we want, or 5, or 6.
 
-# Extra Credit
-Do your checks of your work, write down your mistakes, try not to make them on the next exercise.
+## 加分習題
+
+1. 自己檢查結果，記錄你犯過的錯誤，並且在下個練習中儘量不犯相同的錯誤。
