@@ -1,17 +1,21 @@
 ---
 layout: post
-title: "Exercise 4: Variables And Names"
+title: "變數(variable)和命名"
+
 ---
+
 # Exercise 4: Variables And Names
-Now you can print things with `puts` and you can do math. The next step is to learn about variables. In programming a variable is nothing more than a name for something so you can use the name rather than the something as you code. Programmers use these variable names to make their code read more like English, and because they have lousy memories. If they didn't use good names for things in their software, they'd get lost when they tried to read their code again.
 
-If you get stuck with this exercise, remember the tricks you have been taught so far of finding differences and focusing on details:
+你已經學會了印出東西和數學運算。下一步你要學的是「變數」。在開發程式中，變數只不過是用來代表某個東西的名稱。程式設計師通過使用變數名稱可以讓他們的程式讀起來更像英語。而且因為程式設計師的記性都不怎樣，變數名稱可以讓他們更容易記住程式的內容。如果他們沒有在寫程式時使用好的變數名稱，在下一次讀到原來寫的程式碼時對他們會大為頭疼的。 
 
-1. Write a comment above each line explaining to yourself what it does in English.
-2. Read your `.rb` file backwards.
-3. Read your `.rb` file out loud saying even the characters.
+如果你被這章習題難住了的話，記得我們之前教過的：找到不同點、注意細節:
 
-{% highlight ruby linenos %}
+1. 在每一行的上面寫一行註釋，給自己解釋一下這一行的作用。
+2. 倒著讀你的 `.rb` 檔案。
+3. 朗讀你的 `.rb` 檔案，將每個字符也朗讀出來。
+
+```ruby
+
 cars = 100
 space_in_a_car = 4.0
 drivers = 30
@@ -27,11 +31,12 @@ puts "There will be #{cars_not_driven} empty cars today."
 puts "We can transport #{carpool_capacity} people today."
 puts "We have #{passengers} passengers to carpool today."
 puts "We need to put about #{average_passengers_per_car} in each car."
-{% endhighlight %}
 
-> **Note:** The `_` in `space_in_a_car` is called an underscore character. Find out how to type it if you do not already know. We use this character a lot to put an imaginary space between words in variable names.
+```
 
-## What You Should See
+> **Note:** `space_in_a_car` 中的 `_` 是 `底線(underscore)` 符號。你要自己學會怎樣打出這個符號來。這個符號在變數裡通常被用作假想的空隔，用來隔開單詞。
+
+## 你應該看到的結果
 
     $ ruby ex4.rb
     There are 100 cars available.
@@ -42,18 +47,20 @@ puts "We need to put about #{average_passengers_per_car} in each car."
     We need to put about 3 in each car.
     $
 
-## Extra Credit
-When I wrote this program the first time I had a mistake, and Ruby told me about it like this:
+## 加分習題
+
+當我剛開始寫這個程式時我犯了個錯誤，Ruby 告訴我這樣的錯誤資訊：
 
     ex4.rb:8:in `<main>': undefined local variable or method `car_pool_capacity' for main:Object (NameError)
 
-Explain this error in your own words. Make sure you use line numbers and explain why.
+用你自己的話解釋一下這個錯誤資訊，解釋時記得使用行號，而且要說明原因。
 
-## Here's more extra credit:
+## 更多的加分習題
 
-1. Explain why the 4.0 is used instead of just 4.
-2. Remember that 4.0 is a "floating point" number. Find out what that means.
-3. Write comments above each of the variable assignments.
-4. Make sure you know what `=` is called (equals) and that it's making names for things.
-5. Remember `_` is an underscore character.
-6. Try running IRB as a calculator like you did before and use variable names to do your calculations. Popular variable names are also `i`, `x`, and `j`.
+1. 解釋一下為什麼程式裡面用了 4.0 而不是 4。
+2. 記住 4.0 是一個「浮點數」，自己研究一下這是什麼意思。
+3. 在每一個變數賦值的上一行加上一行註釋。
+4. 記住 `=` 的名稱是等於(equal)，它的作用是為東西取名。
+5. 記住 `_` 是底線(underscore)。
+6. 將 IRB 作為計算機跑起來，就跟以前一樣，不過這一次在計算過程中使用變數名稱來做計算，常見的變數名稱有 `i` 、 `x` 、 `j` 等等。
+
