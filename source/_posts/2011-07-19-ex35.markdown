@@ -6,7 +6,7 @@ title: "Exercise 35: Branches and Functions"
 
 You have learned to do `if-statements`, functions, and arrays. Now it's time to bend your mind. Type this in, and see if you can figure out what it's doing.
 
-{% highlight ruby linenos %}
+```ruby
 def prompt()
   print "> "
 end
@@ -93,9 +93,9 @@ def start()
 end
 
 start()
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 
 Here's me playing the game:
 
@@ -116,7 +116,7 @@ Here's me playing the game:
     Man, learn to type a number. Good job!
     $
 
-## Extra Credit
+## 加分習題
 1. Draw a map of the game and how you flow through it.
 2. Fix all of your mistakes, including spelling mistakes.
 3. Write comments for the functions you do not understand. Remember **RDoc** comments?

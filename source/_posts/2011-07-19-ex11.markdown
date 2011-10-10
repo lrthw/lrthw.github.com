@@ -13,7 +13,7 @@ Most of what software does is the following:
 
 So far you have only been printing, but you haven't been able to get any input from a person, or change it. You may not even know what "input" means, so rather than talk about it, let's have you do some and see if you get it. Next exercise we'll do more to explain it.
 
-{% highlight ruby linenos %}
+```ruby
 print "How old are you? "
 age = gets.chomp()
 print "How tall are you? "
@@ -22,11 +22,11 @@ print "How much do you weigh? "
 weight = gets.chomp()
 
 puts "So, you're #{age} old, #{height} tall and #{weight} heavy."
-{% endhighlight %}
+```
 
 > **Note:** Notice that we are using `print` instead of `puts` to do the prompting.  `print` doesn't add a new line automatically, so your answer can go on the same line as the question.  `puts` on the other hand, adds a newline automatically.
 
-## What You Should See
+## 你應該看到的結果
 $ ruby ex11.rb
 How old are you? 35
 How tall are you? 6'2"
@@ -34,7 +34,7 @@ How much do you weigh? 180lbs
 So, you're '35' old, '6\'2"' tall and '180lbs' heavy.
 $
     
-## Extra Credit
+## 加分習題
 1. Go online and find out what Rubys `gets` and `chomp` methods do.
 2. Can you find other ways to use `gets.chomp`? Try some of the samples you find.
 3. Write another "form" like this to ask some other questions.

@@ -11,14 +11,14 @@ Another important escape sequence is to escape a single-quote `'` or double-quot
 
 To solve this problem you escape double-quotes and single-quotes so Ruby knows to include in the string. Here's an example:
 
-{% highlight ruby linenos %}
+```ruby
 "I am 6'2\" tall."  # escape double-quote inside string
 'I am 6\'2" tall.'  # escape single-quote inside string
-{% endhighlight %}
+```
 
 The second way is by using here document syntax, which uses `<<NAME` and works like a string, but you also can put as many lines of text you as want until you type `NAME` again. We'll also play with these.
 
-{% highlight ruby linenos %}
+```ruby
 tabby_cat = "\tI'm tabbed in."
 persian_cat = "I'm split\non a line."
 backslash_cat = "I'm \\ a \\ cat."
@@ -34,9 +34,9 @@ puts tabby_cat
 puts persian_cat
 puts backslash_cat
 puts fat_cat
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 Look for the tab characters that you made. In this exercise the spacing is important to get right.
 
     $ ruby ex10.rb
@@ -52,6 +52,6 @@ Look for the tab characters that you made. In this exercise the spacing is impor
     
     $
 
-## Extra Credit
+## 加分習題
 1. Search online to see what other escape sequences are available.
 2. Combine escape sequences and format strings to create a more complex format.

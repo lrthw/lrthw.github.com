@@ -13,7 +13,7 @@ This exercise involves writing two files. One is your usual `ex15.rb` file that 
 
 What we want to do is "open" that file in our script and print it out. However, we do not want to just "hard code" the name `ex15_sample.txt` into our script. "Hard coding" means putting some bit of information that should come from the user as a string right in our program. That's bad because we want it to load other files later. The solution is to use `ARGV` and `STDIN.gets` to ask the user what file they want instead of "hard coding" the file's name.
 
-{% highlight ruby linenos %}
+```ruby
 filename = ARGV.first
 
 prompt = "> "
@@ -29,7 +29,7 @@ file_again = STDIN.gets.chomp()
 txt_again = File.open(file_again)
 
 puts txt_again.read()
-{% endhighlight %}
+```
 
 A few fancy things are going on in this file, so let's break it down real quick:
 
@@ -39,7 +39,7 @@ Line 6 we print a little line, but on line 7 we have something very new and exci
 
 The remainder of the file is more of the same, but we'll leave the analysis to you in the extra credit.
 
-## What You Should See
+## 你應該看到的結果
 I made a file called "ex15_sample.txt" and ran my script.
 
     $ ruby ex15.rb ex15_sample.txt 
@@ -56,7 +56,7 @@ I made a file called "ex15_sample.txt" and ran my script.
     
     $
 
-## Extra Credit
+## 加分習題
 This is a big jump so be sure you do this extra credit as best you can before moving on.
 
 1. Above each line write out in English what that line does.

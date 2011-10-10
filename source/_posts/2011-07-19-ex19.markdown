@@ -8,7 +8,7 @@ Functions may have been a mind-blowing amount of information, but do not worry. 
 
 There is one tiny point though that you might not have realized which we'll reinforce right now: The variables in your function are not connected to the variables in your script. Here's an exercise to get you thinking about this:
 
-{% highlight ruby linenos %}
+```ruby
 def cheese_and_crackers(cheese_count, boxes_of_crackers)
   puts "You have #{cheese_count} cheeses!"
   puts "You have #{boxes_of_crackers} boxes of crackers!"
@@ -30,13 +30,13 @@ cheese_and_crackers(10 + 20, 5 + 6)
 
 puts "And we can combine the two, variables and math:"
 cheese_and_crackers(amount_of_cheese + 100, amount_of_crackers + 1000)
-{% endhighlight %}
+```
 
 This shows all different ways we're able to give our function `cheese_and_crackers` the values it needs to print them. We can give it straight numbers. We can give it variables. We can give it math. We can even combine math and variables.
 
 In a way, the arguments to a function are kind of like our `=` character when we make a variable. In fact, if you can use `=` to name something, you can usually pass it to a function as an argument.
 
-## What You Should See
+## 你應該看到的結果
 
 You should study the output of this script and compare it with what you think you should get for each of the examples in the script.
 

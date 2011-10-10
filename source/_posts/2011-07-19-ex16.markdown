@@ -15,7 +15,7 @@ For now these are the important commands you need to know. Some of them take par
 
 Let's use some of this to make a simple little text editor:
 
-{% highlight ruby linenos %}
+```ruby
 filename = ARGV.first
 script = $0
 
@@ -49,11 +49,11 @@ target.write("\n")
 
 puts "And finally, we close it."
 target.close()
-{% endhighlight %}
+```
 
 That's a large file, probably the largest you have typed in. So go slow, do your checks, and make it run. One trick is to get bits of it running at a time. Get lines 1-8 running, then 5 more, then a few more, etc., until it's all done and running.
 
-## What You Should See
+## 你應該看到的結果
 There are actually two things you will see, first the output of your new script:
 
     $ ruby ex16.rb test.txt
@@ -73,7 +73,7 @@ There are actually two things you will see, first the output of your new script:
 
 Now, open up the file you made (in my case test.txt) in your editor and check it out. Neat right?
 
-## Extra Credit
+## 加分習題
 1. If you feel you do not understand this, go back through and use the comment trick to get it squared away in your mind. One simple English comment above each line will help you understand, or at least let you know what you need to research more.
 2. Write a script similar to the last exercise that uses read and argv to read the file you just created.
 3. There's too much repetition in this file. Use strings, formats, and escapes to print out line1, line2, and line3 with just one `target.write()` command instead of 6.

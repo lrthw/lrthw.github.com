@@ -47,7 +47,7 @@ That is the fastest crash course in how a web browser accesses information on se
 ## How Forms Work
 The best way to play with forms is to write some code that accepts form data, and then see what you can do. Take your `lib/gothonsweb.rb` file and make it look like this:
 
-{% highlight ruby linenos %}
+```ruby
 require_relative "gothonweb/version"
 require "sinatra"
 require "erb"
@@ -64,7 +64,7 @@ module Gothonweb
     erb :index, :locals => {:greeting => greeting}
   end
 end
-{% endhighlight %}
+```
 
 Restart Sinatra (hit CTRL-C and then run it again) to make sure it loads again, then with your browser go to `http://localhost:4567/hello` which should display, "I just wanted to say Hello, Nobody." Next, change the URL in your browser to `http://localhost:4567/hello?name=Frank` and you'll see it say "Hello, Frank." Finally, change the `name=Frank` part to be your name. Now it's saying hello to you.
 
@@ -76,9 +76,9 @@ Let's break down the changes I made to your script.
 
 You're also not restricted to just one parameter on the URL. Change this example to give two variables like this: `http://localhost:4567/hello?name=Frank&greet=Hola`. Then change the code to get `params[:name]` and `params[:greet]` like this:
 
-{% highlight ruby linenos %}
+```ruby
 greeting = "#{greet}, #{name}"
-{% endhighlight %}
+```
 
 ## Creating HTML Forms
 Passing the parameters on the URL works, but it's kind of ugly and not easy to use for regular people. What you really want is a "POST form", which is a special HTML file that has a `<form>` tag in it. This form will collect information from the user, then send it to your web application just like you did above.
@@ -104,11 +104,11 @@ Let's make a quick one so you can see how it works. Here's the new HTML file you
 
 </body>
 </html>
-{% endhighlight %}
+```
 
 You should then change `lib/gothonsweb.rb` to look like this:
 
-{% highlight ruby linenos %}
+```ruby
 require_relative "gothonweb/version"
 require "sinatra"
 require "erb"
@@ -130,7 +130,7 @@ module Gothonweb
   end
 
 end
-{% endhighlight %}
+```
 
 Once you've got those written up, simply restart the web application again and hit it with your browser like before.
 
@@ -163,7 +163,7 @@ Change `lib/views/index.erb` to be like this:
 <% else %>
   <em>Hello</em>, world!
 <% end %>
-{% endhighlight %}
+```
 
 Change `lib/views/hello_form.erb` to be like this:
 
@@ -177,7 +177,7 @@ Change `lib/views/hello_form.erb` to be like this:
     <br/>
     <input type="submit">
 </form>
-{% endhighlight %}
+```
 
 All we're doing is stripping out the "boilerplate" at the top and the bottom which is always on every page. We'll put that back into a single `lib/views/layout.erb` file that handles it for us from now on.
 
@@ -192,7 +192,7 @@ Once you have those changes, create a `lib/views/layout.erb` file with this in i
     <%= yield %>
   </body>
 </html>
-{% endhighlight %}
+```
 
 Sinatra automatically looks for a layout template called `layout` by default to use as the *base* template for all other templates.  You can customize which template is used as the base for any given page, too.   Restart your application and then try to change the layout in interesting ways, but without changing the other templates.
 
@@ -201,7 +201,7 @@ It's easy to test a web application with your browser by just hitting refresh, b
 
 I've created a simple little function for that lets you assert things about your web application's response, aptly named `assert_response`. Create the file `test/tools.rb` with these contents:
 
-{% highlight ruby linenos %}
+```ruby
 require 'test/unit'
 
 def assert_response(resp, contains=nil, matches=nil, headers=nil, status=200)
@@ -226,7 +226,7 @@ def assert_response(resp, contains=nil, matches=nil, headers=nil, status=200)
   end
 
 end
-{% endhighlight %}
+```
 
 Finally, run `test/test_gothonsweb.rb` to test your web application:
 
@@ -246,9 +246,9 @@ The `rack/test` library we have included has a very simple API for processing re
 
 All mock request methods have the same argument signature:
 
-{% highlight ruby linenos %}
+```ruby
 get '/path', params={}, rack_env={}
-{% endhighlight %}
+```
 
 * `/path` is the request path and may optionally include a query string.
 * `params` is a Hash of query/post parameters, a String request body, or nil.
@@ -258,9 +258,9 @@ This works without running an actual web server so you can do tests with automat
 
 To validate responses from this function, use the `assert_response` function from `test/tools.rb` which has:
 
-{% highlight ruby linenos %}
+```ruby
 assert_response(resp, contains=nil, matches=nil, headers=nil, status=200)
-{% endhighlight %}
+```
 
 Pass in the response you get from calling `get` or `post` then add things you want checked. Use the `contains` parameter to make sure that the response contains certain values. Use the `status` parameter to check for certain responses. There's actually quite a lot of information in this little function so it would be good for you to study it.
 
@@ -268,7 +268,7 @@ In the `test/test_gothonsweb.rb` automated test I'm first making sure the `/foo`
 
 Take some time studying this latest application, especially how the automated testing works.
 
-## Extra Credit
+## 加分習題
 1. Read even more about HTML, and give the simple form a better layout. It helps to draw what you want to do on paper and *then* implement it with HTML.
 2. This one is hard, but try to figure out how you'd do a file upload form so that you can upload an image and save it to the disk.
 3. This is even more mind-numbing, but go find the HTTP RFC (which is the document that describes how HTTP works) and read as much of it as you can. It is really boring, but comes in handy once in a while.

@@ -18,7 +18,7 @@ First, make a `ex47` project from your project skeleton. Make sure you do it rig
 
 Next, create a simple file `ex47/lib/game.rb` where you can put the code to test. This will be a very silly little class that we want to test with this code in it:
 
-{% highlight ruby linenos %}
+```ruby
 class Room
 
   attr_accessor :name, :description, :paths
@@ -38,11 +38,11 @@ class Room
   end
 
 end
-{% endhighlight %}
+```
 
 Once you have that file, change unit test skeleton to this:
 
-{% highlight ruby linenos %}
+```ruby
 require 'test/unit'
 require_relative '../lib/ex47'
 
@@ -81,7 +81,7 @@ class MyUnitTests < Test::Unit::TestCase
   end
 
 end
-{% endhighlight %}
+```
 
 This file requires the `Room` class you made in the `lib/ex47.rb` file so that you can do tests on it. There are then a set of tests that are functions starting with `test_`. Inside each test case there's a bit of code that makes a `Room` or a set of `Rooms`, and then makes sure the rooms work the way you expect them to work. It tests out the basic room features, then the paths, then tries out a whole map.
 
@@ -96,7 +96,7 @@ Follow these general loose set of guidelines when making your tests:
 4. Even though test cases are messy, try to keep them clean and remove any repetitive code you can. Create helper functions that get rid of duplicate code. You will thank me later when you make a change and then have to change your tests. Duplicated code will make changing your tests more difficult.
 5. Finally, do not get too attached to your tests. Sometimes, the best way to redesign something is to just delete it, the tests, and start over.
 
-## What You Should See
+## 你應該看到的結果
     $ ruby test_ex47.rb 
     Loaded suite test_ex47
     Started
@@ -109,7 +109,7 @@ Follow these general loose set of guidelines when making your tests:
 
 That's what you should see if everything is working right. Try causing an error to see what that looks like and then fix it.
 
-## Extra Credit
+## 加分習題
 1. Go read about `Test::Unit` more, and also read about alternatives.
 2. Learn about `Rspec` and see if you like it better.
 3. Make your Room more advanced, and then use it to rebuild your game yet again but this time, unit test as you go.

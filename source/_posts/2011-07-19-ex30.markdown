@@ -14,7 +14,7 @@ Compare my answers to your answers, and make sure you really understand the conc
 
 Type this one in and make it work too.
 
-{% highlight ruby linenos %}
+```ruby
 people = 30
 cars = 40
 buses = 15
@@ -40,9 +40,9 @@ if people > buses
 else
   puts "Fine, let's stay home then."
 end
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 
     $ ruby ex30.rb
     We should take the cars.
@@ -50,7 +50,7 @@ end
     Alright, let's just take the buses.
     $
 
-## Extra Credit
+## 加分習題
 1. Try to guess what `elsif` and `else` are doing.
 2. Change the numbers of `cars`, `people`, and `buses` and then trace through each `if-statement` to see what will be printed.
 3. Try some more complex boolean expressions like `cars > people and buses < cars`.

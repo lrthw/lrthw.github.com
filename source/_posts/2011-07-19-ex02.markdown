@@ -22,7 +22,7 @@ puts "This will run."
     This will run.
     $
 
-## Extra Credit
+## 加分習題
 
 1. 弄清楚 `#` 符號的作用。而且記住它的名稱。（中文為井號，英文為 octothorpe 或者 pound character)。
 2. 打開你的 `ex2.rb` 檔案，從後往前逐行檢查。從最後一行開始，倒著逐個單詞單詞檢查回去。

@@ -36,7 +36,7 @@ Now, go through this piece of code and replace each `##??` comment with a replac
 
 Remember, `is-a` is the relationship between Fish and Salmon, while `has-a` is the relationship between Salmon and Gills.
 
-{% highlight ruby linenos %}
+```ruby
 ## Animal is-a object (yes, sort of confusing) look at the extra credit
 class Animal
 
@@ -129,9 +129,9 @@ crouse = Salmon.new
 
 ## ??
 harry = Halibut.new
-{% endhighlight %}
+```
 
-## Extra Credit
+## 加分習題
 1. Is it possible to use a `Class` like it's an `Object`?
 2. Fill out the animals, fish, and people in this exercise with functions that make them do things. See what happens when functions are in a "base class" like Animal vs. in say Dog.
 3. Find other people's code and work out all the `is-a` and `has-a` relationships.

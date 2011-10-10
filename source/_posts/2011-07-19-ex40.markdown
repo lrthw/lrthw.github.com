@@ -7,7 +7,7 @@ Now I have to hurt you with another container you can use, because once you lear
 
 Ruby calls them "hashes", other languages call them, "dictionaries". I tend to use both names, but it doesn't matter. What does matter is what they do when compared to arrays. You see, an array lets you do this:
 
-{% highlight ruby linenos %}
+```ruby
 ruby-1.9.2-p180 :015 > things = ['a','b','c','d']
  => ["a", "b", "c", "d"] 
 ruby-1.9.2-p180 :016 > print things[1]
@@ -19,11 +19,11 @@ z => nil
 ruby-1.9.2-p180 :019 > print things
 ["a", "z", "c", "d"] => nil 
 ruby-1.9.2-p180 :020 >
-{% endhighlight %}
+```
 
 You can use numbers to "index" into an array, meaning you can use numbers to find out what's in arrays. You should know this by now, but what a hash does is let you use *anything*, not just numbers. Yes, a hash associates one thing to another, no matter what it is. Take a look:
 
-{% highlight ruby linenos %}
+```ruby
 ruby-1.9.2-p180 :001 > stuff = {:name => "Rob", :age => 30, :height => 5*12+10}
  => {:name=>"Rob", :age=>30, :height=>70} 
 ruby-1.9.2-p180 :002 > puts stuff[:name]
@@ -41,11 +41,11 @@ ruby-1.9.2-p180 :006 > puts stuff[:city]
 New York
  => nil 
 ruby-1.9.2-p180 :007 > 
-{% endhighlight %}
+```
 
 You will see that instead of just numbers we're using symbols, which are just lightweight strings (think name tags) in Ruby, to say what we want from the `stuff` hash. We can also put new things into the hash with symbols. It doesn't have to be symbols though, we can also do this:
 
-{% highlight ruby linenos %}
+```ruby
 ruby-1.9.2-p180 :004 > stuff[1] = "Wow"
  => "Wow" 
 ruby-1.9.2-p180 :005 > stuff[2] = "Neato"
@@ -60,13 +60,13 @@ ruby-1.9.2-p180 :008 > puts stuff
 {:name=>"Rob", :age=>30, :height=>70, :city=>"New York", 1=>"Wow", 2=>"Neato"}
  => nil 
 ruby-1.9.2-p180 :009 >
-{% endhighlight %}
+```
 
 In this one I just used numbers. I could use anything. Well almost but just pretend you can use anything for now.
 
 Of course, a hash that you can only put things in is pretty stupid, so here's how you delete things, with the `delete` function:
 
-{% highlight ruby linenos %}
+```ruby
 ruby-1.9.2-p180 :009 > stuff.delete(:city)
  => "New York" 
 ruby-1.9.2-p180 :010 > stuff.delete(1)
@@ -76,11 +76,11 @@ ruby-1.9.2-p180 :011 > stuff.delete(2)
 ruby-1.9.2-p180 :012 > stuff
  => {:name=>"Rob", :age=>30, :height=>70} 
 ruby-1.9.2-p180 :013 > 
-{% endhighlight %}
+```
 
 We'll now do an exercise that you must study *very* carefully. I want you to type this exercise in and try to understand what's going on. It is a very interesting exercise that will hopefully make a big light turn on in your head very soon.
 
-{% highlight ruby linenos %}
+```ruby
 cities = {'CA' => 'San Francisco', 
   'MI' => 'Detroit',
   'FL' => 'Jacksonville'}
@@ -108,9 +108,9 @@ while true
   # this line is the most important ever! study!
   puts cities[:find].call(cities, state)
 end
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 
     $ ruby ex40.rb 
     State? (ENTER to quit) > CA
@@ -125,7 +125,7 @@ end
     Not found.
     State? (ENTER to quit) >
 
-## Extra Credit
+## 加分習題
 1. Go find the Ruby documentation for hashes and try to do even more things to them.
 2. Find out what you can't do with hashes. A big one is that they do not have order, so try playing with that.
 3. Try doing a `for-loop` over them, and then try the `each` method of iterating through a hash.

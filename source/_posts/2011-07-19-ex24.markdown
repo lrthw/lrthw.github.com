@@ -6,7 +6,7 @@ title: "Exercise 24: More Practice"
 
 You are getting to the end of this section. You should have enough Ruby "under your fingers" to move onto learning about how programming really works, but you should do some more practice. This exercise is longer and all about building up stamina. The next exercise will be similar. Do them, get them exactly right, and do your checks.
 
-{% highlight ruby linenos %}
+```ruby
 puts "Let's practice everything."
 puts "You\'d need to know \'bout escapes with \\ that do \n newlines and \t tabs."
 
@@ -45,9 +45,9 @@ start_point = start_point / 10
 
 puts "We can also do that this way:"
 puts "We'd have %s beans, %s jars, and %s crates." % secret_formula(start_point)
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 
     $ ruby ex24.rb
     Let's practice everything.
@@ -72,7 +72,7 @@ puts "We'd have %s beans, %s jars, and %s crates." % secret_formula(start_point)
     We'd have 500000 beans, 500 jars, and 5 crates.
     $
 
-## Extra Credit
+## 加分習題
 
 1. Make sure to do your checks: read it backwards, read it out loud, put comments above confusing parts.
 2. Break the file on purpose, then run it to see what kinds of errors you get. Make sure you can fix it.

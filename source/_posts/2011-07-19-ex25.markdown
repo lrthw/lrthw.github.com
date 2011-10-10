@@ -8,7 +8,7 @@ We're going to do some more practice involving functions and variables to make s
 
 However, this exercise is a little different. You won't be running it. Instead *you* will import it into your Ruby interpreter and run the functions yourself.
 
-{% highlight ruby linenos %}
+```ruby
 module Ex25
   def self.break_words(stuff)
     # This function will break up words for us.
@@ -53,11 +53,11 @@ module Ex25
     print_last_word(words)
   end
 end
-{% endhighlight %}
+```
 
 First, run this like normal with `ruby ex25.rb` to find any errors you have made. Once you have found all of the errors you can and fixed them, you will then want to follow the WYSS section to complete the exercise.
 
-## What You Should See
+## 你應該看到的結果
 
 In this exercise we're going to interact with your `.rb` file inside the Ruby interpreter (IRB) you used periodically to do calculations.
 
@@ -115,7 +115,7 @@ Let's break this down line by line to make sure you know what's going on:
 7. Lines 19-20 is where we print the modified words list. Notice that since we printed the first and last one, those words are now missing.
 8. The remaining lines are for you to figure out and analyze in the extra credit.
 
-## Extra Credit
+## 加分習題
 
 1. Take the remaining lines of the WYSS output and figure out what they are doing. Make sure you understand how you are running your functions in the Ex25 module.
 2. The reason we put our functions in a `module` is so they have their own namespace.  If someone else writes a function called `break_words`, we won't collide.  However, if typing `Ex25.` is annoying, you can type `include Ex25` which is like saying, "Include everything from the Ex25 module in my current module."

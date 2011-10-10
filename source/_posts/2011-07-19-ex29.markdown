@@ -6,7 +6,7 @@ title: "Exercise 29: What If"
 
 Here is the next script of Ruby you will enter, which introduces you to the `if-statement`. Type this in, make it run exactly right, and then we'll try see if your practice has paid off.
 
-{% highlight ruby linenos %}
+```ruby
 people = 20
 cats = 30
 dogs = 15
@@ -40,8 +40,8 @@ end
 if people == dogs
   puts "People are dogs."
 end
-{% endhighlight %}
-## What You Should See
+```
+## 你應該看到的結果
 
     $ ruby ex29.rb 
     Too many cats! The world is doomed!
@@ -51,7 +51,7 @@ end
     People are dogs.
     $
 
-## Extra Credit
+## 加分習題
 In this extra credit, try to guess what you think the `if-statement` is and what it does. Try to answer these questions in your own words before moving onto the next exercise:
 
 1. What do you think the `if` does to the code under it?

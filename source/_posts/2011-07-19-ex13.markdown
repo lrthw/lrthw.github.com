@@ -7,14 +7,14 @@ In this exercise we will cover one more input method you can use to pass variabl
 
 Type this program and I'll explain it in detail:
 
-{% highlight ruby linenos %}
+```ruby
 first, second, third = ARGV 
 
 puts "The script is called: #{$0}"
 puts "Your first variable is: #{first}"
 puts "Your second variable is: #{second}"
 puts "Your third variable is: #{third}"
-{% endhighlight %}
+```
 
 The `ARGV` is the "argument variable", a very standard name in programming, that you will find used in many other languages.  It's in all caps because it's a constant, meaning you shouldn't change the value once it's been assigned. This variable holds the arguments you pass to your Ruby script when you run it. In the exercises you will get to play with this more and see what happens.
 
@@ -22,7 +22,7 @@ Line 1 "unpacks" `ARGV` so that, rather than holding all the arguments, it gets 
 
 After that we just print them out like normal.
 
-## What You Should See
+## 你應該看到的結果
 Run the program like this:
 
     ruby ex13.rb first 2nd 3rd
@@ -52,7 +52,7 @@ You can actually replace "first", "2nd", and "3rd" with any three things. You do
     ruby ex13.rb stuff I like
     ruby ex13.rb anything 6 7
 
-## Extra Credit
+## 加分習題
 1. Try giving fewer than three arguments to your script. What values are used for the missing arguments?
 2. Write a script that has fewer arguments and one that has more. Make sure you give the unpacked variables good names.
 3. Combine `gets.chomp()` with `ARGV` to make a script that gets more input from a user.

@@ -13,7 +13,7 @@ Functions do three things:
 
 You can create a function (also called "methods") by using the word `def` in Ruby. I'm going to have you make four different functions that work like your scripts, and then show you how each one is related.
 
-{% highlight ruby linenos %}
+```ruby
 # this one is like your scripts with argv
 def puts_two(*args)
   arg1, arg2 = args
@@ -39,7 +39,7 @@ puts_two("Zed","Shaw")
 puts_two_again("Zed","Shaw")
 puts_one("First!")
 puts_none()
-{% endhighlight %}
+```
 
 Let's break down the first function, `puts_two` which is the most similar to what you already know from making scripts:
 
@@ -57,7 +57,7 @@ Finally you have a function that has no arguments in `puts_none`.
 
 > **Warning:** This is very important. Do not get discouraged right now if this doesn't quite make sense. We're going to do a few exercises linking functions to your scripts and show you how to make more. For now just keep thinking "mini script" when I say "function" and keep playing with them.
 
-## What You Should See
+## 你應該看到的結果
 If you run the above script you should see:
 
     $ ruby ex18.rb
@@ -69,7 +69,7 @@ If you run the above script you should see:
 
 Right away you can see how a function works. Notice that you used your functions the way you use things like `File.exists?`, `File.open`, and other "commands". In fact, I've been tricking you because in Ruby those "commands" are just functions. This means you can make your own commands and use them in your scripts too.
 
-## Extra Credit
+## 加分習題
 Write out a function checklist for later exercises. Write these on an index card and keep it by you while you complete the rest of these exercises or until you feel you do not need it:
 
 1. Did you start your function definition with `def`?

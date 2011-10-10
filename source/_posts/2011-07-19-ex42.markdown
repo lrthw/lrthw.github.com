@@ -7,16 +7,16 @@ While it's fun to put functions inside of hashes, you'd think there'd be somethi
 
 A programming language that uses classes is called "Object Oriented Programming". This is an old style of programming where you make "things" and you "tell" those things to do work. You've been doing a lot of this. A whole lot. You just didn't know it. Remember when you were doing this:
 
-{% highlight ruby linenos %}
+```ruby
 stuff = ['Test', 'This', 'Out']
 puts stuff.join(' ')
-{% endhighlight %}
+```
 
 You were actually using classes. The variable stuff is actually an Array class. The `stuff.join(' ')` is calling the `join` function of the `Array` and passing `' '` (just an empty space), which is also a class, a `String` class. It's all classes!
 
 Well, and objects, but let's just skip that word for now. You'll learn what those are after you make some classes. How do you make classes? Very similar to how you made the `ROOMS` hash, but easier:
 
-{% highlight ruby linenos %}
+```ruby
 class TheThing
   attr_reader :number
 
@@ -48,7 +48,7 @@ puts b.add_me_up(30)
 
 puts a.number
 puts b.number
-{% endhighlight %}
+```
 
 See the `@` symbol before the `@name` variable?  That makes it an instance variable.  Every instance of `TheThing` that you create will have its own value for `@name`.  Instance variables are hidden away inside the object.  We can't get at the name simply by typing `a.number` *unless* we explicitly make that data readable to the outside world. 
 
@@ -60,7 +60,7 @@ Classes are very powerful, so you should read everything you can about them and 
 
 Here's how we'd do exercise 41 using classes instead of the thing we created:
 
-{% highlight ruby linenos %}
+```ruby
 class Game
 
   def initialize(start)
@@ -245,9 +245,9 @@ end
 
 a_game = Game.new(:central_corridor)
 a_game.play()
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 The output from this version of the game should be exactly the same as the previous version. In fact you'll notice that some of the code is nearly the same. Compare this new version of the game with the last one so you understand the changes that were made. Key things to really get are:
 
 1. How you made a `class Game` and put functions inside it.
@@ -257,6 +257,6 @@ The output from this version of the game should be exactly the same as the previ
 5. The concept of `@` and how it's used in `initialize`, `play`, and `death`.
 6. How a Game was created at the end and then told to `play()` and how that got everything started.
 
-## Extra Credit
+## 加分習題
 1. Add some rooms to make sure you know how to work with a class.
 2. Create a two-class version of this, where one is the `Map` and the other is the `Engine`. Hint: `play` goes in the `Engine`.

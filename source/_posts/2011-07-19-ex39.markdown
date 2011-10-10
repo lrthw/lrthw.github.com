@@ -16,7 +16,7 @@ When you type Ruby code that reads `mystuff.push('hello')` you are actually sett
 
 That might be a lot to take in, but we're going to spend a few exercises getting this concept firm in your brain. To kick things off, here's an exercise that mixes strings and lists for all kinds of fun.
 
-{% highlight ruby linenos %}
+```ruby
 ten_things = "Apples Oranges Crows Telephone Light Sugar"
 
 puts "Wait there's not 10 things in that list, let's fix that."
@@ -40,9 +40,9 @@ puts stuff[-1] # whoa! fancy
 puts stuff.pop()
 puts stuff.join(' ') # what? cool!
 puts stuff.values_at(3,5).join('#') # super stellar!
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 
     $ ruby ex39.rb 
     Wait there's not 10 things in that list, let's fix that.
@@ -63,7 +63,7 @@ puts stuff.values_at(3,5).join('#') # super stellar!
     Telephone#Sugar
     $
 
-## Extra Credit
+## 加分習題
 1. Go read about "Object Oriented Programming" online. Confused? Yeah I was too. Do not worry. You will learn enough to be dangerous, and you can slowly learn more later.
 Read up on what a "class" is in Ruby. *Do not read about how other languages use the word "class".* That will only mess you up.
 2. What's the relationship between `something.methods` and the "class" of `something`?

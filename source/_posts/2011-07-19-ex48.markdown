@@ -35,22 +35,22 @@ When we get to nouns, we have a slight problem since each room could have a diff
 ## Breaking Up A Sentence
 Once we have our lexicon of words we need a way to break up sentences so that we can figure out what they are. In our case, we've defined a sentence as "words separated by spaces", so we really just need to do this:
 
-{% highlight ruby linenos %}
+```ruby
 stuff = gets.chomp()
 words = stuff.split()
-{% endhighlight %}
+```
 
 That's really all we'll worry about for now, but this will work really well for quite a while.
 
 ## Lexicon Structs
 Once we know how to break up a sentence into words, we just have to go through the list of words and figure out what "type" they are. To do that we're going to use a handy little Ruby structure called a "struct". A struct is a convenient way to bundle a number of attributes together, using accessor methods, without having to write an explicit class. It's created like this:
 
-{% highlight ruby linenos %}
+```ruby
 Pair = Struct.new(:token, :word)
 first_word = Pair.new("direction", "north")
 second_word = Pair.new("verb", "go")
 sentence = [first_word, second_word]
-{% endhighlight %}
+```
 
 This creates a pair of (TOKEN, WORD) that lets you look at the word and do things with it.
 
@@ -75,7 +75,7 @@ That `ArgumentError` is an exception that the `Integer()` function threw because
 
 You deal with an exception by using the `begin` and `rescue` keywords:
 
-{% highlight ruby linenos %}
+```ruby
 def convert_number(s)
   begin
     Integer(s)
@@ -83,7 +83,7 @@ def convert_number(s)
     nil
   end
 end
-{% endhighlight %}
+```
 
 You put the code you want to "begin" inside the `begin` block, and then you put the code to run for the error inside the `rescue`. In this case, we want to call `Integer()` on something that might be a number. If that has an error, then we "rescue" it and return `nil` instead.
 
@@ -92,7 +92,7 @@ In your scanner that you write, you should use this function to test if somethin
 ## What You Should Test
 Here are the files `test/test_lexicon.rb` that you should use:
 
-{% highlight ruby linenos %}
+```ruby
 require 'test/unit'
 require_relative "../lib/lexicon"
 
@@ -148,14 +148,14 @@ class LexiconTests < Test::Unit::TestCase
   end
 
 end
-{% endhighlight %}
+```
 
 Remember that you will want to make a new project with your skeleton, type in this test case (do not copy-paste!) and write your scanner so that the test runs. Focus on the details and make sure everything works right.
 
 ## Design Hints
 Focus on getting one test working at a time. Keep this simple and just put all the words in your lexicon in lists that are in your `lexicon.rb` file. Do not modify the input list of words, but instead make your own new list with your lexicon pairs in it. Also, use the `include?` method with these lexicon arrays to check if a word is in the lexicon.
 
-## Extra Credit
+## 加分習題
 1. Improve the unit test to make sure you cover more of the lexicon.
 2. Add to the lexicon and then update the unit test.
 3. Make your scanner handles user input in any capitalization and case. Update the test to make sure this actually works.

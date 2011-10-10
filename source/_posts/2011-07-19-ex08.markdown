@@ -1,10 +1,9 @@
 ---
 layout: post
-title: "Exercise 8: Printing, Printing"
+title: "習題 8: 印出，印出"
 ---
-# Exercise 8: Printing, Printing
 
-{% highlight ruby linenos %}
+```ruby
 formatter = "%s %s %s %s"
 
 puts formatter % [1, 2, 3, 4]
@@ -17,9 +16,9 @@ puts formatter % [
     "But it didn't sing.",
     "So I said goodnight."
 ]
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
     $ ruby ex8.rb
     1 2 3 4
     one two three four
@@ -28,5 +27,5 @@ puts formatter % [
     I had this thing. That you could type up right. But it didn't sing. So I said goodnight.
     $
 
-## Extra Credit
+## 加分習題
 1. Do your checks of your work, write down your mistakes, try not to make them on the next exercise.

@@ -6,7 +6,7 @@ title: "Exercise 20: Functions And Files"
 
 Remember your checklist for functions, then do this exercise paying close attention to how functions and files can work together to make useful stuff.
 
-{% highlight ruby linenos %}
+```ruby
 input_file = ARGV[0]
 
 def print_all(f)
@@ -42,7 +42,7 @@ print_a_line(current_line, current_file)
 
 current_line = current_line + 1
 print_a_line(current_line, current_file)
-{% endhighlight %}
+```
 
 Pay close attention to how we pass in the current line number each time we run `print_a_line`.
 
@@ -62,7 +62,7 @@ Pay close attention to how we pass in the current line number each time we run `
     
     $
 
-## Extra Credit
+## 加分習題
 1. Go through and write English comments for each line to understand what's going on.
 2. Each time `print_a_line` is run you are passing in a variable `current_line`. Write out what `current_line` is equal to on each function call, and trace how it becomes `line_count` in `print_a_line`.
 3. Find each place a function is used, and go check its def to make sure that you are giving it the right arguments.

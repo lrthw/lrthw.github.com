@@ -22,7 +22,7 @@ Once you have the code from Exercise 47 copied over, it's time to refactor it to
 
 First thing to do is lay out the basic structure of the map using the `Room` class as it is now:
 
-{% highlight ruby linenos %}
+```ruby
 class Room
 
   attr_accessor :name, :description, :paths
@@ -156,7 +156,7 @@ central_corridor.add_paths({
 })
 
 START = central_corridor
-{% endhighlight %}
+```
 
 You'll notice that there are a couple of problems with our Room class and this map:
 
@@ -167,7 +167,7 @@ You'll notice that there are a couple of problems with our Room class and this m
 
 Once you've got that basically written out, here's the new automated test `test/test_map.rb` that you should have to get yourself started:
 
-{% highlight ruby linenos %}
+```ruby
 require 'test/unit'
 require_relative '../lib/map'
 
@@ -214,7 +214,7 @@ class MapTests < Test::Unit::TestCase
   end
 
 end
-{% endhighlight %}
+```
 
 Your task in this part of the exercise is to complete the map, and make the automated test completely validate the whole map. This includes fixing all the `generic_death` objects to be real endings. Make sure this works really well and that your test is as complete as possible because we'll be changing this map later and you'll use the tests to make sure it keeps working.
 
@@ -223,7 +223,7 @@ At a certain point in your web application you'll need to keep track of some inf
 
 The solution to this is to create a little data store (usually in a database, on disk, or in cookies) that uses a number unique to each browser to keep track of what that browser was doing. In Sinatra it's fairly easy, and here's an example showing how it's done using Rack middleware:
 
-{% highlight ruby linenos %}
+```ruby
 require 'rubygems'
 require 'sinatra'
 
@@ -239,7 +239,7 @@ get '/reset' do
   session.clear
   "Count reset to 0."
 end
-{% endhighlight %}
+```
 
 ## Creating An Engine
 You should have your game map working and a good unit test for it. I now want to make a simple little game engine that will run the rooms, collect input from the player, and keep track of where a play is in the game. We'll be using the sessions you just learned to make a simple game engine that will:
@@ -252,7 +252,7 @@ You should have your game map working and a good unit test for it. I now want to
 
 To do this, you're going to take the trusty `lib/gothonsweb.rb` you've been hacking on and create a fully working, session based, game engine. The catch is I'm going to make a very simple one with basic HTML files, and it'll be up to you to complete it. Here's the base engine:
 
-{% highlight ruby linenos %}
+```ruby
 require_relative "gothonweb/version"
 require_relative "map"
 require "sinatra"
@@ -288,7 +288,7 @@ module Gothonweb
   end
 
 end
-{% endhighlight %}
+```
 
 You should next delete `lib/views/hello_form.erb` and `lib/views/index.erb` and create the two templates mentioned in the above code. Here's a very simple `lib/views/show_room.erb`:
 
@@ -310,7 +310,7 @@ You should next delete `lib/views/hello_form.erb` and `lib/views/index.erb` and 
   </form>
   </p>
 <% end %>
-{% endhighlight %}
+```
 
 That is the template to show a room as you travel through the game. Next you need one to tell someone they died in the case that they got to the end of the map on accident, which is `lib/views/you_died.erb`:
 
@@ -319,7 +319,7 @@ That is the template to show a room as you travel through the game. Next you nee
 
 <p>Looks like you bit the dust.</p>
 <p><a href="/">Play Again</a></p>
-{% endhighlight %}
+```
 
 With those in place, you should now be able to do the following:
 

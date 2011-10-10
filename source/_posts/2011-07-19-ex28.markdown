@@ -59,7 +59,7 @@ With that we're done and know the result is false.
 
 > **Warning:** The more complicated ones may seem very hard at first. You should be able to give a good first stab at solving them, but do not get discouraged. I'm just getting you primed for more of these "logic gymnastics" so that later cool stuff is much easier. Just stick with it, and keep track of what you get wrong, but do not worry that it's not getting in your head quite yet. It'll come.
 
-## What You Should See
+## 你應該看到的結果
 After you have tried to guess at these, this is what your session with IRB might look like:
 
     $ irb
@@ -68,7 +68,7 @@ After you have tried to guess at these, this is what your session with IRB might
     ruby-1.9.2-p180 :002 > 1 == 1 and 2 == 2
      => true 
 
-## Extra Credit
+## 加分習題
 1. There are a lot of operators in Ruby similar to `!=` and `==`. Try to find out as many "equality operators" as you can. They should be like: `<` or `<=`.
 2. Write out the names of each of these equality operators. For example, I call `!=` "not equal".
 3. Play with IRB by typing out new boolean operators, and before you hit enter try to shout out what it is. Do not think about it, just the first thing that comes to mind. Write it down then hit enter, and keep track of how many you get right and wrong.

@@ -4,7 +4,7 @@ title: "Exercise 9: Printing, Printing, Printing"
 ---
 # Exercise 9: Printing, Printing, Printing
 
-{% highlight ruby linenos %}
+```ruby
 # Here's some new strange stuff, remember type it exactly.
 
 days = "Mon Tue Wed Thu Fri Sat Sun"
@@ -19,9 +19,9 @@ With the three double-quotes.
 We'll be able to type as much as we like.
 Even 4 lines if we want, or 5, or 6.
 PARAGRAPH
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
 
     $ ruby ex9.rb
     Here are the days:  

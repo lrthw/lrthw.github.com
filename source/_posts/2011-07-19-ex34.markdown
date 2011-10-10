@@ -6,10 +6,10 @@ title: "Exercise 34: Accessing Elements Of Arrays"
 
 Arrays are pretty useful, but unless you can get at the things in them they aren't all that great. You can already go through the elements of a list in order, but what if you want say, the 5th element? You need to know how to access the elements of an array. Here's how you would access the first element of an array:
 
-{% highlight ruby linenos %}
+```ruby
 animals = ['bear', 'tiger', 'penguin', 'zebra']
 bear = animals[0]
-{% endhighlight %}
+```
 You take a list of animals, and then you get the first one using `0`?! How does that work? Because of the way math works, Ruby start its lists at 0 rather than 1. It seems weird, but there's many advantages to this, even though it is mostly arbitrary.
 
 The best way to explain why is by showing you the difference between how you use numbers and how programmers use numbers.
@@ -26,9 +26,9 @@ Remember: ordinal == ordered, 1st; cardinal == cards at random, 0.
 
 Let's practice this. Take this list of animals, and follow the exercises where I tell you to write down what animal you get for that ordinal or cardinal number. Remember if I say "first", "second", etc. then I'm using ordinal, so subtract 1. If I give you cardinal (0, 1, 2) then use it directly.
 
-{% highlight ruby linenos %}
+```ruby
 animals = ['bear', 'python', 'peacock', 'kangaroo', 'whale', 'platypus']
-{% endhighlight %}
+```
 
 The animal at 1.
 The 3rd animal.
@@ -45,7 +45,7 @@ Use your Ruby to check your answers.
 
 **Hint:** Ruby has also a few convenience methods for accessing particular elements in an array: `animals.first` and `animals.last` 
 
-## Extra Credit
+## 加分習題
 1. Read about ordinal and cardinal numbers online.
 2. With what you know of the difference between these types of numbers, can you explain why this really is 2010? (Hint, you can't pick years at random.)
 3. Write some more arrays and work out similar indexes until you can translate them.
