@@ -1,0 +1,40 @@
+---
+layout: post
+title: "Exercise 11: Asking Questions"
+---
+# Exercise 11: Asking Questions
+Now it is time to pick up the pace. I have got you doing a lot of printing so that you get used to typing simple things, but those simple things are fairly boring. What we want to do now is get data into your programs. This is a little tricky because you have learn to do two things that may not make sense right away, but trust me and do it anyway. It will make sense in a few exercises.
+
+Most of what software does is the following:
+
+1. Take some kind of input from a person.
+2. Change it.
+3. Print out something to show how it changed.
+
+So far you have only been printing, but you haven't been able to get any input from a person, or change it. You may not even know what "input" means, so rather than talk about it, let's have you do some and see if you get it. Next exercise we'll do more to explain it.
+
+{% highlight ruby linenos %}
+print "How old are you? "
+age = gets.chomp()
+print "How tall are you? "
+height = gets.chomp()
+print "How much do you weigh? "
+weight = gets.chomp()
+
+puts "So, you're #{age} old, #{height} tall and #{weight} heavy."
+{% endhighlight %}
+
+> **Note:** Notice that we are using `print` instead of `puts` to do the prompting.  `print` doesn't add a new line automatically, so your answer can go on the same line as the question.  `puts` on the other hand, adds a newline automatically.
+
+## What You Should See
+$ ruby ex11.rb
+How old are you? 35
+How tall are you? 6'2"
+How much do you weigh? 180lbs
+So, you're '35' old, '6\'2"' tall and '180lbs' heavy.
+$
+    
+## Extra Credit
+1. Go online and find out what Rubys `gets` and `chomp` methods do.
+2. Can you find other ways to use `gets.chomp`? Try some of the samples you find.
+3. Write another "form" like this to ask some other questions.

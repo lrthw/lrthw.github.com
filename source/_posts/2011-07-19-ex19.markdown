@@ -1,0 +1,72 @@
+---
+layout: post
+title: "Exercise 19: Functions And Variables"
+---
+# Exercise 19: Functions And Variables
+
+Functions may have been a mind-blowing amount of information, but do not worry. Just keep doing these exercises and going through your checklist from the last exercise and you will eventually get it.
+
+There is one tiny point though that you might not have realized which we'll reinforce right now: The variables in your function are not connected to the variables in your script. Here's an exercise to get you thinking about this:
+
+{% highlight ruby linenos %}
+def cheese_and_crackers(cheese_count, boxes_of_crackers)
+  puts "You have #{cheese_count} cheeses!"
+  puts "You have #{boxes_of_crackers} boxes of crackers!"
+  puts "Man that's enough for a party!"
+  puts "Get a blanket."
+  puts # a blank line
+end
+
+puts "We can just give the function numbers directly:"
+cheese_and_crackers(20, 30)
+
+puts "OR, we can use variables from our script:"
+amount_of_cheese = 10
+amount_of_crackers = 50
+cheese_and_crackers(amount_of_cheese, amount_of_crackers)
+
+puts "We can even do math inside too:"
+cheese_and_crackers(10 + 20, 5 + 6)
+
+puts "And we can combine the two, variables and math:"
+cheese_and_crackers(amount_of_cheese + 100, amount_of_crackers + 1000)
+{% endhighlight %}
+
+This shows all different ways we're able to give our function `cheese_and_crackers` the values it needs to print them. We can give it straight numbers. We can give it variables. We can give it math. We can even combine math and variables.
+
+In a way, the arguments to a function are kind of like our `=` character when we make a variable. In fact, if you can use `=` to name something, you can usually pass it to a function as an argument.
+
+## What You Should See
+
+You should study the output of this script and compare it with what you think you should get for each of the examples in the script.
+
+    $ ruby ex19.rb
+    We can just give the function numbers directly:
+    You have 20 cheeses!
+    You have 30 boxes of crackers!
+    Man that's enough for a party!
+    Get a blanket.
+    
+    OR, we can use variables from our script:
+    You have 10 cheeses!
+    You have 50 boxes of crackers!
+    Man that's enough for a party!
+    Get a blanket.
+    
+    We can even do math inside too:
+    You have 30 cheeses!
+    You have 11 boxes of crackers!
+    Man that's enough for a party!
+    Get a blanket.
+    
+    And we can combine the two, variables and math:
+    You have 110 cheeses!
+    You have 1050 boxes of crackers!
+    Man that's enough for a party!
+    Get a blanket.
+    $
+
+# Extra Credit
+1. Go back through the script and type a comment above each line explaining in English what it does.
+2. Start at the bottom and read each line backwards, saying all the important characters.
+3. Write at least one more function of your own design, and run it 10 different ways.

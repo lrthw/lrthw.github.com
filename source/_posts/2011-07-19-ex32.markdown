@@ -1,0 +1,95 @@
+---
+layout: post
+title: "Exercise 32: Loops And Arrays"
+---
+# Exercise 32: Loops And Arrays
+
+You should now be able to do some programs that are much more interesting. If you have been keeping up, you should realize that now you can combine all the other things you have learned with `if-statements` and boolean expressions to make your programs do smart things.
+
+However, programs also need to do repetitive things very quickly. We are going to use a `for-loop` in this exercise to build and print various arrays. When you do the exercise, you will start to figure out what they are. I won't tell you right now. You have to figure it out.
+
+Before you can use a `for-loop`, you need a way to store the results of loops somewhere. The best way to do this is with an `array`. An array is a container of things that are organized in order. It's not complicated; you just have to learn a new syntax. First, there's how you make an array:
+
+{% highlight ruby linenos %}
+hairs = ['brown', 'blond', 'red']
+eyes = ['brown', 'blue', 'green']
+weights = [1, 2, 3, 4]
+{% endhighlight %}
+What you do is start the array with the `[` (left-bracket) which "opens" the array. Then you put each item you want in the array separated by commas, just like when you did function arguments. Lastly you end the array with a `]` (right-bracket) to indicate that it's over. Ruby then takes this array and all its contents, and assigns them to the variable.
+
+> **Warning:** This is where things get tricky for people who can't program. Your brain has been taught that the world is flat. Remember in the last exercise where you put `if-statements` inside `if-statements`? That probably made your brain hurt because most people do not ponder how to "nest" things inside things. In programming this is all over the place. You will find functions that call other functions that have `if-statements` that have arrays with arrays inside arrays. If you see a structure like this that you can't figure out, take out pencil and paper and break it down manually bit by bit until you understand it.
+
+We now will build some arrays using some loops and print them out:
+
+{% highlight ruby linenos %}
+the_count = [1, 2, 3, 4, 5]
+fruits = ['apples', 'oranges', 'pears', 'apricots']
+change = [1, 'pennies', 2, 'dimes', 3, 'quarters']
+
+# this first kind of for-loop goes through an array
+for number in the_count
+  puts "This is count #{number}"
+end
+
+# same as above, but using a block instead
+fruits.each do |fruit|
+  puts "A fruit of type: #{fruit}"
+end
+
+# also we can go through mixed arrays too
+for i in change
+  puts "I got #{i}"
+end
+
+# we can also build arrays, first start with an empty one
+elements = [] 
+
+# then use a range object to do 0 to 5 counts
+for i in (0..5)
+  puts "Adding #{i} to the list."
+  # push is a function that arrays understand
+  elements.push(i)
+end
+
+# now we can puts them out too
+for i in elements
+  puts "Element was: #{i}"
+end
+{% endhighlight %}
+
+## What You Should See
+
+    $ ruby ex32.rb
+    This is count 1
+    This is count 2
+    This is count 3
+    This is count 4
+    This is count 5
+    A fruit of type: apples
+    A fruit of type: oranges
+    A fruit of type: pears
+    A fruit of type: apricots
+    I got 1
+    I got 'pennies'
+    I got 2
+    I got 'dimes'
+    I got 3
+    I got 'quarters'
+    Adding 0 to the list.
+    Adding 1 to the list.
+    Adding 2 to the list.
+    Adding 3 to the list.
+    Adding 4 to the list.
+    Adding 5 to the list.
+    Element was: 0
+    Element was: 1
+    Element was: 2
+    Element was: 3
+    Element was: 4
+    Element was: 5
+    $
+
+## Extra Credit
+1. Take a look at how you used the range `(0..5)`. Look up the `Range` class to understand it.
+2. Could you have avoided that `for-loop` entirely on line 24 and just assigned `(0..5)` directly to `elements`?
+3. Find the Ruby documentation on arrays and read about them. What other operations can you do to arrays besides `push`?

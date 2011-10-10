@@ -1,0 +1,70 @@
+---
+layout: post
+title: "Exercise 39: Doing Things To Arrays"
+---
+# Exercise 39: Doing Things To Arrays
+You have learned about arrays. When you learned about `while-loops` you "pushed" numbers onto the end of an array and printed them out. There was also extra credit where you were supposed to find all the other things you can do to arrays in the Ruby documentation. That was a while back, so go find in the book where you did that and review if you do not know what I'm talking about.
+
+Found it? Remember it? Good. When you did this you had a list, and you "called" the function `push` on it. However, you may not really understand what's going on so let's see what we can do to lists, and how doing things with "on" them works.
+
+When you type Ruby code that reads `mystuff.push('hello')` you are actually setting off a chain of events inside Ruby to cause something to happen to the `mystuff` array. Here's how it works:
+
+1. Ruby sees you mentioned `mystuff` and looks up that variable. It might have to look backwards to see if you created with `=`, look and see if it is a function argument, or maybe it's a global variable. Either way it has to find the `mystuff` array first.
+2. Once it finds `mystuff` it then hits the `.` (period) operator and starts to look at variables that are a part of `mystuff`. Since `mystuff` is an array, it knows that `mystuff` has a bunch of functions.
+3. It then hits `push` and compares the name "push" to all the ones that `mystuff` says it responds to. If `push` is in there (it is) then it grabs that to use.
+4. Next Ruby sees the `(` (parenthesis) and realizes, "Oh hey, this should be a function." At this point it calls (aka runs, executes) the function.
+
+That might be a lot to take in, but we're going to spend a few exercises getting this concept firm in your brain. To kick things off, here's an exercise that mixes strings and lists for all kinds of fun.
+
+{% highlight ruby linenos %}
+ten_things = "Apples Oranges Crows Telephone Light Sugar"
+
+puts "Wait there's not 10 things in that list, let's fix that."
+
+stuff = ten_things.split(' ')
+more_stuff = %w(Day Night Song Frisbee Corn Banana Girl Boy)
+
+while stuff.length != 10
+  next_one = more_stuff.pop()
+  puts "Adding: #{next_one}"
+  stuff.push(next_one)
+  puts "There's #{stuff.length} items now."
+end
+
+puts "There we go: #{stuff}"
+
+puts "Let's do some things with stuff."
+
+puts stuff[1]
+puts stuff[-1] # whoa! fancy
+puts stuff.pop()
+puts stuff.join(' ') # what? cool!
+puts stuff.values_at(3,5).join('#') # super stellar!
+{% endhighlight %}
+
+## What You Should See
+
+    $ ruby ex39.rb 
+    Wait there's not 10 things in that list, let's fix that.
+    Adding: Boy
+    There's 7 items now.
+    Adding: Girl
+    There's 8 items now.
+    Adding: Banana
+    There's 9 items now.
+    Adding: Corn
+    There's 10 items now.
+    There we go: ["Apples", "Oranges", "Crows", "Telephone", "Light", "Sugar", "Boy", "Girl", "Banana", "Corn"]
+    Let's do some things with stuff.
+    Oranges
+    Corn
+    Corn
+    Apples Oranges Crows Telephone Light Sugar Boy Girl Banana
+    Telephone#Sugar
+    $
+
+## Extra Credit
+1. Go read about "Object Oriented Programming" online. Confused? Yeah I was too. Do not worry. You will learn enough to be dangerous, and you can slowly learn more later.
+Read up on what a "class" is in Ruby. *Do not read about how other languages use the word "class".* That will only mess you up.
+2. What's the relationship between `something.methods` and the "class" of `something`?
+3. If you do not have any idea what I'm talking about do not worry. Programmers like to feel smart so they invented Object Oriented Programming, named it OOP, and then used it way too much. If you think that's hard, you should try to use "functional programming".

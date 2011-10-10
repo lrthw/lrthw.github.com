@@ -1,0 +1,78 @@
+---
+layout: post
+title: "Exercise 24: More Practice"
+---
+# Exercise 24: More Practice
+
+You are getting to the end of this section. You should have enough Ruby "under your fingers" to move onto learning about how programming really works, but you should do some more practice. This exercise is longer and all about building up stamina. The next exercise will be similar. Do them, get them exactly right, and do your checks.
+
+{% highlight ruby linenos %}
+puts "Let's practice everything."
+puts "You\'d need to know \'bout escapes with \\ that do \n newlines and \t tabs."
+
+poem = <<MULTI_LINE_STRING
+
+\tThe lovely world
+with logic so firmly planted
+cannot discern \n the needs of love
+nor comprehend passion from intuition
+and requires an explanation
+\n\t\twhere there is none.
+
+MULTI_LINE_STRING
+
+puts "--------------"
+puts poem
+puts "--------------"
+
+five = 10 - 2 + 3 - 6
+puts "This should be five: #{five}"
+
+def secret_formula(started)
+  jelly_beans = started * 500
+  jars = jelly_beans / 1000
+  crates = jars / 100
+  return jelly_beans, jars, crates
+end
+
+start_point = 10000
+beans, jars, crates = secret_formula(start_point)
+
+puts "With a starting point of: #{start_point}"
+puts "We'd have #{beans} beans, #{jars} jars, and #{crates} crates."
+
+start_point = start_point / 10
+
+puts "We can also do that this way:"
+puts "We'd have %s beans, %s jars, and %s crates." % secret_formula(start_point)
+{% endhighlight %}
+
+## What You Should See
+
+    $ ruby ex24.rb
+    Let's practice everything.
+    You'd need to know 'bout escapes with \ that do 
+     newlines and 	 tabs.
+    --------------
+    
+    	The lovely world
+    with logic so firmly planted
+    cannot discern 
+     the needs of love
+    nor comprehend passion from intuition
+    and requires an explanation
+    
+    		where there is none.
+    
+    --------------
+    This should be five: 5
+    With a starting point of: 10000
+    We'd have 5000000 beans, 5000 jars, and 50 crates.
+    We can also do that this way:
+    We'd have 500000 beans, 500 jars, and 5 crates.
+    $
+
+## Extra Credit
+
+1. Make sure to do your checks: read it backwards, read it out loud, put comments above confusing parts.
+2. Break the file on purpose, then run it to see what kinds of errors you get. Make sure you can fix it.

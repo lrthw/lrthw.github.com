@@ -1,0 +1,115 @@
+---
+layout: post
+title: "Exercise 47: Automated Testing"
+---
+# Exercise 47: Automated Testing
+Having to type commands into your game over and over to make sure it's working is annoying. Wouldn't it be better to write little pieces of code that test your code? Then when you make a change, or add a new thing to your program, you just "run your tests" and the tests make sure things are still working. These automated tests won't catch all your bugs, but they will cut down on the time you spend repeatedly typing and running your code.
+
+Every exercise after this one will not have a `What You Should See section`, but instead it will have a `What You Should Test section`. You will be writing automated tests for all of your code starting now, and this will hopefully make you an even better programmer.
+
+I won't try to explain why you should write automated tests. I will only say that, you are trying to be a programmer, and programmers automate boring and tedious tasks. Testing a piece of software is definitely boring and tedious, so you might as well write a little bit of code to do it for you.
+
+That should be all the explanation you need because your reason for writing unit tests is to make your brain stronger. You have gone through this book writing code to do things. Now you are going to take the next leap and write code that knows about other code you have written. This process of writing a test that runs some code you have written forces you to understand clearly what you have just written. It solidifies in your brain exactly what it does and why it works and gives you a new level of attention to detail.
+
+## Writing A Test Case
+We're going to take a very simple piece of code and write one simple test. We're going to base this little test on a new project from your project skeleton.
+
+First, make a `ex47` project from your project skeleton. Make sure you do it right and rename the library and get that first `test/test_ex47.rb` test file going right.
+
+Next, create a simple file `ex47/lib/game.rb` where you can put the code to test. This will be a very silly little class that we want to test with this code in it:
+
+{% highlight ruby linenos %}
+class Room
+
+  attr_accessor :name, :description, :paths
+
+  def initialize(name, description)
+    @name = name
+    @description = description
+    @paths = {}
+  end
+
+  def go(direction)
+    @paths[direction]
+  end
+
+  def add_paths(paths)
+    @paths.update(paths)
+  end
+
+end
+{% endhighlight %}
+
+Once you have that file, change unit test skeleton to this:
+
+{% highlight ruby linenos %}
+require 'test/unit'
+require_relative '../lib/ex47'
+
+class MyUnitTests < Test::Unit::TestCase
+
+  def test_room()
+    gold = Room.new("GoldRoom", 
+                    """This room has gold in it you can grab. There's a
+                door to the north.""")
+    assert_equal(gold.name, "GoldRoom")
+    assert_equal(gold.paths, {})
+  end
+
+  def test_room_paths()
+    center = Room.new("Center", "Test room in the center.")
+    north = Room.new("North", "Test room in the north.")
+    south = Room.new("South", "Test room in the south.")
+
+    center.add_paths({:north => north, :south => south})
+    assert_equal(center.go(:north), north)
+    assert_equal(center.go(:south), south)
+  end
+
+  def test_map()
+    start = Room.new("Start", "You can go west and down a hole.")
+    west = Room.new("Trees", "There are trees here, you can go east.")
+    down = Room.new("Dungeon", "It's dark down here, you can go up.")
+
+    start.add_paths({:west => west, :down => down})
+    west.add_paths({:east => start})
+    down.add_paths({:up => start})
+
+    assert_equal(start.go(:west), west)
+    assert_equal(start.go(:west).go(:east), start)
+    assert_equal(start.go(:down).go(:up), start)
+  end
+
+end
+{% endhighlight %}
+
+This file requires the `Room` class you made in the `lib/ex47.rb` file so that you can do tests on it. There are then a set of tests that are functions starting with `test_`. Inside each test case there's a bit of code that makes a `Room` or a set of `Rooms`, and then makes sure the rooms work the way you expect them to work. It tests out the basic room features, then the paths, then tries out a whole map.
+
+The important functions here are `assert_equal` which makes sure that variables you have set or paths you have built in a `Room` are actually what you think they are. If you get the wrong result, then Ruby's `Test::Unit` module will print out an error message so you can go figure it out.
+
+## Testing Guidelines
+Follow these general loose set of guidelines when making your tests:
+
+1. Test files go in `test/` and are named `test_NAME.rb`. This keeps your tests from clashing with your other code.
+2. Write one test file for each module or class you make.
+3. Keep your test cases (functions) short, but do not worry if they are a bit messy. Test cases are usually kind of messy.
+4. Even though test cases are messy, try to keep them clean and remove any repetitive code you can. Create helper functions that get rid of duplicate code. You will thank me later when you make a change and then have to change your tests. Duplicated code will make changing your tests more difficult.
+5. Finally, do not get too attached to your tests. Sometimes, the best way to redesign something is to just delete it, the tests, and start over.
+
+## What You Should See
+    $ ruby test_ex47.rb 
+    Loaded suite test_ex47
+    Started
+    ...
+    Finished in 0.000353 seconds.
+    
+    3 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+    
+    Test run options: --seed 63537
+
+That's what you should see if everything is working right. Try causing an error to see what that looks like and then fix it.
+
+## Extra Credit
+1. Go read about `Test::Unit` more, and also read about alternatives.
+2. Learn about `Rspec` and see if you like it better.
+3. Make your Room more advanced, and then use it to rebuild your game yet again but this time, unit test as you go.

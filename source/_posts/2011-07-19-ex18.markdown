@@ -1,0 +1,95 @@
+---
+layout: post
+title: "Exercise 18: Names, Variables, Code, Functions"
+---
+# Exercise 18: Names, Variables, Code, Functions
+Big title right? I am about to introduce you to the function! Dum dum dah! Every programmer will go on and on about functions and all the different ideas about how they work and what they do, but I will give you the simplest explanation you can use right now.
+
+Functions do three things:
+
+1. They name pieces of code the way variables name strings and numbers.
+2. They take arguments the way your scripts take `ARGV`.
+3. Using #1 and #2 they let you make your own "mini scripts" or "tiny commands".
+
+You can create a function (also called "methods") by using the word `def` in Ruby. I'm going to have you make four different functions that work like your scripts, and then show you how each one is related.
+
+{% highlight ruby linenos %}
+# this one is like your scripts with argv
+def puts_two(*args)
+  arg1, arg2 = args
+  puts "arg1: #{arg1}, arg2: #{arg2}"
+end
+
+# ok, that *args is actually pointless, we can just do this
+def puts_two_again(arg1, arg2)
+  puts "arg1: #{arg1}, arg2: #{arg2}"
+end
+
+# this just takes one argument
+def puts_one(arg1)
+  puts "arg1: #{arg1}"
+end
+
+# this one takes no arguments
+def puts_none()
+  puts "I got nothin'."
+end
+
+puts_two("Zed","Shaw")
+puts_two_again("Zed","Shaw")
+puts_one("First!")
+puts_none()
+{% endhighlight %}
+
+Let's break down the first function, `puts_two` which is the most similar to what you already know from making scripts:
+
+
+1. First we tell Ruby we want to make a function using `def` for "define".
+2. On the same line as `def` we then give the function a name, in this case we just called it "puts_two" but it could be "peanuts" too. It doesn't matter, except that your function should have a short name that says what it does.
+3. Then we tell it we want `*args` (asterisk args) which is a lot like your `ARGV` parameter but for functions.
+4. After the definition, all the lines that are indented 2 spaces will become attached to this name, `puts_two`. Our first indented line is one that unpacks the arguments the same as with your scripts.
+5. To demonstrate how it works we print these arguments out, just like we would in a script.
+Now, the problem with `puts_two` is that it's not the easiest way to make a function. In Ruby we can skip the whole unpacking args and just use the names we want right inside `()`. That's what `print_two_again` does.
+
+After that you have an example of how you make a function that takes one argument in `puts_one`.
+
+Finally you have a function that has no arguments in `puts_none`.
+
+> **Warning:** This is very important. Do not get discouraged right now if this doesn't quite make sense. We're going to do a few exercises linking functions to your scripts and show you how to make more. For now just keep thinking "mini script" when I say "function" and keep playing with them.
+
+## What You Should See
+If you run the above script you should see:
+
+    $ ruby ex18.rb
+    arg1: 'Zed', arg2: 'Shaw'
+    arg1: 'Zed', arg2: 'Shaw'
+    arg1: 'First!'
+    I got nothin'.
+    $
+
+Right away you can see how a function works. Notice that you used your functions the way you use things like `File.exists?`, `File.open`, and other "commands". In fact, I've been tricking you because in Ruby those "commands" are just functions. This means you can make your own commands and use them in your scripts too.
+
+## Extra Credit
+Write out a function checklist for later exercises. Write these on an index card and keep it by you while you complete the rest of these exercises or until you feel you do not need it:
+
+1. Did you start your function definition with `def`?
+2. Does your function name have only characters and `_` (underscore) characters?
+3. Did you put an open parenthesis `(` right after the function name?
+4. Did you put your arguments after the parenthesis `(` separated by commas?
+5. Did you make each argument unique (meaning no duplicated names).
+6. Did you put a close parenthesis `)` after the arguments?
+7. Did you indent all lines of code you want in the function 2 spaces?
+8. Did you close your function body by typing "end"?
+
+And when you run (aka "use" or "call") a function, check these things:
+
+1. Did you call/use/run this function by typing its name?
+2. Did you put `(` character after the name to run it? (this isn't required, but is idiomatic)
+3. Did you put the values you want into the parenthesis separated by commas?
+4. Did you end the function call with a `)` character. 
+
+Use these two checklists on the remaining lessons until you do not need them anymore.
+
+Finally, repeat this a few times:
+
+> "To 'run', 'call', or 'use' a function all mean the same thing."

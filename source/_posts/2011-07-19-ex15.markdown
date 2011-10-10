@@ -1,0 +1,69 @@
+---
+layout: post
+title: "Exercise 15: Reading Files"
+---
+# Exercise 15: Reading Files
+Everything you've learned about `STDIN.gets` and `ARGV` is so you can start reading files. You may have to play with this exercise the most to understand what's going on, so do it carefully and remember your checks. Working with files is an easy way to erase your work if you are not careful.
+
+This exercise involves writing two files. One is your usual `ex15.rb` file that you will run, but the other is named `ex15_sample.txt`. This second file isn't a script but a plain text file we'll be reading in our script. Here are the contents of that file:
+
+    This is stuff I typed into a file.
+    It is really cool stuff.
+    Lots and lots of fun to have in here.
+
+What we want to do is "open" that file in our script and print it out. However, we do not want to just "hard code" the name `ex15_sample.txt` into our script. "Hard coding" means putting some bit of information that should come from the user as a string right in our program. That's bad because we want it to load other files later. The solution is to use `ARGV` and `STDIN.gets` to ask the user what file they want instead of "hard coding" the file's name.
+
+{% highlight ruby linenos %}
+filename = ARGV.first
+
+prompt = "> "
+txt = File.open(filename)
+
+puts "Here's your file: #{filename}"
+puts txt.read()
+
+puts "Type the filename again:"
+print prompt
+file_again = STDIN.gets.chomp()
+
+txt_again = File.open(file_again)
+
+puts txt_again.read()
+{% endhighlight %}
+
+A few fancy things are going on in this file, so let's break it down real quick:
+
+Line 1-3 should be a familiar use of `ARGV` to get a filename and setting up the prompt. Next we have line 4 where we use a new command `File.open`. Right now, run `ri File.open` from the command line and read the instructions. Notice how like your own scripts, it takes a parameter and returns a value you can set to your own variable. You just opened a file.
+
+Line 6 we print a little line, but on line 7 we have something very new and exciting. We call a function on `txt`. What you got back from `open` is a `file`, and it's also got commands you can give it. You give a file a command by using the `.` (dot or period), the name of the command, and parameters. Just like with `File.open`. The difference is that when you say `txt.read()` you are saying, "Hey txt! Do your read command with no parameters!"
+
+The remainder of the file is more of the same, but we'll leave the analysis to you in the extra credit.
+
+## What You Should See
+I made a file called "ex15_sample.txt" and ran my script.
+
+    $ ruby ex15.rb ex15_sample.txt 
+    Here's your file 'ex15_sample.txt':
+    This is stuff I typed into a file.
+    It is really cool stuff.
+    Lots and lots of fun to have in here.
+    
+    I'll also ask you to type it again:
+    > ex15_sample.txt
+    This is stuff I typed into a file.
+    It is really cool stuff.
+    Lots and lots of fun to have in here.
+    
+    $
+
+## Extra Credit
+This is a big jump so be sure you do this extra credit as best you can before moving on.
+
+1. Above each line write out in English what that line does.
+2. If you are not sure ask someone for help or search online. Many times searching for "ruby THING" will find answers for what that THING does in Ruby. Try searching for "ruby file.open".
+3. I used the name "commands" here, but they are also called "functions" and "methods". Search around online to see what other people do to define these. Do not worry if they confuse you. It's normal for a programmer to confuse you with their vast extensive knowledge.
+4. Get rid of the part from line 9-15 where you use `STDIN.gets` and try the script then.
+5. Use only `STDIN.gets` and try the script that way. Think of why one way of getting the filename would be better than another.
+6. Run `ri File` and scroll down until you see the `read()` command (method/function). See all the other ones you can use?  Try some of the other commands.
+7. Startup IRB again and use `File.open` from the prompt. Notice how you can open files and run read on them right there?
+8. Have your script also do a `close()` on the `txt` and `txt_again` variables. It's important to close files when you are done with them.

@@ -1,0 +1,57 @@
+---
+layout: post
+title: "Exercise 30: Else And If"
+---
+# Exercise 30: Else And If
+
+In the last exercise you worked out some `if-statements`, and then tried to guess what they are and how they work. Before you learn more I'll explain what everything is by answering the questions you had from extra credit. You did the extra credit right?
+
+1. What do you think the if does to the code under it? An `if` statement creates what is called a "branch" in the code. It's kind of like those choose your own adventure books where you are asked to turn to one page if you make one choice, and another if you go a different direction. The `if-statement` tells your script, "If this boolean expression is True, then run the code under it, otherwise skip it."
+2. Can you put other boolean expressions from Ex. 27 in the `if` statement? Try it. Yes you can, and they can be as complex as you like, although really complex things generally are bad style.
+3. What happens if you change the initial variables for people, cats, and dogs? Because you are comparing numbers, if you change the numbers, different `if-statements` will evaluate to **True** and the blocks of code under them will run. Go back and put different numbers in and see if you can figure out in your head what blocks of code will run.
+
+Compare my answers to your answers, and make sure you really understand the concept of a "block" of code. This is important for when you do the next exercise where you write all the parts of `if-statements` that you can use.
+
+Type this one in and make it work too.
+
+{% highlight ruby linenos %}
+people = 30
+cars = 40
+buses = 15
+
+if cars > people
+  puts "We should take the cars."
+elsif cars < people
+  puts "We should not take the cars."
+else
+  puts "We can't decide."
+end
+
+if buses > cars
+  puts "That's too many buses."
+elsif buses < cars
+  puts "Maybe we could take the buses."
+else
+  puts "We still can't decide."
+end
+
+if people > buses
+  puts "Alright, let's just take the buses."
+else
+  puts "Fine, let's stay home then."
+end
+{% endhighlight %}
+
+## What You Should See
+
+    $ ruby ex30.rb
+    We should take the cars.
+    Maybe we could take the buses.
+    Alright, let's just take the buses.
+    $
+
+## Extra Credit
+1. Try to guess what `elsif` and `else` are doing.
+2. Change the numbers of `cars`, `people`, and `buses` and then trace through each `if-statement` to see what will be printed.
+3. Try some more complex boolean expressions like `cars > people and buses < cars`.
+Above each line write an English description of what the line does.

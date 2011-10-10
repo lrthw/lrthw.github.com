@@ -1,0 +1,116 @@
+---
+layout: post
+title: "Exercise 37: Symbol Review"
+---
+# Exercise 37: Symbol Review
+It's time to review the symbols and Ruby words you know, and to try to pick up a few more for the next few lessons. What I've done here is written out all the Ruby symbols and keywords that are important to know.
+
+In this lesson take each keyword, and first try to write out what it does from memory. Next, search online for it and see what it really does. It may be hard because some of these are going to be impossible to search for, but keep trying.
+
+If you get one of these wrong from memory, write up an index card with the correct definition and try to "correct" your memory. If you just didn't know about it, write it down, and save it for later.
+
+Finally, use each of these in a small Ruby program, or as many as you can get done. The key here is to find out what the symbol does, make sure you got it right, correct it if you do not, then use it to lock it in.
+
+##Keywords
+* `alias`
+* `and`
+* `BEGIN`
+* `begin`
+* `break`
+* `case`
+* `class`
+* `def`
+* `defined?`
+* `do`
+* `else`
+* `elsif`
+* `END`
+* `end`
+* `ensure`
+* `false`
+* `for`
+* `if`
+* `in`
+* `module`
+* `next`
+* `nil`
+* `not`
+* `or`
+* `redo`
+* `rescue`
+* `retry`
+* `return`
+* `self`
+* `super`
+* `then`
+* `true`
+* `undef`
+* `unless`
+* `until`
+* `when`
+* `while`
+* `yield`
+
+## Data Types
+For data types, write out what makes up each one. For example, with strings write out how you create a string. For numbers write out a few numbers.
+
+* **true**
+* **false**
+* **nil**
+* `constants`
+* `strings`
+* `numbers`
+* `ranges`
+* `arrays`
+* `hashes`
+
+String Escapes Sequences
+For string escape sequences, use them in strings to make sure they do what you think they do.
+
+* `\\`
+* `\'`
+* `\"`
+* `\a`
+* `\b`
+* `\f`
+* `\n`
+* `\r`
+* `\t`
+* `\v`
+
+
+Operators
+Some of these may be unfamiliar to you, but look them up anyway. Find out what they do, and if you still can't figure it out, save it for later.
+
+* `::`
+* `[]`
+* `**`
+* `-(unary)`
+* `+(unary)  `
+* `!  `
+* `~`
+* `*`
+* `/`
+* `%`
+* `+  `
+* `-`
+* `<<`
+* `>>`
+* `&`
+* `|`
+* `>  `
+* `>=`
+* `<`
+* `<=`
+* `<=> `
+* `==  `
+* `=== `
+* `!=  `
+* `=~  `
+* `!~`
+* `&&`
+* `||`
+* `.. `
+* `...`
+
+Spend about a week on this, but if you finish faster that's great. The point is to try to get coverage on all these symbols and make sure they are locked in your head. What's also important is to find out what you do not know so you can fix it later.

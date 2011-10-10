@@ -1,0 +1,59 @@
+---
+layout: post
+title: "Exercise 29: What If"
+---
+# Exercise 29: What If
+
+Here is the next script of Ruby you will enter, which introduces you to the `if-statement`. Type this in, make it run exactly right, and then we'll try see if your practice has paid off.
+
+{% highlight ruby linenos %}
+people = 20
+cats = 30
+dogs = 15
+
+if people < cats
+  puts "Too many cats! The world is doomed!"
+end
+
+if people > cats
+  puts "Not many cats! The world is saved!"
+end
+
+if people < dogs
+  puts "The world is drooled on!"
+end
+
+if people > dogs
+  puts "The world is dry!"
+end
+
+dogs += 5
+
+if people >= dogs
+  puts "People are greater than or equal to dogs."
+end
+
+if people <= dogs
+  puts "People are less than or equal to dogs."
+end
+
+if people == dogs
+  puts "People are dogs."
+end
+{% endhighlight %}
+## What You Should See
+
+    $ ruby ex29.rb 
+    Too many cats! The world is doomed!
+    The world is dry!
+    People are greater than or equal to dogs.
+    People are less than or equal to dogs.
+    People are dogs.
+    $
+
+## Extra Credit
+In this extra credit, try to guess what you think the `if-statement` is and what it does. Try to answer these questions in your own words before moving onto the next exercise:
+
+1. What do you think the `if` does to the code under it?
+2. Can you put other boolean expressions from Ex. 27 in the `if-statement`? Try it.
+3. What happens if you change the initial variables for people, cats, and dogs?

@@ -1,0 +1,62 @@
+---
+layout: post
+title: "Exercise 17: More Files"
+---
+# Exercise 17: More Files
+Now let's do a few more things with files. We're going to actually write a Ruby script to copy one file to another. It'll be very short but will give you some ideas about other things you can do with files.
+
+{% highlight ruby linenos %}
+from_file, to_file = ARGV 
+script = $0
+
+puts "Copying from #{from_file} to #{to_file}"
+
+# we could do these two on one line too, how?
+input = File.open(from_file)
+indata = input.read()
+
+puts "The input file is #{indata.length} bytes long"
+
+puts "Does the output file exist? #{File.exists? to_file}"
+puts "Ready, hit RETURN to continue, CTRL-C to abort."
+STDIN.gets
+
+output = File.open(to_file, 'w')
+output.write(indata)
+
+puts "Alright, all done."
+
+output.close()
+input.close()
+{% endhighlight %}
+
+Here we used a new method called `File.exists?`.  This returns **true** if a file exists, based on its name in a string as an argument. It returns **false** if not. We'll be using this function in the second half of this book to do lots of things.
+
+## What You Should See
+Just like your other scripts, run this one with two arguments, the file to copy from and the file to copy it to. If we use your `test.txt` file from before we get this:
+
+    $ ruby ex17.rb test.txt copied.txt
+    Copying from test.txt to copied.txt
+    The input file is 81 bytes long
+    Does the output file exist? False
+    Ready, hit RETURN to continue, CTRL-C to abort.
+    
+    Alright, all done.
+    
+    $ cat copied.txt
+    To all the people out there.
+    I say I don't like my hair.
+    I need to shave it off.
+    $
+
+It should work with any file. Try a bunch more and see what happens. Just be careful you do not blast an important file.
+
+> **Warning:** Did you see that trick I did with `cat`? It only works on Linux or OSX, on Windows use `type` to do the same thing.
+
+## Extra Credit
+1. Go read up on Ruby's `require` statement, and start Ruby to try it out. Try importing some things and see if you can get it right. It's alright if you do not.
+2. This script is really annoying. There's no need to ask you before doing the copy, and it prints too much out to the screen. Try to make it more friendly to use by removing features.
+3. See how short you can make the script. I could make this 1 line long.
+4. Notice at the end of the WYSS I used something called `cat`? It's an old command that "con*cat*enates" files together, but mostly it's just an easy way to print a file to the screen. Type `man cat` to read about it.
+5. Windows people, find the alternative to `cat` that Linux/OSX people have. Do not worry about `man` since there is nothing like that.
+6. Find out why you had to do `output.close()` in the code.

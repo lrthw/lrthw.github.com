@@ -1,0 +1,44 @@
+---
+layout: post
+title: "Exercise 9: Printing, Printing, Printing"
+---
+# Exercise 9: Printing, Printing, Printing
+
+{% highlight ruby linenos %}
+# Here's some new strange stuff, remember type it exactly.
+
+days = "Mon Tue Wed Thu Fri Sat Sun"
+months = "Jan\nFeb\nMar\nApr\nMay\nJun\nJul\nAug"
+
+puts "Here are the days: ", days
+puts "Here are the months: ", months
+
+puts <<PARAGRAPH
+There's something going on here.
+With the three double-quotes.
+We'll be able to type as much as we like.
+Even 4 lines if we want, or 5, or 6.
+PARAGRAPH
+{% endhighlight %}
+
+## What You Should See
+
+    $ ruby ex9.rb
+    Here are the days:  
+    Mon Tue Wed Thu Fri Sat Sun
+    Here are the months:
+    Jan
+    Feb
+    Mar
+    Apr
+    May
+    Jun
+    Jul
+    Aug
+    There's something going on here.
+    With the three double-quotes.
+    We'll be able to type as much as we like.
+    Even 4 lines if we want, or 5, or 6.
+
+# Extra Credit
+Do your checks of your work, write down your mistakes, try not to make them on the next exercise.

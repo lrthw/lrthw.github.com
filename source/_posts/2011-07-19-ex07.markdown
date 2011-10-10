@@ -1,0 +1,52 @@
+---
+layout: post
+title: "Exercise 7: More Printing"
+---
+# Exercise 7: More Printing
+Now we are going to do a bunch of exercises where you just type code in and make it run. I won't be explaining much since it is just more of the same. The purpose is to build up your chops. See you in a few exercises, and do not skip! Do not paste!
+
+{% highlight ruby linenos %}
+puts "Mary had a little lamb."
+puts "Its fleece was white as %s." % 'snow'
+puts "And everywhere that Mary went."
+puts "." * 10  # what'd that do?
+
+end1 = "C"
+end2 = "h"
+end3 = "e"
+end4 = "e"
+end5 = "s"
+end6 = "e"
+end7 = "B"
+end8 = "u"
+end9 = "r"
+end10 = "g"
+end11 = "e"
+end12 = "r"
+
+# notice how we are using print instead of puts here. change it to puts
+# and see what happens.
+print end1 + end2 + end3 + end4 + end5 + end6
+print end7 + end8 + end9 + end10 + end11 + end12
+
+# this just is polite use of the terminal, try removing it
+puts
+{% endhighlight %}
+
+## What You Should See
+    $ ruby ex7.rb
+    Mary had a little lamb.
+    Its fleece was white as snow.
+    And everywhere that Mary went.
+    ..........
+    CheeseBurger
+    $
+
+## Extra Credit
+For these next few exercises, you will have the exact same extra credit.
+
+1. Go back through and write a comment on what each line does.
+2. Read each one backwards or out loud to find your errors.
+3. From now on, when you make mistakes write down on a piece of paper what kind of mistake you made.
+4. When you go to the next exercise, look at the last mistakes you made and try not to make them in this new one.
+5. Remember that everyone makes mistakes. Programmers are like magicians who like everyone to think they are perfect and never wrong, but it's all an act. They make mistakes all the time.

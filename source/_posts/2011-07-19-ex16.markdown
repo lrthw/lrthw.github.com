@@ -1,0 +1,81 @@
+---
+layout: post
+title: "Exercise 16: Reading And Writing Files"
+---
+# Exercise 16: Reading And Writing Files
+If you did the extra credit from the last exercise you should have seen all sorts of commands (methods/functions) you can give to files. Here's the list of commands I want you to remember:
+
+* close -- Closes the file. Like `File->Save..` in your editor.
+* read -- Reads the contents of the file, you can assign the result to a variable.
+* readline -- Reads just one line of a text file.
+* truncate -- Empties the file, watch out if you care about the file.
+* write(stuff) -- Writes stuff to the file.
+
+For now these are the important commands you need to know. Some of them take parameters, but we do not really care about that. You only need to remember that write takes a parameter of a string you want to write to the file.
+
+Let's use some of this to make a simple little text editor:
+
+{% highlight ruby linenos %}
+filename = ARGV.first
+script = $0
+
+puts "We're going to erase #{filename}."
+puts "If you don't want that, hit CTRL-C (^C)."
+puts "If you do want that, hit RETURN."
+
+print "? "
+STDIN.gets
+
+puts "Opening the file..."
+target = File.open(filename, 'w')
+
+puts "Truncating the file.  Goodbye!"
+target.truncate(target.size)
+
+puts "Now I'm going to ask you for three lines."
+
+print "line 1: "; line1 = STDIN.gets.chomp()
+print "line 2: "; line2 = STDIN.gets.chomp()
+print "line 3: "; line3 = STDIN.gets.chomp()
+
+puts "I'm going to write these to the file."
+
+target.write(line1)
+target.write("\n")
+target.write(line2)
+target.write("\n")
+target.write(line3)
+target.write("\n")
+
+puts "And finally, we close it."
+target.close()
+{% endhighlight %}
+
+That's a large file, probably the largest you have typed in. So go slow, do your checks, and make it run. One trick is to get bits of it running at a time. Get lines 1-8 running, then 5 more, then a few more, etc., until it's all done and running.
+
+## What You Should See
+There are actually two things you will see, first the output of your new script:
+
+    $ ruby ex16.rb test.txt
+    We're going to erase 'test.txt'.
+    If you don't want that, hit CTRL-C (^C).
+    If you do want that, hit RETURN.
+    ?
+    Opening the file...
+    Truncating the file.  Goodbye!
+    Now I'm going to ask you for three lines.
+    line 1: To all the people out there.
+    line 2: I say I don't like my hair.
+    line 3: I need to shave it off.
+    I'm going to write these to the file.
+    And finally, we close it.
+    $
+
+Now, open up the file you made (in my case test.txt) in your editor and check it out. Neat right?
+
+## Extra Credit
+1. If you feel you do not understand this, go back through and use the comment trick to get it squared away in your mind. One simple English comment above each line will help you understand, or at least let you know what you need to research more.
+2. Write a script similar to the last exercise that uses read and argv to read the file you just created.
+3. There's too much repetition in this file. Use strings, formats, and escapes to print out line1, line2, and line3 with just one `target.write()` command instead of 6.
+4. Find out why we had to pass a `'w'` as an extra parameter to open. Hint: open tries to be safe by making you explicitly say you want to write a file.
+5. If you open the file with `'w'` mode, then do you really need the `target.truncate()`? Go read the docs for Ruby's `File.open` function and see if that's true.

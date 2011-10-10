@@ -1,0 +1,325 @@
+---
+layout: post
+title: "Exercise 41: Gothons From Planet Percal #25"
+---
+# Exercise 41: Gothons From Planet Percal #25
+Did you figure out the secret of the method in the hash from the last exercise? Can you explain it to yourself? I'll explain it and you can compare your explanation with mine. Here are the lines of code we are talking about:
+
+{% highlight ruby linenos %}
+cities[:find] = method(:find_city)
+puts cities[:find].call(cities, state)
+{% endhighlight %}
+
+Remember that code can be stored in variables too.  In order to store a block of code in a variable, we create something called a `proc`, which is short for procedure.  In this code, first we are calling Ruby's built-in method called `method`, which returns a proc version of the `find_city` method, which we then store in the hash `cities` with the key `:find`. This is the same as all the others where we set states to some cities, but in this case it's actually the proc.
+
+Alright, so once we know that `find_city` is in the hash at `:find`, that means we can do work with it. The 2nd line of code (used later in the previous exercise) can be broken down like this:
+
+1. Ruby reads `cities` and finds that variable, it's a `hash`.
+2. Then there's `[:find]` which will index into the cities hash and pull out whatever is at `:find`.
+3. What is at `[:find]` is our proc `find_city` so Ruby then knows it's got a proc, and when it hits `.call` it calls the proc code.
+4. The parameters `cities`, `state` are passed to the proc `find_city`, and it runs because it's called.
+5. `find_city` then tries to look up `states` inside `cities`, and returns what it finds or a message saying it didn't find anything.
+6. Ruby takes what `find_city` returned, and prints it out using the `puts` method we've been using all along.
+
+Here's a trick. Sometimes these things read better in English if you read the code backwards. This is how I would do it for that same line (remember backwards):
+
+1. `state` and `city` are...
+2. passed as parameters to...
+3. a proc at...
+4. `:find` inside...
+5. the hash `cities`...
+6. and finally printed on the screen
+
+Here's another way to read it, this time "inside-out".
+
+1. Find the center item of the expression, in this case `[:find]`.
+2. Go counter-clock-wise and you have a hash `cities`, so this finds the element `:find` in `cities`.
+3. That gives us a proc. Keep going counter-clock-wise and you get to the parameters.
+4. The parameters are passed to the proc, and that returns a result. Go counter-clock-wise again.
+5. Finally, we are at the `puts` statement, and we have our end result.
+
+After decades of programming I don't even think about these three ways to read code. I just glance at it and know what it means. I can even glance at a whole screen of code, and all the bugs and errors jump out at me. That took an incredibly long time and quite a bit more study than is sane. To get that way, I learned these three ways of reading most any programming language:
+
+1. Front to back.
+2. Back to front.
+3. Counter-clock-wise.
+
+Try them out when you have a difficult statement to figure out.
+
+Now type in your next exercise, then go over it. This one is gonna be fun.
+
+{% highlight ruby linenos %}
+def prompt()
+  print "> "
+end
+
+def death()
+  quips = ["You died.  You kinda suck at this.",
+    "Nice job, you died ...jackass.",
+    "Such a luser.",
+    "I have a small puppy that's better at this."]
+  puts quips[rand(quips.length())]
+  Process.exit(1)
+end
+
+def central_corridor()
+  puts "The Gothons of Planet Percal #25 have invaded your ship and destroyed"
+  puts "your entire crew.  You are the last surviving member and your last"
+  puts "mission is to get the neutron destruct bomb from the Weapons Armory,"
+  puts "put it in the bridge, and blow the ship up after getting into an "
+  puts "escape pod."
+  puts "\n"
+  puts "You're running down the central corridor to the Weapons Armory when"
+  puts "a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume"
+  puts "flowing around his hate filled body.  He's blocking the door to the"
+  puts "Armory and about to pull a weapon to blast you."
+
+  prompt()
+  action = gets.chomp()
+
+  if action == "shoot!"
+    puts "Quick on the draw you yank out your blaster and fire it at the Gothon."
+    puts "His clown costume is flowing and moving around his body, which throws"
+    puts "off your aim.  Your laser hits his costume but misses him entirely.  This"
+    puts "completely ruins his brand new costume his mother bought him, which"
+    puts "makes him fly into an insane rage and blast you repeatedly in the face until"
+    puts "you are dead.  Then he eats you."
+    return :death
+
+  elsif action == "dodge!"
+    puts "Like a world class boxer you dodge, weave, slip and slide right"
+    puts "as the Gothon's blaster cranks a laser past your head."
+    puts "In the middle of your artful dodge your foot slips and you"
+    puts "bang your head on the metal wall and pass out."
+    puts "You wake up shortly after only to die as the Gothon stomps on"
+    puts "your head and eats you."
+    return :death
+
+  elsif action == "tell a joke"
+    puts "Lucky for you they made you learn Gothon insults in the academy."
+    puts "You tell the one Gothon joke you know:"
+    puts "Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr."
+    puts "The Gothon stops, tries not to laugh, then busts out laughing and can't move."
+    puts "While he's laughing you run up and shoot him square in the head"
+    puts "putting him down, then jump through the Weapon Armory door."
+    return :laser_weapon_armory
+
+  else
+    puts "DOES NOT COMPUTE!"
+    return :central_corridor
+  end
+end
+
+def laser_weapon_armory()
+  puts "You do a dive roll into the Weapon Armory, crouch and scan the room"
+  puts "for more Gothons that might be hiding.  It's dead quiet, too quiet."
+  puts "You stand up and run to the far side of the room and find the"
+  puts "neutron bomb in its container.  There's a keypad lock on the box"
+  puts "and you need the code to get the bomb out.  If you get the code"
+  puts "wrong 10 times then the lock closes forever and you can't"
+  puts "get the bomb.  The code is 3 digits."
+  code = "%s%s%s" % [rand(9)+1, rand(9)+1, rand(9)+1]
+  print "[keypad]> "
+  guess = gets.chomp()
+  guesses = 0
+
+  while guess != code and guesses < 10
+    puts "BZZZZEDDD!"
+    guesses += 1
+    print "[keypad]> "
+    guess = gets.chomp()
+  end
+
+  if guess == code
+    puts "The container clicks open and the seal breaks, letting gas out."
+    puts "You grab the neutron bomb and run as fast as you can to the"
+    puts "bridge where you must place it in the right spot."
+    return :the_bridge
+  else
+    puts "The lock buzzes one last time and then you hear a sickening"
+    puts "melting sound as the mechanism is fused together."
+    puts "You decide to sit there, and finally the Gothons blow up the"
+    puts "ship from their ship and you die."
+    return :death
+  end
+end
+
+def the_bridge()
+  puts "You burst onto the Bridge with the netron destruct bomb"
+  puts "under your arm and surprise 5 Gothons who are trying to"
+  puts "take control of the ship.  Each of them has an even uglier"
+  puts "clown costume than the last.  They haven't pulled their"
+  puts "weapons out yet, as they see the active bomb under your"
+  puts "arm and don't want to set it off."
+
+  prompt()
+  action = gets.chomp()
+
+  if action == "throw the bomb"
+    puts "In a panic you throw the bomb at the group of Gothons"
+    puts "and make a leap for the door.  Right as you drop it a"
+    puts "Gothon shoots you right in the back killing you."
+    puts "As you die you see another Gothon frantically try to disarm"
+    puts "the bomb. You die knowing they will probably blow up when"
+    puts "it goes off."
+    return :death
+
+  elsif action == "slowly place the bomb"
+    puts "You point your blaster at the bomb under your arm"
+    puts "and the Gothons put their hands up and start to sweat."
+    puts "You inch backward to the door, open it, and then carefully"
+    puts "place the bomb on the floor, pointing your blaster at it."
+    puts "You then jump back through the door, punch the close button"
+    puts "and blast the lock so the Gothons can't get out."
+    puts "Now that the bomb is placed you run to the escape pod to"
+    puts "get off this tin can."
+    return :escape_pod
+  else
+    puts "DOES NOT COMPUTE!"
+    return :the_bridge
+  end
+end
+
+def escape_pod()
+  puts "You rush through the ship desperately trying to make it to"
+  puts "the escape pod before the whole ship explodes.  It seems like"
+  puts "hardly any Gothons are on the ship, so your run is clear of"
+  puts "interference.  You get to the chamber with the escape pods, and"
+  puts "now need to pick one to take.  Some of them could be damaged"
+  puts "but you don't have time to look.  There's 5 pods, which one"
+  puts "do you take?"
+
+  good_pod = rand(5)+1 
+  print "[pod #]>"
+  guess = gets.chomp()
+
+  if guess.to_i != good_pod
+    puts "You jump into pod %s and hit the eject button." % guess
+    puts "The pod escapes out into the void of space, then"
+    puts "implodes as the hull ruptures, crushing your body"
+    puts "into jam jelly."
+    return :death
+  else
+    puts "You jump into pod %s and hit the eject button." % guess
+    puts "The pod easily slides out into space heading to"
+    puts "the planet below.  As it flies to the planet, you look"
+    puts "back and see your ship implode then explode like a"
+    puts "bright star, taking out the Gothon ship at the same"
+    puts "time.  You won!"
+    Process.exit(0)
+  end
+end
+
+ROOMS = {
+  :death => method(:death),
+  :central_corridor => method(:central_corridor),
+  :laser_weapon_armory => method(:laser_weapon_armory),
+  :the_bridge => method(:the_bridge),
+  :escape_pod => method(:escape_pod)
+}
+
+def runner(map, start)
+  next_one = start
+
+  while true
+    room = map[next_one]
+    puts "\n--------"
+    next_one = room.call()
+  end
+end
+
+runner(ROOMS, :central_corridor)
+{% endhighlight %}
+
+## What You Should See
+
+    $ ruby ex41.rb
+    
+    --------
+    The Gothons of Planet Percal #25 have invaded your ship and destroyed
+    your entire crew.  You are the last surviving member and your last
+    mission is to get the neutron destruct bomb from the Weapons Armory,
+    put it in the bridge, and blow the ship up after getting into an 
+    escape pod.
+    
+    
+    You're running down the central corridor to the Weapons Armory when
+    a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume
+    flowing around his hate filled body.  He's blocking the door to the
+    Armory and about to pull a weapon to blast you.
+    > dodge!
+    Like a world class boxer you dodge, weave, slip and slide right
+    as the Gothon's blaster cranks a laser past your head.
+    In the middle of your artful dodge your foot slips and you
+    bang your head on the metal wall and pass out.
+    You wake up shortly after only to die as the Gothon stomps on
+    your head and eats you.
+    
+    --------
+    Such a luser.
+    
+    $ ruby ex41.rb 
+    
+    --------
+    The Gothons of Planet Percal #25 have invaded your ship and destroyed
+    your entire crew.  You are the last surviving member and your last
+    mission is to get the neutron destruct bomb from the Weapons Armory,
+    put it in the bridge, and blow the ship up after getting into an 
+    escape pod.
+    
+    
+    You're running down the central corridor to the Weapons Armory when
+    a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume
+    flowing around his hate filled body.  He's blocking the door to the
+    Armory and about to pull a weapon to blast you.
+    > tell a joke
+    Lucky for you they made you learn Gothon insults in the academy.
+    You tell the one Gothon joke you know:
+    Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr.
+    The Gothon stops, tries not to laugh, then busts out laughing and can't move.
+    While he's laughing you run up and shoot him square in the head
+    putting him down, then jump through the Weapon Armory door.
+    
+    --------
+    You do a dive roll into the Weapon Armory, crouch and scan the room
+    for more Gothons that might be hiding.  It's dead quiet, too quiet.
+    You stand up and run to the far side of the room and find the
+    neutron bomb in its container.  There's a keypad lock on the box
+    and you need the code to get the bomb out.  If you get the code
+    wrong 10 times then the lock closes forever and you can't
+    get the bomb.  The code is 3 digits.
+    [keypad]> 123 
+    BZZZZEDDD!
+    [keypad]> 234
+    BZZZZEDDD!
+    [keypad]> 345
+    BZZZZEDDD!
+    [keypad]> 456
+    BZZZZEDDD!
+    [keypad]> 567
+    BZZZZEDDD!
+    [keypad]> 678
+    BZZZZEDDD!
+    [keypad]> 789
+    BZZZZEDDD!
+    [keypad]> 384
+    BZZZZEDDD!
+    [keypad]> 764
+    BZZZZEDDD!
+    [keypad]> 354
+    BZZZZEDDD!
+    [keypad]> 263
+    The lock buzzes one last time and then you hear a sickening
+    melting sound as the mechanism is fused together.
+    You decide to sit there, and finally the Gothons blow up the
+    ship from their ship and you die.
+    
+    --------
+    You died.  You kinda suck at this.
+## Extra Credit
+1. Explain how returning the next room works.
+2. Add cheat codes to the game so you can get past the more difficult rooms.
+3. Instead of having each function print itself, learn about "here document" strings. 
+4. Write the room description as here document strings, and change the runner to use them.
+5. Once you have here document strings as the room description, do you need to have the function prompt even? Have the runner prompt the user, and pass that in to each function. Your functions should just be `if-statements` printing the result and returning the next room.
+6. This is actually a small version of something called a "finite state machine". Read about them. They might not make sense but try anyway.

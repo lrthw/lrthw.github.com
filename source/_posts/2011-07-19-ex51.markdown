@@ -1,0 +1,276 @@
+---
+layout: post
+title: "Exercise 51: Getting Input From A Browser"
+---
+# Exercise 51: Getting Input From A Browser
+While it's exciting to see the browser display "Hello World", it's even more exciting to let the user submit text to your application from a form. In this exercise we'll improve our starter web application using forms and figure out how to do automated testing for a web application.
+
+## How The Web Works
+Time for some boring stuff. You need to understand a bit more about how the web works before you can make a form. This description isn't complete, but it's accurate and will help you figure out what might be going wrong with your application. Also, creating forms will be easier if you know what they do.
+
+I'll start with a simple diagram that shows you the different parts of a web request and how the information flows:
+
+![http request diagram](http://learnpythonthehardway.org/book/_images/http_request_diagram.png)
+
+I've labeled the lines with letters so I can walk you through a regular request process:
+
+1. You type in the url http://learnpythonthehardway.org/ into your browser and it sends the request out on `line (A)` to your computer's network interface.
+2. Your request goes out over the internet on `line (B)` and then to the remote computer on `line (C)` where my server accepts the request.
+3. Once my computer accepts it, my web application gets it on `line (D)`, and my web application code runs the `/` (index) handler.
+4. The response comes out of my web server when I return it, and goes back to your browser over `line (D)` again.
+5. The server running this site takes the response off `line (D)` then sends it back over the internet on `line (C)`.
+6. The response from the server then comes off the internet on `line (B)`, and your computer's network interface hands it to your browser on `line (A)`.
+7. Finally, your browser then displays the response.
+
+In this description there are a few terms you should know so that you have a common vocabulary to work with when talking about your web application:
+
+### Browser
+The software that you're probably using every day. Most people don't know what it really does, they just call it "the internet". Its job is to take addresses (like http://learnpythonthehardway.org) you type into the URL bar, then use that information to make requests to the server at that address.
+
+### Address
+This is normally a URL (Uniform Resource Locator) like http://learnpythonthehardway.org/ and indicates where a browser should go. The first part `http` indicates the protocol you want to use, in this case "Hyper-Text Transport Protocol". You can also try ftp://ibiblio.org/ to see how "File Transport Protocol" works. The `learnpythonthehardway.org` part is the "hostname", or a human readable address you can remember and which maps to a number called an IP address, similar to a telephone number for a computer on the Internet. Finally, URLs can have a trailing `path` like the `/book/` part of http://learnpythonthehardway.org/book/ which indicates a file or some resource *on* the server to retrieve with a request. There are many other parts, but those are the main ones.
+
+### Connection
+Once a browser knows what protocol you want to use (http), what server you want to talk to (learnpythonthehardway.org), and what resource on that server to get, it must make a connection. The browser simply asks your Operating System (OS) to open a "port" to the computer, usually port 80. When it works the OS hands back to your program something that works like a file, but is actually sending and receiving bytes over the network wires between your computer and the other computer at "learnpythonthehardway.org". This is also the same thing that happens with http://localhost:8080/ but in this case you're telling the browser to connect to your own computer (localhost) and use port 4567 rather than the default of 80. You could also do http://learnpythonthehardway.org:80/ and get the same result, except you're explicitly saying to use port 80 instead of letting it be that by default.
+
+### Request
+Your browser is connected using the address you gave. Now it needs to ask for the resource it wants (or you want) on the remote server. If you gave `/book/` at the end of the URL, then you want the file (resource) at `/book/`, and most servers will use the real file `/book/index.html` but pretend it doesn't exist. What the browser does to get this resource is send a request to the server. I won't get into exactly how it does this, but just understand that it has to send something to query the server for the request. The interesting thing is that these "resources" don't have to be files. For instance, when the browser in your application asks for something, the server is returning something your code generated.
+
+### Server
+The server is the computer at the end of a browser's connection that knows how to answer your browser's requests for files/resources. Most web servers just send files, and that's actually the majority of traffic. But you're actually building a server in Ruby that knows how to take requests for resources, and then return strings that you craft using Ruby. When you do this crafting, *you* are pretending to be a file to the browser, but really it's just code. As you can see from Ex. 50, it also doesn't take much code to create a response.
+
+### Response
+This is the HTML (css, javascript, or images) your server wants to send back to the browser as the answer to the browser's request. In the case of files, it just reads them off the disk and sends them to the browser, but it wraps the contents of the disk in a special "header" so the browser knows what it's getting. In the case of your application, you're still sending the same thing, including the header, but you generate that data on the fly with your Ruby code.
+
+That is the fastest crash course in how a web browser accesses information on servers on the internet. It should work well enough for you to understand this exercise, but if not, read about it as much as you can until you get it. A really good way to do that is to take the diagram, and break different parts of the web application you did in Exercise 50. If you can break your web application in predictable ways using the diagram, you'll start to understand how it works.
+
+## How Forms Work
+The best way to play with forms is to write some code that accepts form data, and then see what you can do. Take your `lib/gothonsweb.rb` file and make it look like this:
+
+{% highlight ruby linenos %}
+require_relative "gothonweb/version"
+require "sinatra"
+require "erb"
+
+module Gothonweb
+  get '/' do
+    greeting = "Hello, World!"
+    erb :index, :locals => {:greeting => greeting}
+  end
+  
+  get '/hello' do
+    name = params[:name] || "Nobody"
+    greeting = "Hello, #{name}"
+    erb :index, :locals => {:greeting => greeting}
+  end
+end
+{% endhighlight %}
+
+Restart Sinatra (hit CTRL-C and then run it again) to make sure it loads again, then with your browser go to `http://localhost:4567/hello` which should display, "I just wanted to say Hello, Nobody." Next, change the URL in your browser to `http://localhost:4567/hello?name=Frank` and you'll see it say "Hello, Frank." Finally, change the `name=Frank` part to be your name. Now it's saying hello to you.
+
+Let's break down the changes I made to your script.
+
+1. Instead of just a string for greeting I'm now using the `params` hash to get data from the browser.  Sinatra takes all of the key/value pairs after the `?` part of the URL and adds them to the `params` hash for you to work with.
+2. I then construct the `greeting` from the `name` value we extracted via the `params[:name]` hash lookup, which should be very familiar to you by now.
+3. Everything else about the file is the same as before.
+
+You're also not restricted to just one parameter on the URL. Change this example to give two variables like this: `http://localhost:4567/hello?name=Frank&greet=Hola`. Then change the code to get `params[:name]` and `params[:greet]` like this:
+
+{% highlight ruby linenos %}
+greeting = "#{greet}, #{name}"
+{% endhighlight %}
+
+## Creating HTML Forms
+Passing the parameters on the URL works, but it's kind of ugly and not easy to use for regular people. What you really want is a "POST form", which is a special HTML file that has a `<form>` tag in it. This form will collect information from the user, then send it to your web application just like you did above.
+
+Let's make a quick one so you can see how it works. Here's the new HTML file you need to create, in `lib/views/hello_form.erb`:
+
+{% highlight erb linenos %}
+<html>
+    <head>
+        <title>Sample Web Form</title>
+    </head>
+<body>
+
+<h1>Fill Out This Form</h1>
+
+<form action="/hello" method="POST">
+    A Greeting: <input type="text" name="greet">
+    <br/>
+    Your Name: <input type="text" name="name">
+    <br/>
+    <input type="submit">
+</form>
+
+</body>
+</html>
+{% endhighlight %}
+
+You should then change `lib/gothonsweb.rb` to look like this:
+
+{% highlight ruby linenos %}
+require_relative "gothonweb/version"
+require "sinatra"
+require "erb"
+
+module Gothonweb
+
+  get '/' do
+    greeting = "Hello, World!"
+    erb :index, :locals => {:greeting => greeting}
+  end
+  
+  get '/hello' do
+    erb :hello_form
+  end
+
+  post '/hello' do
+    greeting = "#{params[:greet] || "Hello"}, #{params[:name] || "Nobody"}"
+    erb :index, :locals => {:greeting => greeting} 
+  end
+
+end
+{% endhighlight %}
+
+Once you've got those written up, simply restart the web application again and hit it with your browser like before.
+
+This time you'll get a form asking you for "A Greeting" and "Your Name". When you hit the Submit button on the form, it will give you the same greeting you normally get, but this time look at the URL in your browser. See how it's `http://localhost:4567/hello` even though you sent in parameters.
+
+The part of the `hello_form.erb` file that makes this work is the line with `<form action="/hello" method="POST">`. This tells your browser to:
+
+1. Collect data from the user using the form fields inside the form.
+2. Send them to the server using a POST type of request, which is just another browser request that "hides" the form fields.
+3. Send that to the `/hello` URL (as shown in the `action="/hello"` part).
+4. You can then see how the two `<input>` tags match the names of the variables in your new code. Also notice that instead of just a GET method inside class index, I have another method POST.
+
+How this new application works is:
+
+1. The browser first hits the web application at `/hello` but it sends a GET, so our `get '/hello/'` block runs and returns the `hello_form`.
+2. You fill out the form in the browser, and the browser does what the `<form>` says and sends the data as a POST.
+3. The web application then runs the `post '/hello'` block rather than the `get '/hello'` block to handle this request.
+4. This `post '/hello'` block then does what it normally does to send back the `hello` page like before. There's really nothing new in here, it's just moved into a new block.
+
+As an exercise, go into the `lib/views/index.erb` file and add a link back to just `/hello` so that you can keep filling out the form and seeing the results. Make sure you can explain how this link works and how it's letting you cycle between `lib/views/index.erb` and `lib/views/hello_form.erb` and what's being run inside this latest Ruby code.
+
+## Creating A Layout Template
+When you work on your game in the next Exercise, you'll need to make a bunch of little HTML pages. Writing a full web page each time will quickly become tedious. Luckily you can create a "layout" template, or a kind of shell that will wrap all your other pages with common headers and footers. Good programmers try to reduce repetition, so layouts are essential for being a good programmer.
+
+Change `lib/views/index.erb` to be like this:
+
+{% highlight erb linenos %}
+<% if greeting %>
+  <p>I just wanted to say <em style="color: green; font-size: 2em;"><%= greeting %></em>.
+<% else %>
+  <em>Hello</em>, world!
+<% end %>
+{% endhighlight %}
+
+Change `lib/views/hello_form.erb` to be like this:
+
+{% highlight erb linenos %}
+<h1>Fill Out This Form</h1>
+
+<form action="/hello" method="POST">
+    A Greeting: <input type="text" name="greet">
+    <br/>
+    Your Name: <input type="text" name="name">
+    <br/>
+    <input type="submit">
+</form>
+{% endhighlight %}
+
+All we're doing is stripping out the "boilerplate" at the top and the bottom which is always on every page. We'll put that back into a single `lib/views/layout.erb` file that handles it for us from now on.
+
+Once you have those changes, create a `lib/views/layout.erb` file with this in it:
+
+{% highlight erb linenos %}
+<html>
+  <head>
+    <title>Gothons From Planet Percal #25</title>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+{% endhighlight %}
+
+Sinatra automatically looks for a layout template called `layout` by default to use as the *base* template for all other templates.  You can customize which template is used as the base for any given page, too.   Restart your application and then try to change the layout in interesting ways, but without changing the other templates.
+
+## Writing Automated Tests For Forms
+It's easy to test a web application with your browser by just hitting refresh, but come on, we're programmers here. Why do some repetitive task when we can write some code to test our application? What you're going to do next is write a little test for your web application form based on what you learned in Exercise 47. If you don't remember Exercise 47, read it again.
+
+I've created a simple little function for that lets you assert things about your web application's response, aptly named `assert_response`. Create the file `test/tools.rb` with these contents:
+
+{% highlight ruby linenos %}
+require 'test/unit'
+
+def assert_response(resp, contains=nil, matches=nil, headers=nil, status=200)
+
+  assert_equal(resp.status, status, "Expected response #{status} not in #{resp}")
+
+  if status == 200
+    assert(resp.body, "Response data is empty.")
+  end
+
+  if contains
+    assert((resp.body.include? contains), "Response does not contain #{contains}")
+  end
+
+  if matches
+    reg = Regexp.new(matches)
+    assert reg.match(contains), "Response does not match #{matches}"
+  end
+
+  if headers
+    assert_equal(resp.headers, headers)
+  end
+
+end
+{% endhighlight %}
+
+Finally, run `test/test_gothonsweb.rb` to test your web application:
+
+    $ ruby test/test_gothonweb.rb 
+    Loaded suite test/test_gothonweb
+    Started
+    .
+    Finished in 0.023839 seconds.
+    
+    1 tests, 9 assertions, 0 failures, 0 errors, 0 skips
+    
+    Test run options: --seed 57414
+
+What I'm doing here is I'm actually importing the whole application from the `lib/gothonsweb.rb` library, then running it manually. 
+
+The `rack/test` library we have included has a very simple API for processing requests.  Its `get`, `put`, `post`, `delete`, and `head` methods simulate the respective type of request on the application.
+
+All mock request methods have the same argument signature:
+
+{% highlight ruby linenos %}
+get '/path', params={}, rack_env={}
+{% endhighlight %}
+
+* `/path` is the request path and may optionally include a query string.
+* `params` is a Hash of query/post parameters, a String request body, or nil.
+* `rack_env` is a Hash of Rack environment values. This can be used to set request headers and other request related information, such as session data.
+
+This works without running an actual web server so you can do tests with automated tests and also use your browser to test a running server.
+
+To validate responses from this function, use the `assert_response` function from `test/tools.rb` which has:
+
+{% highlight ruby linenos %}
+assert_response(resp, contains=nil, matches=nil, headers=nil, status=200)
+{% endhighlight %}
+
+Pass in the response you get from calling `get` or `post` then add things you want checked. Use the `contains` parameter to make sure that the response contains certain values. Use the `status` parameter to check for certain responses. There's actually quite a lot of information in this little function so it would be good for you to study it.
+
+In the `test/test_gothonsweb.rb` automated test I'm first making sure the `/foo` URL returns a "404 Not Found" response, since it actually doesn't exist. Then I'm checking that `/hello` works with both a GET and POST form. Following the test should be fairly simple, even if you might not totally know what's going on.
+
+Take some time studying this latest application, especially how the automated testing works.
+
+## Extra Credit
+1. Read even more about HTML, and give the simple form a better layout. It helps to draw what you want to do on paper and *then* implement it with HTML.
+2. This one is hard, but try to figure out how you'd do a file upload form so that you can upload an image and save it to the disk.
+3. This is even more mind-numbing, but go find the HTTP RFC (which is the document that describes how HTTP works) and read as much of it as you can. It is really boring, but comes in handy once in a while.
+4. This will also be really difficult, but see if you can find someone to help you setup a web server like Apache, Nginx, or thttpd. Try to serve a couple of your .html and .css files with it just to see if you can. Don't worry if you can't, web servers kind of suck.
+5. Take a break after this and just try making as many different web applications as you can. You should definitely read about sessions in Sinatra so you can understand how to keep state for a user.

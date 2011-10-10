@@ -1,0 +1,163 @@
+---
+layout: post
+title: "Exercise 48: Advanced User Input"
+---
+# Exercise 48: Advanced User Input
+Your game probably was coming along great, but I bet how you handled what the user typed was becoming tedious. Each room needed its own very exact set of phrases that only worked if your player typed them perfectly. What you'd rather have is a device that lets users type phrases in various ways. For example, we'd like to have all of these phrases work the same:
+
+* open door
+* open the door
+* go THROUGH the door
+* punch bear
+* Punch The Bear in the FACE
+
+It should be alright for a user to write something a lot like English for your game, and have your game figure out what it means. To do this, we're going to write a library that does just that. This module will have a few classes that work together to handle use input and convert it into something your game can work with reliably.
+
+In a simple version of English the following elements:
+
+* Words separated by spaces.
+* Sentences composed of the words.
+* Grammar that structures the sentences into meaning.
+
+That means the best place to start is figuring out how to get words from the user and what kinds of words those are.
+
+## Our Game Lexicon
+In our game we have to create a Lexicon of words:
+
+* Direction words: north, south, east, west, down, up, left, right, back.
+* Verbs: go, stop, kill, eat.
+* Stop words: the, in, of, from, at, it
+* Nouns: door, bear, princess, cabinet.
+* Numbers: any string of 0 through 9 characters.
+
+When we get to nouns, we have a slight problem since each room could have a different set of Nouns, but let's just pick this small set to work with for now and improve it later.
+
+## Breaking Up A Sentence
+Once we have our lexicon of words we need a way to break up sentences so that we can figure out what they are. In our case, we've defined a sentence as "words separated by spaces", so we really just need to do this:
+
+{% highlight ruby linenos %}
+stuff = gets.chomp()
+words = stuff.split()
+{% endhighlight %}
+
+That's really all we'll worry about for now, but this will work really well for quite a while.
+
+## Lexicon Structs
+Once we know how to break up a sentence into words, we just have to go through the list of words and figure out what "type" they are. To do that we're going to use a handy little Ruby structure called a "struct". A struct is a convenient way to bundle a number of attributes together, using accessor methods, without having to write an explicit class. It's created like this:
+
+{% highlight ruby linenos %}
+Pair = Struct.new(:token, :word)
+first_word = Pair.new("direction", "north")
+second_word = Pair.new("verb", "go")
+sentence = [first_word, second_word]
+{% endhighlight %}
+
+This creates a pair of (TOKEN, WORD) that lets you look at the word and do things with it.
+
+This is just an example, but that's basically the end result. You want to take input from the user, carve it into words with split, then analyze those words to identify their type, and finally make a sentence out of them.
+
+## Scanning Input
+Now you are ready to write your scanner. This scanner will take a string of input from a user and return a sentence that's composed of a list of structs with the (TOKEN, WORD) pairings. If a word isn't part of the lexicon then it should still return the WORD, but set the TOKEN to an error token. These error tokens will tell the user they messed up.
+
+Here's where it gets fun. I'm not going to tell you how to do this. Instead I'm going to write a unit test und you are going to write the scanner so that the unit test works.
+
+## Exceptions And Numbers
+There is one tiny thing I will help you with first, and that's converting numbers. In order to do this though, we're going to cheat and use exceptions. An exception is an error that you get from some function you may have run. What happens is your function "raises" an exception when it encounters an error, then you have to handle that exception. For example, if you type this into IRB:
+
+
+    ruby-1.9.2-p180 :001 > Integer("hell")
+    ArgumentError: invalid value for Integer(): "hell"
+    	from (irb):1:in `Integer'
+    	from (irb):1
+    	from /home/rob/.rvm/rubies/ruby-1.9.2-p180/bin/irb:16:in `<main>'
+
+That `ArgumentError` is an exception that the `Integer()` function threw because what you handed `Integer()` is not a number. The `Integer()` function could have returned a value to tell you it had an error, but since it only returns numbers, it'd have a hard time doing that. It can't return -1 since that's a number. Instead of trying to figure out what to return when there's an error, the `Integer()` function raises the `TypeError` exception and you deal with it.
+
+You deal with an exception by using the `begin` and `rescue` keywords:
+
+{% highlight ruby linenos %}
+def convert_number(s)
+  begin
+    Integer(s)
+  rescue ArgumentError
+    nil
+  end
+end
+{% endhighlight %}
+
+You put the code you want to "begin" inside the `begin` block, and then you put the code to run for the error inside the `rescue`. In this case, we want to call `Integer()` on something that might be a number. If that has an error, then we "rescue" it and return `nil` instead.
+
+In your scanner that you write, you should use this function to test if something is a number. You should also do it as the last thing you check for before declaring that word an error word.
+
+## What You Should Test
+Here are the files `test/test_lexicon.rb` that you should use:
+
+{% highlight ruby linenos %}
+require 'test/unit'
+require_relative "../lib/lexicon"
+
+class LexiconTests < Test::Unit::TestCase
+
+  Pair = Lexicon::Pair
+  @@lexicon = Lexicon.new()
+
+  def test_directions()
+    assert_equal([Pair.new(:direction, 'north')], @@lexicon.scan("north"))
+    result = @@lexicon.scan("north south east")
+    assert_equal(result, [Pair.new(:direction, 'north'),
+                 Pair.new(:direction, 'south'),
+                 Pair.new(:direction, 'east')])
+  end
+
+  def test_verbs()
+    assert_equal(@@lexicon.scan("go"), [Pair.new(:verb, 'go')])
+    result = @@lexicon.scan("go kill eat")
+    assert_equal(result, [Pair.new(:verb, 'go'),
+                 Pair.new(:verb, 'kill'),
+                 Pair.new(:verb, 'eat')])
+  end
+
+  def test_stops()
+    assert_equal(@@lexicon.scan("the"), [Pair.new(:stop, 'the')])
+    result = @@lexicon.scan("the in of")
+    assert_equal(result, [Pair.new(:stop, 'the'),
+                 Pair.new(:stop, 'in'),
+                 Pair.new(:stop, 'of')])
+  end
+
+  def test_nouns()
+    assert_equal(@@lexicon.scan("bear"), [Pair.new(:noun, 'bear')])
+    result = @@lexicon.scan("bear princess")
+    assert_equal(result, [Pair.new(:noun, 'bear'),
+                 Pair.new(:noun, 'princess')])
+  end
+
+  def test_numbers()
+    assert_equal(@@lexicon.scan("1234"), [Pair.new(:number, 1234)])
+    result = @@lexicon.scan("3 91234")
+    assert_equal(result, [Pair.new(:number, 3),
+                 Pair.new(:number, 91234)])
+  end
+
+  def test_errors()
+    assert_equal(@@lexicon.scan("ASDFADFASDF"), [Pair.new(:error, 'ASDFADFASDF')])
+    result = @@lexicon.scan("bear IAS princess")
+    assert_equal(result, [Pair.new(:noun, 'bear'),
+                 Pair.new(:error, 'IAS'),
+                 Pair.new(:noun, 'princess')])
+  end
+
+end
+{% endhighlight %}
+
+Remember that you will want to make a new project with your skeleton, type in this test case (do not copy-paste!) and write your scanner so that the test runs. Focus on the details and make sure everything works right.
+
+## Design Hints
+Focus on getting one test working at a time. Keep this simple and just put all the words in your lexicon in lists that are in your `lexicon.rb` file. Do not modify the input list of words, but instead make your own new list with your lexicon pairs in it. Also, use the `include?` method with these lexicon arrays to check if a word is in the lexicon.
+
+## Extra Credit
+1. Improve the unit test to make sure you cover more of the lexicon.
+2. Add to the lexicon and then update the unit test.
+3. Make your scanner handles user input in any capitalization and case. Update the test to make sure this actually works.
+4. Find another way to convert the number.
+5. My solution was 37 lines long. Is yours longer? Shorter?

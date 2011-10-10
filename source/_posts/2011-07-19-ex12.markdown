@@ -1,0 +1,32 @@
+---
+layout: post
+title: "Exercise 12: Libraries"
+---
+# Exercise 12: Libraries
+
+Take a look at this code:
+
+{% highlight ruby linenos %}
+require 'open-uri'
+
+open("http://www.ruby-lang.org/en") do |f|
+  f.each_line {|line| p line}
+  puts f.base_uri         # <URI::HTTP:0x40e6ef2 URL:http://www.ruby-lang.org/en/>
+  puts f.content_type     # "text/html"
+  puts f.charset          # "iso-8859-1"
+  puts f.content_encoding # []
+  puts f.last_modified    # Thu Dec 05 02:45:02 UTC 2002
+end
+{% endhighlight %}
+
+On line 1 we have what's called a "require". This is how you add features to your script from the Ruby feature set or other sources (e.g., Ruby Gems, stuff you wrote yourself). Rather than give you all the features at once, Ruby asks you to say what you plan to use. This keeps your programs small, but it also acts as documentation for other programmers who read your code later.
+
+## Hold Up! Features Have Another Name
+I call them "features" here (these little things you require to make your Ruby program do more) but nobody else calls them features. I just used that name because I needed to trick you into learning what they are without jargon. Before you can continue, you need to learn their real name: `libraries`.
+
+From now on we will be calling these "features" that we require `libraries`. I'll say things like, "You want to require the `open-uri` library." They are also called "modules" by other programmers, but let's just stick with `libraries`.
+
+## Extra Credit
+1. Research the difference between `require` and `include`. How are they different? 
+2. Can you `require` a script that doesn't contain a `library` specifically?
+3. Figure out which directories on your system Ruby will look in to find the libraries you require.

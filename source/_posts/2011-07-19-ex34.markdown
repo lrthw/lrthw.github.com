@@ -1,0 +1,54 @@
+---
+layout: post
+title: "Exercise 34: Accessing Elements Of Arrays"
+---
+# Exercise 34: Accessing Elements Of Arrays
+
+Arrays are pretty useful, but unless you can get at the things in them they aren't all that great. You can already go through the elements of a list in order, but what if you want say, the 5th element? You need to know how to access the elements of an array. Here's how you would access the first element of an array:
+
+{% highlight ruby linenos %}
+animals = ['bear', 'tiger', 'penguin', 'zebra']
+bear = animals[0]
+{% endhighlight %}
+You take a list of animals, and then you get the first one using `0`?! How does that work? Because of the way math works, Ruby start its lists at 0 rather than 1. It seems weird, but there's many advantages to this, even though it is mostly arbitrary.
+
+The best way to explain why is by showing you the difference between how you use numbers and how programmers use numbers.
+
+Imagine you are watching the four animals in our array above (`['bear', 'tiger', 'penguin', 'zebra']`) run in a race. They win in the order we have them in this array. The race was really exciting because the animals didn't eat each other and somehow managed to run a race. Your friend, however, shows up late and wants to know who won. Does your friend say, "Hey, who came in zeroth?" No, he says, "Hey, who came in first?"
+
+This is because the order of the animals is important. You can't have the second animal without the first animal, and can't have the third without the second. It's also impossible to have a "zeroth" animal since zero means nothing. How can you have a nothing win a race? It just doesn't make sense. We call these kinds of numbers "ordinal" numbers, because they indicate an ordering of things.
+
+Programmers, however, can't think this way because they can pick any element out of a list at any point. To a programmer, the above list is more like a deck of cards. If they want the tiger, they grab it. If they want the zebra, they can take it too. This need to pull elements out of lists at random means that they need a way to indicate elements consistently by an address, or an "index", and the best way to do that is to start the indices at 0. Trust me on this, the math is way easier for these kinds of accesses. This kind of number is a "cardinal" number and means you can pick at random, so there needs to be a 0 element.
+
+So, how does this help you work with arrays? Simple, every time you say to yourself, "I want the 3rd animal," you translate this "ordinal" number to a "cardinal" number by subtracting 1. The "3rd" animal is at index 2 and is the penguin. You have to do this because you have spent your whole life using ordinal numbers, and now you have to think in cardinal. Just subtract 1 and you will be good.
+
+Remember: ordinal == ordered, 1st; cardinal == cards at random, 0.
+
+Let's practice this. Take this list of animals, and follow the exercises where I tell you to write down what animal you get for that ordinal or cardinal number. Remember if I say "first", "second", etc. then I'm using ordinal, so subtract 1. If I give you cardinal (0, 1, 2) then use it directly.
+
+{% highlight ruby linenos %}
+animals = ['bear', 'python', 'peacock', 'kangaroo', 'whale', 'platypus']
+{% endhighlight %}
+
+The animal at 1.
+The 3rd animal.
+The 1st animal.
+The animal at 3.
+The 5th animal.
+The animal at 2.
+The 6th animal.
+The animal at 4.
+
+For each of these, write out a full sentence of the form: "The 1st animal is at 0 and is a bear." Then say it backwards, "The animal at 0 is the 1st animal and is a bear."
+
+Use your Ruby to check your answers.
+
+**Hint:** Ruby has also a few convenience methods for accessing particular elements in an array: `animals.first` and `animals.last` 
+
+## Extra Credit
+1. Read about ordinal and cardinal numbers online.
+2. With what you know of the difference between these types of numbers, can you explain why this really is 2010? (Hint, you can't pick years at random.)
+3. Write some more arrays and work out similar indexes until you can translate them.
+4. Use Ruby to check your answers to this as well.
+
+> **Warning:** Programmers will tell you to read this guy named "Dijkstra" on this subject. I recommend you avoid his writings on this unless you enjoy being yelled at by someone who stopped programming at the same time programming started.

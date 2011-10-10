@@ -1,0 +1,210 @@
+---
+layout: post
+title: "Exercise 49: Making Sentences"
+---
+# Exercise 49: Making Sentences
+What we should be able to get from our little game lexicon scanner is a list that looks like this (yours
+will be formatted differently):
+
+{% highlight ruby linenos %}
+ruby-1.9.2-p180 :003 > print Lexicon.scan("go north")
+[#<struct Lexicon::Pair token=:verb, word="go">,
+    #<struct Lexicon::Pair token=:direction, word="north">] => nil 
+ruby-1.9.2-p180 :004 > print Lexicon.scan("kill the princess")
+[#<struct Lexicon::Pair token=:verb, word="kill">,
+    #<struct Lexicon::Pair token=:stop, word="the">,
+    #<struct Lexicon::Pair token=:noun, word="princess">] => nil
+ruby-1.9.2-p180 :005 > print Lexicon.scan("eat the bear")
+[#<struct Lexicon::Pair token=:verb, word="eat">,
+    #<struct Lexicon::Pair token=:stop, word="the">,
+    #<struct Lexicon::Pair token=:noun, word="bear">] => nil 
+ruby-1.9.2-p180 :006 > print Lexicon.scan("open the door and smack the bear in the nose")
+[#<struct Lexicon::Pair token=:error, word="open">,
+    #<struct Lexicon::Pair token=:stop, word="the">, 
+    #<struct Lexicon::Pair token=:noun, word="door">, 
+    #<struct Lexicon::Pair token=:error, word="and">, 
+    #<struct Lexicon::Pair token=:error, word="smack">, 
+    #<struct Lexicon::Pair token=:stop, word="the">, 
+    #<struct Lexicon::Pair token=:noun, word="bear">, 
+    #<struct Lexicon::Pair token=:stop, word="in">, 
+    #<struct Lexicon::Pair token=:stop, word="the">, 
+    #<struct Lexicon::Pair token=:error, word="nose">] => nil 
+ruby-1.9.2-p180 :007 >
+{% endhighlight %}
+
+Now let us turn this into something the game can work with, which would be some kind of Sentence class.
+
+If you remember grade school, a sentence can be a simple structure like:
+
+> Subject Verb Object
+
+Obviously it gets more complex than that, and you probably did many days of annoying sentence graphs for English class. What we want is to turn the above lists of structs into a nice Sentence object that has subject, verb, and object.
+
+## Match And Peek
+To do this we need four tools:
+
+1. A way to loop through the list of structs. That's easy.
+2. A way to "match" different types of structs that we expect in our Subject Verb Object setup.
+3. A way to "peek" at a potential struct so we can make some decisions.
+4. A way to "skip" things we do not care about, like stop words.
+5. We use the peek function to say look at the next element in our struct array, and then match to take one off and work with it. Let's take a look at a first peek function:
+
+{% highlight ruby linenos %}
+def peek(word_list)
+  begin
+    word_list.first.token
+  rescue
+    nil
+  end
+end
+{% endhighlight %}
+
+Very easy. Now for the match function:
+
+{% highlight ruby linenos %}
+def match(word_list, expecting)
+  begin
+    word = word_list.shift
+    if word.token == expecting
+      word
+    else
+      nil
+    end
+  rescue
+    nil
+  end
+end
+{% endhighlight %}
+
+Again, very easy, and finally our skip function:
+
+{% highlight ruby linenos %}
+def skip(word_list, word_type)
+  while peek(word_list) == word_type
+    match(word_list, word_type)
+  end
+end
+{% endhighlight %}
+
+By now you should be able to figure out what these do. Make sure you understand them.
+
+## The Sentence Grammar
+With our tools we can now begin to build Sentence objects from our array of structs. What we do is a process of:
+
+1. Identify the next word with `peek`.
+2. If that word fits in our grammar, we call a function to handle that part of the grammar, say `parse_subject`.
+3. If it doesn't, we `raise` an error, which you will learn about in this lesson.
+4. When we're all done, we should have a Sentence object to work with in our game.
+
+The best way to demonstrate this is to give you the code to read, but here's where this exercise is different from the previous one: You will write the test for the parser code I give you. Rather than giving you the test so you can write the code, I will give you the code, and you have to write the test.
+
+Here's the code that I wrote for parsing simple sentences using the `ex48` Lexicon class:
+
+{% highlight ruby linenos %}
+class ParserError < Exception
+
+end
+
+class Sentence
+
+  def initialize(subject, verb, object)
+    # remember we take Pair.new(:noun, "princess") structs and convert them
+    @subject = subject.word
+    @verb = verb.word
+    @object = object.word
+  end
+
+end
+
+def peek(word_list)
+  begin
+    word_list.first.token
+  rescue
+    nil
+  end
+end
+
+def match(word_list, expecting)
+  begin
+    word = word_list.shift
+    if word.token == expecting
+      word
+    else
+      nil
+    end
+  rescue
+    nil
+  end
+end
+
+def skip(word_list, token)
+  while peek(word_list) == token
+    match(word_list, token)
+  end
+end
+
+def parse_verb(word_list)
+  skip(word_list, :stop)
+
+  if peek(word_list) == :verb
+    return match(word_list, :verb)
+  else
+    raise ParserError.new("Expected a verb next.")
+  end
+end
+
+def parse_object(word_list)
+  skip(word_list, :stop)
+  next_word = peek(word_list)
+
+  if next_word == :noun
+    return match(word_list, :noun)
+  end
+  if next_word == :direction
+    return match(word_list, :direction)
+  else
+    raise ParserError.new("Expected a noun or direction next.")
+  end
+end
+
+def parse_subject(word_list, subj)
+  verb = parse_verb(word_list)
+  obj = parse_object(word_list)
+
+  return Sentence.new(subj, verb, obj)
+end
+
+def parse_sentence(word_list)
+  skip(word_list, :stop)
+
+  start = peek(word_list)
+
+  if start == :noun
+    subj = match(word_list, :noun)
+    return parse_subject(word_list, subj)
+  elsif start == :verb
+    # assume the subject is the player then
+    return parse_subject(word_list, Pair.new(:noun, "player"))
+  else
+    raise ParserError.new("Must start with subject, object, or verb not: #{start}")
+  end
+end
+{% endhighlight %}
+
+## A Word On Exceptions
+You briefly learned about exceptions, but not how to raise them. This code demonstrates how to do that with the `ParserError` at the top. Notice that it uses classes to give it the type of `Exception`. Also notice the use of `raise` keyword to raise the exception.
+
+In your tests, you will want to work with these exceptions, which I'll show you how to do.
+
+## What You Should Test
+For Exercise 49 is write a complete test that confirms everything in this code is working. That includes making exceptions happen by giving it bad sentences.
+
+Check for an exception by using the function `assert_raise` from the Test::Unit documentation. Learn how to use this so you can write a test that is expected to fail, which is very important in testing. Learn about this function (and others) by reading the Test::Unit documentation.
+
+When you are done, you should know how this bit of code works, and how to write a test for other people's code even if they do not want you to. Trust me, it's a very handy skill to have.
+
+## Extra Credit
+1. Change the `parse_` methods and try to put them into a class rather than be just methods. Which design do you like better?
+2. Make the parser more error resistant so that you can avoid annoying your users if they type words your lexicon doesn't understand.
+3. Improve the grammar by handling more things like numbers.
+4. Think about how you might use this Sentence class in your game to do more fun things with a user's input.

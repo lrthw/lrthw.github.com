@@ -1,0 +1,28 @@
+---
+layout: post
+title: "Exercise 38: Reading Code"
+---
+# Exercise 38: Reading Code
+Now go find some Ruby code to read. You should be reading any Ruby code you can and trying to steal ideas that you find. You actually should have enough knowledge to be able to read, but maybe not understand what the code does. What I'm going to teach you in this lesson is how to apply things you have learned to understand other people's code.
+
+First, print out the code you want to understand. Yes, print it out, because your eyes and brain are more used to reading paper than computer screens. Make sure you only print a few pages at a time.
+
+Second, go through your printout and take notes of the following:
+
+1. Functions and what they do.
+2. Where each variable is first given a value.
+3. Any variables with the same names in different parts of the program. These may be trouble later.
+4. Any `if-statements` without `else` clauses. Are they right?
+5. Any `while-loops` that might not end.
+6. Finally, any parts of code that you can't understand for whatever reason.
+
+Third, once you have all of this marked up, try to explain it to yourself by writing comments as you go. Explain the functions, how they are used, what variables are involved, anything you can to figure this code out.
+
+Lastly, on all of the difficult parts, trace the values of each variable line by line, function by function. In fact, do another printout and write in the margin the value of each variable that you need to "trace".
+
+Once you have a good idea of what the code does, go back to the computer and read it again to see if you find new things. Keep finding more code and doing this until you do not need the printouts anymore.
+
+# Extra Credit
+1. Find out what a "flow chart" is and write a few.
+2. If you find errors in code you are reading, try to fix them and send the author your changes.
+3. Another technique for when you are not using paper is to put `#` comments with your notes in the code. Sometimes, these could become the actual comments to help the next person.

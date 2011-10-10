@@ -1,0 +1,122 @@
+---
+layout: post
+title: "Exercise 25: Even More Practice"
+---
+# Exercise 25: Even More Practice
+
+We're going to do some more practice involving functions and variables to make sure you know them well. This exercise should be straight forward for you to type in, break down, and understand.
+
+However, this exercise is a little different. You won't be running it. Instead *you* will import it into your Ruby interpreter and run the functions yourself.
+
+{% highlight ruby linenos %}
+module Ex25
+  def self.break_words(stuff)
+    # This function will break up words for us.
+    words = stuff.split(' ')
+    words
+  end
+
+  def self.sort_words(words)
+    # Sorts the words.
+    words.sort() 
+  end
+
+  def self.print_first_word(words)
+    # Prints the first word and shifts the others down by one.
+    word = words.shift()
+    puts word
+  end
+
+  def self.print_last_word(words)
+    # Prints the last word after popping it off the end.
+    word = words.pop()
+    puts word
+  end
+
+  def self.sort_sentence(sentence)
+    # Takes in a full sentence and returns the sorted words.
+    words = break_words(sentence)
+    sort_words(words)
+  end
+
+  def self.print_first_and_last(sentence)
+    # Prints the first and last words of the sentence.
+    words = break_words(sentence)
+    print_first_word(words)
+    print_last_word(words)
+  end
+
+  def self.print_first_and_last_sorted(sentence)
+    # Sorts the words then prints the first and last one.
+    words = sort_sentence(sentence)
+    print_first_word(words)
+    print_last_word(words)
+  end
+end
+{% endhighlight %}
+
+First, run this like normal with `ruby ex25.rb` to find any errors you have made. Once you have found all of the errors you can and fixed them, you will then want to follow the WYSS section to complete the exercise.
+
+## What You Should See
+
+In this exercise we're going to interact with your `.rb` file inside the Ruby interpreter (IRB) you used periodically to do calculations.
+
+Here's what it looks like when I do it:
+
+    $ irb
+    irb(main):001:0> require './ex25'
+    => true
+    irb(main):002:0> sentence = "All good things come to those who wait."
+    => "All good things come to those who wait."
+    irb(main):003:0> words = Ex25.break_words(sentence)
+    => ["All", "good", "things", "come", "to", "those", "who", "wait."]
+    irb(main):004:0> sorted_words = Ex25.sort_words(words)
+    => ["All", "come", "good", "things", "those", "to", "wait.", "who"]
+    irb(main):005:0> Ex25.print_first_word(words)
+    All
+    => nil
+    irb(main):006:0> Ex25.print_last_word(words)
+    wait.
+    => nil
+    irb(main):007:0> Ex25.wrods
+    NoMethodError: undefined method `wrods' for Ex25:Module
+            from (irb):6
+    irb(main):008:0> words
+    => ["good", "things", "come", "to", "those", "who"]
+    irb(main):009:0> Ex25.print_first_word(sorted_words)
+    All
+    => nil
+    irb(main):010:0> Ex25.print_last_word(sorted_words)
+    who
+    => nil
+    irb(main):011:0> sorted_words
+    => ["come", "good", "things", "those", "to", "wait."]
+    irb(main):012:0> Ex25.sort_sentence(sentence)
+    => ["All", "come", "good", "things", "those", "to", "wait.", "who"]
+    irb(main):013:0> Ex25.print_first_and_last(sentence)
+    All
+    wait.
+    => nil
+    irb(main):014:0> Ex25.print_first_and_last_sorted(sentence)
+    All
+    who
+    => nil
+    irb(main):015:0> ^D
+    $
+
+Let's break this down line by line to make sure you know what's going on:
+
+1. Line 2 you require your `./ex25.rb` Ruby file, just like other requires you have done. Notice you do not need to put the `.rb` at the end to require it. When you do this you make a `module` that has all your functions in it to use.
+2. Line 4 you made a `sentence` to work with.
+3. Line 6 you use the `Ex25` module and call your first function `Ex25.break_words`. The `.` (dot, period) symbol is how you tell Ruby, "Hey, inside `Ex25` there's a function called `break_words` and I want to run it."
+4. Line 8 we do the same thing with `Ex25.sort_words` to get a sorted sentence.
+5. Lines 10-15 we use `Ex25.print_first_word` and `Ex25.print_last_word` to get the first and last word printed out.
+6. Line 16 is interesting. I made a mistake and typed the `words` variable as `wrods` so Ruby gave me an error on Lines 17-18.
+7. Lines 19-20 is where we print the modified words list. Notice that since we printed the first and last one, those words are now missing.
+8. The remaining lines are for you to figure out and analyze in the extra credit.
+
+## Extra Credit
+
+1. Take the remaining lines of the WYSS output and figure out what they are doing. Make sure you understand how you are running your functions in the Ex25 module.
+2. The reason we put our functions in a `module` is so they have their own namespace.  If someone else writes a function called `break_words`, we won't collide.  However, if typing `Ex25.` is annoying, you can type `include Ex25` which is like saying, "Include everything from the Ex25 module in my current module."
+3. Try breaking your file and see what it looks like in Ruby when you use it. You will have to quit IRB with CTRL-D to be able to reload it.

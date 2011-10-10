@@ -1,0 +1,110 @@
+---
+layout: post
+title: "Exercise 46: A Project Skeleton"
+---
+# Exercise 46: A Project Skeleton
+This will be where you start learning how to setup a good project "skeleton" directory. This skeleton directory will have all the basics you need to get a new project up and running. It will have your project layout, automated tests, modules, and install scripts.
+
+## Skeleton Contents: Linux/OSX
+First, create the structure of your skeleton directory with these commands:
+
+    $ mkdir -p projects
+    $ cd projects/
+    $ mkdir skeleton
+    $ cd skeleton
+    $ mkdir bin lib lib/NAME test
+
+I use a directory named projects to store all the various things I'm working on. Inside that directory I have my skeleton directory that I put the basis of my projects into. The directory NAME will be renamed to whatever you are calling your project's main module when you use the skeleton.
+
+Next we need to setup some initial files:
+
+    $ touch lib/NAME.rb
+    $ touch lib/NAME/version.rb
+
+Then we can create a `NAME.gemspec` file in our project's root directory which we can use to install our project later if we want:
+
+{% highlight ruby linenos %}
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "NAME/version"
+
+Gem::Specification.new do |s|
+  s.name        = "NAME"
+  s.version     = NAME::VERSION
+  s.authors     = ["Rob Sobers"]
+  s.email       = ["rsobers@gmail.com"]
+  s.homepage    = ""
+  s.summary     = %q{TODO: Write a gem summary}
+  s.description = %q{TODO: Write a gem description}
+
+  s.rubyforge_project = "NAME"
+
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+end
+{% endhighlight %}
+
+Edit this file so that it has your contact information and is ready to go for when you copy it.
+
+Finally you will want a simple skeleton file for unit tests (which will talk about more in the next lesson) named `test/test_NAME.rb`:
+
+{% highlight ruby linenos %}
+require 'test/unit'
+
+class MyUnitTests < Test::Unit::TestCase
+
+  def setup
+    puts "setup!"
+  end
+
+  def teardown
+    puts "teardown!"
+  end
+
+  def test_basic
+    puts "I RAN!"
+  end
+
+end
+{% endhighlight %}
+
+## Installing Gems
+Gems are packages of Ruby code that help you get things done, so you will need to know how to install them and use them. Here's the problem though. You are at a point where it's difficult for me to help you do that and keep this book sane and clean. There are so many ways to install software on so many computers that I'd have to spend 10 pages walking you through every step, and let me tell you I am a lazy guy.
+
+Rather than tell you how to do it exactly, I'm going to tell you what you should install, and then tell you to figure it out and get it working. This will be really good for you since it will open a whole world of software you can use that other people have released to the world.
+
+Next, install the following software packages:
+
+* git - http://git-scm.com/
+* rake - http://rake.rubyforge.org/
+* rvm - https://rvm.beginrescueend.com/
+* rubygems - http://rubygems.org/pages/download
+* bundler - http://gembundler.com/ 
+
+Do not just download these packages and install them by hand. Instead see how other people recommend you install these packages and use them for your particular system. The process will be different for most versions of Linux, OSX, and definitely different for Windows.
+
+I am warning you, this will be frustrating. In the business we call this "yak shaving". Yak shaving is any activity that is mind numblingly irritatingly boring and tedious that you have to do before you can do something else that's more fun. You want to create cool Ruby projects, but you can't do that until you setup a skeleton directory, but you can't setup a skeleton directory until you install some packages, but you can't install packages until you install package installers, and you can't install package installers until you figure out how your system installs software in general, and so on.
+
+Struggle through this anyway. Consider it your trial-by-annoyance to get into the programmer club. Every programmer has to do these annoying tedious tasks before they can do something cool.
+
+## Using The Skeleton
+You are now done with most of your yak shaving. Whenever you want to start a new project, just do this:
+
+1. Make a copy of your skeleton directory. Name it after your new project.
+2. Rename (move) the NAME directory and `NAME.rb` file to be the name of your project.
+3. Edit your `NAME.gemspec` file to have all the information for your project.
+4. Rename `test/test_NAME.rb` to also have your project name.
+5. Start coding.
+
+## Required Quiz
+This exercise doesn't have extra credit but a quiz you should complete:
+
+1. Read about how to use all of the things you installed.
+2. Read about the `NAME.gemspec` file and all it has to offer.
+3. Make a project and start writing some code in the `NAME.rb` script.
+4. Put a script in the `bin` directory that you can run. Read about how you can make a Ruby script that's runnable for your system.
+5. Make sure the `bin` script you created is referenced in your `NAME.gemspec` so that it gets installed.
+6. Use your `NAME.gemspec` and `gem build` `gem install` to install your own library and make sure it works, then use `gem uninstall` to uninstall it.
+7. Figure out how you can use Bundler to generate a skeleton directory automatically.

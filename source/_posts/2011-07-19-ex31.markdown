@@ -1,0 +1,115 @@
+---
+layout: post
+title: "Exercise 31: Making Decisions"
+---
+# Exercise 31: Making Decisions
+
+In the first half of this book you mostly just printed out things and called functions, but everything was basically in a straight line. Your scripts ran starting at the top, and went to the bottom where they ended. If you made a function you could run that function later, but it still didn't have the kind of branching you need to really make decisions. Now that you have `if`, `else`, and `elsif` you can start to make scripts that decide things.
+
+In the last script you wrote out a simple set of tests asking some questions. In this script you will ask the user questions and make decisions based on their answers. Write this script, and then play with it quite a lot to figure it out.
+
+{% highlight ruby linenos %}
+def prompt
+  print "> "
+end
+
+puts "You enter a dark room with two doors.  Do you go through door #1 or door #2?"
+
+prompt; door = gets.chomp
+
+if door == "1"
+  puts "There's a giant bear here eating a cheese cake.  What do you do?"
+  puts "1. Take the cake."
+  puts "2. Scream at the bear."
+
+  prompt; bear = gets.chomp
+
+  if bear == "1"
+    puts "The bear eats your face off.  Good job!"
+  elsif bear == "2"
+    puts "The bear eats your legs off.  Good job!"
+  else
+    puts "Well, doing #{bear} is probably better.  Bear runs away."
+  end
+
+elsif door == "2"
+  puts "You stare into the endless abyss at Cthuhlu's retina."
+  puts "1. Blueberries."
+  puts "2. Yellow jacket clothespins."
+  puts "3. Understanding revolvers yelling melodies."
+
+  prompt; insanity = gets.chomp 
+
+  if insanity == "1" or insanity == "2"
+    puts "Your body survives powered by a mind of jello.  Good job!"
+  else
+    puts "The insanity rots your eyes into a pool of muck.  Good job!"
+  end
+
+else
+  puts "You stumble around and fall on a knife and die.  Good job!"
+end
+{% endhighlight %}
+
+A key point here is that you are now putting the `if-statements` *inside* `if-statements` as code that can run. This is very powerful and can be used to create "nested" decisions, where one branch leads to another and another.
+
+Make sure you understand this concept of `if-statements` inside `if-statements`. In fact, do the extra credit to really nail it.
+
+## What You Should See
+Here is me playing this little adventure game. I do not do so well.
+
+    $ ruby ex31.rb
+    You enter a dark room with two doors.  Do you go through door #1 or door #2?
+    > 1
+    There's a giant bear here eating a cheese cake.  What do you do?
+    1. Take the cake.
+    2. Scream at the bear.
+    > 2
+    The bear eats your legs off.  Good job!
+    
+    $ ruby ex31.rb 
+    You enter a dark room with two doors.  Do you go through door #1 or door #2?
+    > 1
+    There's a giant bear here eating a cheese cake.  What do you do?
+    1. Take the cake.
+    2. Scream at the bear.
+    > 1
+    The bear eats your face off.  Good job!
+    
+    $ ruby ex31.rb 
+    You enter a dark room with two doors.  Do you go through door #1 or door #2?
+    > 2
+    You stare into the endless abyss at Cthuhlu's retina.
+    1. Blueberries.
+    2. Yellow jacket clothespins.
+    3. Understanding revolvers yelling melodies.
+    > 1
+    Your body survives powered by a mind of jello.  Good job!
+    
+    $ ruby ex31.rb 
+    You enter a dark room with two doors.  Do you go through door #1 or door #2?
+    > 2
+    You stare into the endless abyss at Cthuhlu's retina.
+    1. Blueberries.
+    2. Yellow jacket clothespins.
+    3. Understanding revolvers yelling melodies.
+    > 3
+    The insanity rots your eyes into a pool of muck.  Good job!
+    
+    $ ruby ex31.rb
+    You enter a dark room with two doors.  Do you go through door #1 or door #2?
+    > stuff
+    You stumble around and fall on a knife and die.  Good job!
+    
+    $ ruby ex31.rb 
+    You enter a dark room with two doors.  Do you go through door #1 or door #2?
+    > 1
+    There's a giant bear here eating a cheese cake.  What do you do?
+    1. Take the cake.
+    2. Scream at the bear.
+    > apples
+    Well, doing apples is probably better.  Bear runs away.
+
+## Extra Credit
+
+Make new parts of the game and change what decisions people can make. Expand the game out as much as you can before it gets ridiculous.

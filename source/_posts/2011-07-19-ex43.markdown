@@ -1,0 +1,19 @@
+---
+layout: post
+title: "Exercise 43: You Make A Game"
+---
+# Exercise 43: You Make A Game
+You need to start learning to feed yourself. Hopefully as you have worked through this book, you have learned that all the information you need is on the internet, you just have to go search for it. The only thing you have been missing are the right words and what to look for when you search. Now you should have a sense of it, so it's about time you struggled through a big project and tried to get it working.
+
+Here are your requirements:
+
+1. Make a different game from the one I made.
+2. Use more than one file, and use `require` to use them. Make sure you know what that is.
+3. Use one class per room and give the classes names that fit their purpose. Like `GoldRoom`, `KoiPondRoom`.
+4. Your runner will need to know about these rooms, so make a class that runs them and knows about them. There's plenty of ways to do this, but consider having each room return what room is next or setting a variable of what room is next.
+
+Other than that I leave it to you. Spend a whole week on this and make it the best game you can. Use classes, functions, dicts, lists anything you can to make it nice. The purpose of this lesson is to teach you how to structure classes that need other classes inside other files.
+
+Remember, I'm not telling you exactly how to do this because you have to do this yourself. Go figure it out. Programming is problem solving, and that means trying things, experimenting, failing, scrapping your work, and trying again. When you get stuck, ask for help and show people your code. If they are mean to you, ignore them, focus on the people who are not mean and offer to help. Keep working it and cleaning it until it's good, then show it some more.
+
+Good luck, and see you in a week with your game.

@@ -1,0 +1,45 @@
+---
+layout: post
+title: "Exercise 44: Evaluating Your Game"
+---
+# Exercise 44: Evaluating Your Game
+In this exercise you will evaluate the game you just made. Maybe you got part-way through it and you got stuck. Maybe you got it working but just barely. Either way, we're going to go through a bunch of things you should know now and make sure you covered them in your game. We're going to study how to properly format a class, common conventions in using classes, and a lot of "textbook" knowledge.
+
+Why would I have you try to do it yourself and then show you how to do it right? From now on in the book I'm going to try to make you self-sufficient. I've been holding your hand mostly this whole time, and I can't do that for much longer. I'm now instead going to give you things to do, have you do them on your own, and then give you ways to improve what you did.
+
+You will struggle at first and probably be very frustrated but stick with it and eventually you will build a mind for solving problems. You will start to find creative solutions to problems rather than just copy solutions out of textbooks.
+
+## Function Style
+All the other rules I've taught you about how to make a function nice apply here, but add these things:
+
+* For various reasons, programmers call functions that are part of classes `methods`. It's mostly marketing but just be warned that every time you say "function" they'll annoyingly correct you and say "method". If they get too annoying, just ask them to demonstrate the mathematical basis that determines how a "method" is different from a "function" and they'll shut up.
+* When you work with classes much of your time is spent talking about making the class "do things". Instead of naming your functions after what the function does, instead name it as if it's a command you are giving to the class. Same as `pop` is saying "Hey array, `pop` this off." It isn't called `remove_from_end_of_list` because even though that's what it does, that's not a command to an `array`.
+* Keep your functions small and simple. For some reason when people start learning about classes they forget this.
+
+## Class Style
+* Your class should use "proper case" like `SuperGoldFactory` rather than `super_gold_factory`.
+* Try not to do too much in your `initialize` functions. It makes them harder to use.
+* Your other functions should use "underscore format" so write `my_awesome_hair` and not `myawesomehair` or `MyAwesomeHair`.
+* Be consistent in how you organize your function arguments. If your class has to deal with users, dogs, and cats, keep that order throughout unless it really doesn't make sense. If you have one function takes (`dog`, `cat`, `user`) and the other takes (`user`, `cat`, `dog`), it'll be hard to use.
+* Try not to use variables that come from the module or globals. They should be fairly self-contained.
+* A foolish consistency is the hobgoblin of little minds. Consistency is good, but foolishly following some idiotic mantra because everyone else does is bad style. Think for yourself.
+
+## Code Style
+* Give your code vertical space so people can read it. You will find some very bad programmers who are able to write reasonable code, but who do not add any spaces. This is bad style in any language because the human eye and brain use space and vertical alignment to scan and separate visual elements. Not having space is the same as giving your code an awesome camouflage paint job.
+* If you can't read it out loud, it's probably hard to read. If you are having a problem making something easy to use, try reading it out loud. Not only does this force you to slow down and really read it, but it also helps you find difficult passages and things to change for readability.
+* Try to do what other people are doing in Ruby until you find your own style.
+* Once you find your own style, do not be a jerk about it. Working with other people's code is part of being a programmer, and other people have really bad taste. Trust me, you will probably have really bad taste too and not even realize it.
+* If you find someone who writes code in a style you like, try writing something that mimics their style.
+
+## Good Comments
+* There are programmers who will tell you that your code should be readable enough that you do not need comments.  They'll then tell you in their most official sounding voice that, "Ergo you should never write comments." Those programmers are either consultants who get paid more if other people can't use their code, or incompetents who tend to never work with other people. Ignore them and write comments.
+* When you write comments, describe why you are doing what you are doing. The code already says how, but why you did things the way you did is more important.
+* When you write here doc dcomments for your functions, make the comments documentation for someone who will have to use your code. You do not have to go crazy, but a nice little sentence about what someone does with that function helps a lot.
+* Finally, while comments are good, too many are bad, and you have to maintain them. Keep your comments relatively short and to the point, and if you change a function, review the comment to make sure it's still correct.
+
+## Evaluate Your Game
+I want you now to pretend you are me. Adopt a very stern look, print out your code, and take a red pen and mark every mistake you find. Anything from this exercise and from other things you have known. Once you are done marking your code up, I want you to fix everything you came up with. Then repeat this a couple of times, looking for anything that could be better. Use all the tricks I've given you to break your code down into the smallest tiniest little analysis you can.
+
+The purpose of this exercise is to train your attention to detail on classes. Once you are done with this bit of code, find someone else's code and do the same thing. Go through a printed copy of some part of it and point out all the mistakes and style errors you find. Then fix it and see if your fixes can be done without breaking their program.
+
+I want you to do nothing but evaluate and fix code for the week. Your own code and other people's. It'll be pretty hard work, but when you are done your brain will be wired tight like a boxer's hands.

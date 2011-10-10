@@ -1,0 +1,59 @@
+---
+layout: post
+title: "Exercise 4: Variables And Names"
+---
+# Exercise 4: Variables And Names
+Now you can print things with `puts` and you can do math. The next step is to learn about variables. In programming a variable is nothing more than a name for something so you can use the name rather than the something as you code. Programmers use these variable names to make their code read more like English, and because they have lousy memories. If they didn't use good names for things in their software, they'd get lost when they tried to read their code again.
+
+If you get stuck with this exercise, remember the tricks you have been taught so far of finding differences and focusing on details:
+
+1. Write a comment above each line explaining to yourself what it does in English.
+2. Read your `.rb` file backwards.
+3. Read your `.rb` file out loud saying even the characters.
+
+{% highlight ruby linenos %}
+cars = 100
+space_in_a_car = 4.0
+drivers = 30
+passengers = 90
+cars_not_driven = cars - drivers
+cars_driven = drivers
+carpool_capacity = cars_driven * space_in_a_car
+average_passengers_per_car = passengers / cars_driven
+
+puts "There are #{cars} cars available."
+puts "There are only #{drivers} drivers available."
+puts "There will be #{cars_not_driven} empty cars today."
+puts "We can transport #{carpool_capacity} people today."
+puts "We have #{passengers} passengers to carpool today."
+puts "We need to put about #{average_passengers_per_car} in each car."
+{% endhighlight %}
+
+> **Note:** The `_` in `space_in_a_car` is called an underscore character. Find out how to type it if you do not already know. We use this character a lot to put an imaginary space between words in variable names.
+
+## What You Should See
+
+    $ ruby ex4.rb
+    There are 100 cars available.
+    There are only 30 drivers available.
+    There will be 70 empty cars today.
+    We can transport 120.0 people today.
+    We have 90 passengers to carpool today.
+    We need to put about 3 in each car.
+    $
+
+## Extra Credit
+When I wrote this program the first time I had a mistake, and Ruby told me about it like this:
+
+    ex4.rb:8:in `<main>': undefined local variable or method `car_pool_capacity' for main:Object (NameError)
+
+Explain this error in your own words. Make sure you use line numbers and explain why.
+
+## Here's more extra credit:
+
+1. Explain why the 4.0 is used instead of just 4.
+2. Remember that 4.0 is a "floating point" number. Find out what that means.
+3. Write comments above each of the variable assignments.
+4. Make sure you know what `=` is called (equals) and that it's making names for things.
+5. Remember `_` is an underscore character.
+6. Try running IRB as a calculator like you did before and use variable names to do your calculations. Popular variable names are also `i`, `x`, and `j`.

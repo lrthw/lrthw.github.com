@@ -1,0 +1,60 @@
+---
+layout: post
+title: "Exercise 14: Prompting And Passing"
+---
+# Exercise 14: Prompting And Passing
+Let's do one exercise that uses `ARGV` and `gets.chomp()` together to ask the user something specific. You will need this for the next exercise where we learn to read and write files. In this exercise we'll print a simple `>` prompt. This is similar to a game like Zork or Adventure.
+
+{% highlight ruby linenos %}
+user = ARGV.first
+prompt = '> '
+
+puts "Hi #{user}, I'm the #{$0} script."
+puts "I'd like to ask you a few questions."
+puts "Do you like me #{user}?"
+print prompt
+likes = STDIN.gets.chomp()
+
+puts "Where do you live #{user}?"
+print prompt
+lives = STDIN.gets.chomp()
+
+puts "What kind of computer do you have?"
+print prompt
+computer = STDIN.gets.chomp()
+
+puts <<MESSAGE
+Alright, so you said #{likes} about liking me.
+You live in #{lives}.  Not sure where that is.
+And you have a #{computer} computer.  Nice.
+MESSAGE
+{% endhighlight %}
+
+Notice though that we make a variable `prompt` that is set to the prompt we want, and we print that instead of typing it over and over. Now if we want to make the prompt something else, we just change it in this one spot and rerun the script.
+
+Very handy.
+
+> **Important:** Also notice that we're using `STDIN.gets` instead of plain 'ol `gets`.  That is because if there is stuff in `ARGV`, the default `gets` method tries to treat the first one as a file and read from that. To read from the user's input (i.e., `stdin`) in such a situation, you have to use it `STDIN.gets` explicitly.
+
+## What You Should See
+When you run this, remember that you have to give the script your name for the `ARGV` arguments.
+
+    $ ruby ex14.rb Zed
+    Hi Zed, I'm the ex14.rb script.
+    I'd like to ask you a few questions.
+    Do you like me Zed?
+    > yes
+    Where do you live Zed?
+    > America
+    What kind of computer do you have?
+    > Tandy
+    
+    Alright, so you said 'yes' about liking me.
+    You live in 'America'.  Not sure where that is.
+    And you have a 'Tandy' computer.  Nice.
+
+## Extra Credit
+1. Find out what Zork and Adventure were. Try to find a copy and play it.
+2. Change the `prompt` variable to something else entirely.
+3. Add another argument and use it in your script.
+4. Make sure you understand how I combined a `<<SOMETHING` style multi-line string with `#{ }` string interpolation as the last print.
