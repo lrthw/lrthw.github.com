@@ -1,25 +1,26 @@
 ---
 layout: post
-title: "Exercise 3: Numbers And Math"
+title: "習題 3: 數字和數學計算"
 ---
-# Exercise 3: Numbers And Math
-Every programming language has some kind of way of doing numbers and math. Do not worry, programmers lie frequently about being math geniuses when they really aren't. If they were math geniuses, they would be doing math, not writing ads and social network games to steal people's money.
 
-This exercise has lots of math symbols. Let's name them right away so you know what they are called. As you type this one in, say the names. When saying them feels boring you can stop saying them. Here are the names:
+每一種程式語言都包含處理數字和進行數學計算的方法。不必擔心，程式設計師經常撒謊說他們是多們厲害的數學天才，其實他們根本不是。如果他們真是數學天才，他們早就去從事數學相關的行業了，而不是寫寫廣告程式和社交網路遊戲，從人們身上偷賺點小錢而已。
 
-    + plus
-    - minus
-    / slash
-    * asterisk
-    % percent
-    < less-than
-    > greater-than
-    <= less-than-equal
-    >= greater-than-equal
+這章習題裡有很多的數學運算符號。我們來看一遍它們都叫什麼。你要一邊寫一邊念出它們的名稱來。直到你念煩了為止。名稱如下：
 
-Notice how the operations are missing? After you type in the code for this exercise, go back and figure out what each of these does and complete the table. For example, `+` does addition.
+    + 加號
+    - 減號
+    / 除號
+    * 乘號
+    % 百分比符號
+    < 小於符號
+    > 大於符號
+    <= 小於等於符號
+    >= 大於等於號
 
-{% highlight ruby linenos %}
+有沒有注意到以上只是些符號，沒有運算操作呢？寫完下面的練習程式碼後，再回到上面的列表，寫出每個符號的作用。例如 `+` 是用來做加法運算的。
+
+
+```ruby
 puts "I will now count my chickens:"
 
 puts "Hens", 25 + 30 / 6
@@ -43,9 +44,10 @@ puts "How about some more."
 puts "Is it greater?", 5 > -2
 puts "Is it greater or equal?", 5 >= -2
 puts "Is it less or equal?", 5 <= -2
-{% endhighlight %}
+```
 
-## What You Should See
+## 你應該看到的結果
+
     $ ruby ex3.rb 
     I will now count my chickens:
     Hens 
@@ -70,9 +72,10 @@ puts "Is it less or equal?", 5 <= -2
     false
     $
 
-## Extra Credit
-1. Above each line, use the `#` to write a comment to yourself explaining what the line does.
-2. Remember in Exercise 0 when you started IRB? Start IRB this way again and using the above characters and what you know, use Ruby as a calculator.
-3. Find something you need to calculate and write a new `.rb` file that does it.
-4. Notice the math seems "wrong"? There are no fractions, only whole numbers. Find out why by researching what a "floating point" number is.
-5. Rewrite `ex3.rb` to use floating point numbers so it's more accurate (hint: 20.0 is floating point).
+## 加分習題
+
+1. 使用 `#` 在程式碼每一行的前一行為自己寫一個註解，說明一下這一行的作用。
+2. 記得最開始時的 </ex0> 的 IRB 吧？再次打開 IRB，然後使用剛才學到的運算符號，把Ruby 當做計算機玩玩。
+3. 自己找個想要計算的東西，寫一個 `.rb` 檔案把它計算出來。
+4. 有沒有發現計算結果是「錯」的呢？計算結果只有整數，沒有小數部分。研究一下這是為什麼，搜尋一下「浮點數(floating point number)」是什麼東西。
+5. 使用浮點數重寫一遍 `ex3.rb`，讓它的計算結果更準確(提示: 20.0 是一個浮點數)。
