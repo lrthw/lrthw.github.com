@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "Exercise 14: Prompting And Passing"
+title: "習題 14: 提示和傳遞"
 ---
-# Exercise 14: Prompting And Passing
-Let's do one exercise that uses `ARGV` and `gets.chomp()` together to ask the user something specific. You will need this for the next exercise where we learn to read and write files. In this exercise we'll print a simple `>` prompt. This is similar to a game like Zork or Adventure.
+
+讓我們使用 `ARGV` 和 `gets.chomp` 一起來向使用者提一些特別的問題。下一節習題你將會學習到如何讀寫檔案，這節習題是下節的基礎。在這道習題裡我們將用一個簡單的 `>` 作為提示符號。這和一些遊戲中的方法類似，例如 Zork 或者 Adventure 這兩款遊戲。
+
 
 ```ruby
 user = ARGV.first
@@ -30,14 +31,17 @@ And you have a #{computer} computer.  Nice.
 MESSAGE
 ```
 
-Notice though that we make a variable `prompt` that is set to the prompt we want, and we print that instead of typing it over and over. Now if we want to make the prompt something else, we just change it in this one spot and rerun the script.
+注意到我們將用戶提示符號設置為 `prompt`，這樣我們就不用每次都要重打一遍了。如果你要將提示符號和修改成別的字串，你只要改一個地方就可以了。
 
-Very handy.
+非常順手吧。
 
-> **Important:** Also notice that we're using `STDIN.gets` instead of plain 'ol `gets`.  That is because if there is stuff in `ARGV`, the default `gets` method tries to treat the first one as a file and read from that. To read from the user's input (i.e., `stdin`) in such a situation, you have to use it `STDIN.gets` explicitly.
+> **Important:** 同時必須注意的是，我們也用了 `STDIN.gets ` 取代了 `gets`。這是因為如果有東西在 `ARGV` 裡，標準的`gets` 會認為將第一個參數當成檔案而嘗試從裡面讀東西。在要從使用者的輸入（如`stdin`）讀取資料的情況下我們必須明確地使用 `STDIN.gets`。
+
 
 ## 你應該看到的結果
-When you run this, remember that you have to give the script your name for the `ARGV` arguments.
+
+當你執行這個腳本時，記住你需要把你的名字傳給這個腳本，讓 `ARGV` 可以接收到。
+
 
     $ ruby ex14.rb Zed
     Hi Zed, I'm the ex14.rb script.
@@ -54,7 +58,9 @@ When you run this, remember that you have to give the script your name for the `
     And you have a 'Tandy' computer.  Nice.
 
 ## 加分習題
-1. Find out what Zork and Adventure were. Try to find a copy and play it.
-2. Change the `prompt` variable to something else entirely.
-3. Add another argument and use it in your script.
-4. Make sure you understand how I combined a `<<SOMETHING` style multi-line string with `#{ }` string interpolation as the last print.
+
+1. 查一下 Zork 和 Adventure 是兩個怎樣的遊戲。看能不能抓到，然後玩玩看。
+2. 將 `prompt` 變數改為完全不同的內容再執行一遍。
+3. 給你的腳本再新增一個參數，讓你的程式用到這個參數。
+4. 確認你弄懂了我如何結合 `<<SOMETHING` 形式的多行字串與 `#{}` 字串注入做的印出。
+
