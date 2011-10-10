@@ -1,22 +1,22 @@
 ---
 layout: post
-title: "Exercise 10: What Was That?"
+title: "習題 10: 那是什麼？"
 ---
-# Exercise 10: What Was That?
-In Exercise 9 I threw you some new stuff, just to keep you on your toes. I showed you two ways to make a string that goes across multiple lines. In the first way, I put the characters `\n` (back-slash n) between the names of the months. What these two characters do is put a new line character into the string at that point.
+在習題 9 中我丟給你了一些新東西。我讓你看到兩種讓字串擴展到多行的方法。第一種方法是在月份中間用 `\n` (back-slash n) 隔開。這兩個字串的作用是在該位置上放入一個「新行(new line)」字符。
 
-This use of the `\` (back-slash) character is a way we can put difficult-to-type characters into a string. There are plenty of these "escape sequences" available for different characters you might want to put in, but there's a special one, the double back-slash which is just two of them `\\`. These two characters will print just one back-slash. We'll try a few of these sequences so you can see what I mean.
+使用反斜線 `\` (back-slash) 可以將難印出的字符放到字串裡。針對不同的符號有很多這樣的所謂「跳脫序列(escape sequences)」，但有一個特殊的跳脫序列，就是 `\` 雙反斜線( double back-slash)。這兩個字符組合會印出一個反斜線來。接下來我們做幾個練習，然後你就知道這些跳脫序列的意義了。
 
-Another important escape sequence is to escape a single-quote `'` or double-quote `"`. Imagine you have a string that uses double-quotes and you want to put a double-quote in for the output. If you do this `"I "understand" joe."` then Ruby will get confused since it will think the `"` around `"understand"` actually ends the string. You need a way to tell Ruby that the `"` inside the string isn't a real double-quote.
+另外一種重要的跳脫序列是用來將單引號 `'` 和雙引號 `"` 跳脫。想像你有一個用雙引號括起來的字串，你想要在字串裡的內容裡再加入一組雙引號進去，比如你想說 `" I "understand" joke."` ，Ruby 就認為 `"understand"` 前後的兩個引號是字串的邊界，從而把字串弄錯。你需要一種方法告訴 Ruby 字串裡面的雙引號不是真正的雙引號。
 
-To solve this problem you escape double-quotes and single-quotes so Ruby knows to include in the string. Here's an example:
+要解決這個問題，你需要將雙引號和單引號跳脫，讓 Ruby 將引號也包含到字串裡面去。這裡有一個例子：
 
 ```ruby
 "I am 6'2\" tall."  # escape double-quote inside string
 'I am 6\'2" tall.'  # escape single-quote inside string
 ```
 
-The second way is by using here document syntax, which uses `<<NAME` and works like a string, but you also can put as many lines of text you as want until you type `NAME` again. We'll also play with these.
+第二種方法是使用文件語法(document syntax)，也就是 `<<NAME` ，你可以在鍵入 `NAME` 前放入\
+任意多行的文字。接下來你可以看到如何使用。
 
 ```ruby
 tabby_cat = "\tI'm tabbed in."
@@ -37,7 +37,8 @@ puts fat_cat
 ```
 
 ## 你應該看到的結果
-Look for the tab characters that you made. In this exercise the spacing is important to get right.
+
+注意你打出來的 tab 字符，這節練習中的文字間隔符號對於答案的正確性是很重要的。
 
     $ ruby ex10.rb
     	I'm tabbed in.
@@ -53,5 +54,6 @@ Look for the tab characters that you made. In this exercise the spacing is impor
     $
 
 ## 加分習題
-1. Search online to see what other escape sequences are available.
-2. Combine escape sequences and format strings to create a more complex format.
+
+1. 上網搜尋一下還有哪些可用的跳脫字符。
+2. 結合跳脫序列和格式化字串，創造一種複雜的格式。
