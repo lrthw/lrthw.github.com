@@ -3,31 +3,31 @@ layout: post
 title: "習題 23: 閱讀一些程式碼"
 ---
 
-You should have spent last week getting your list of symbols straight and locked in your mind. Now you get to apply this to another week reading code on the internet. This exercise will be daunting at first. I'm going to throw you in the deep end for a few days and have you just try your best to read and understand some source code from real projects. The goal isn't to get you to understand code, but to teach you the following three skills:
+經過上一周的練習，你應該已​​經牢記了你的符號列表。現在你需要再花一周的時間，應用這些知識，在網上閱讀程式碼。這個任務初看會覺得很艱鉅。我將直接把你丟到深水區呆幾天，讓你竭盡全力去讀懂實實在在的專案裡的程式碼。這節練習的目的不是讓你讀懂，而是讓你學會下面的技能：
 
-1. Finding Ruby source code for things you need.
-2. Reading through the code and looking for files.
-3. Trying to understand code you find.
-4. At your level you really do not have the skills to evaluate the things you find, but you can benefit from getting exposure and seeing how things look.
+1. 找到你需要的 Ruby 程式碼。
+2. 通讀程式碼，找到檔案。
+3. 嘗試理解你找到的程式碼。
+4. 以你現在的水準，你還不具備完全理解你找到的程式碼的能力，不過通過接觸這些程式碼，你可以熟悉真正的程式專案會是什麼樣子。
 
-When you do this exercise, think of yourself as an anthropologist, trucking through a new land with just barely enough of the local language to get around and survive. Except, of course, that you will actually get out alive because the internet isn't a jungle. Anyway.
+當你做這節習題時，你可以把自己當成是一個人類學家來到了一片陌生的大陸，你只懂得一丁點本地語言，但你需要接觸當地人並且生存下去。當然做習題不會碰到生存問題，這畢竟這不是荒野或者叢林。
 
-Here's what you do:
+你要做的事情如下：
 
-1. Go to github.com with your favorite web browser and search for "ruby".
-2. Pick a random project and click on it.
-3. Click on the Source tab and browse through the list of files and directories until you find a .rb file.
-3. Start at the top and read through it, taking notes on what you think it does.
-4. If any symbols or strange words seem to interest you, write them down to research later.
+1. 使用你的瀏覽器登錄 github.com，搜尋「ruby」。
+2. 隨便找一個專案，然後點進去。
+3. 點擊 Source 標籤，瀏覽目錄和檔案列表，直到你看到以 .rb 結尾的檔案
+4. 從頭開始閱讀你找到的程式碼。把它的功能用筆記記下來。
+5. 如果你看到一些有趣的符號或者奇怪的字串，你可以把它們記下來，日後再進行研究。
 
-That's it. Your job is to use what you know so far and see if you can read the code and get a grasp of what it does. Try skimming the code first, and then read it in detail. Maybe also try taking very difficult parts and reading each symbol you know outloud.
+就是這樣，你的任務是使用你目前學到的東西，看自己能不能讀懂一些程式碼，看出它們的功能來。你可以先粗略地閱讀，然後再細讀。也許你還可以試試將難度比較大的部分一字不漏地朗讀出來。
 
-Now try several other sites:
+現在再試試其它的幾個站：
 
 * heroku.com
 * rubygems.org
 * bitbucket.org
 
-On each of these sites you may find weird files ending in .c so stick to .rb files like the ones you have written in this book.
+在這些網站你可能還會看到以 .c 結尾的奇怪文件，不過你只需要看 .rb 結尾的檔案就可以了。
 
-A final fun thing to do is use the above four sources of Ruby code and type in topics you are interested in instead of "ruby". Search for "journalism", "cooking", "physics", or anything you are curious about. Chances are there's some code out there you could use right away.
+最後一個有趣的事情是你可以在這四個​​網站搜索 「ruby」以外的你感興趣的話題，例如你可以搜索「journalism（新聞）」，「cooking（下廚）」，「physics（物理）」，或者任何你感興趣的話題。你也許會找到一些對你有用的，且可以直接拿來用的程式碼。
