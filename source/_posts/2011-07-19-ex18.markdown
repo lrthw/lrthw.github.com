@@ -1,17 +1,17 @@
 ---
 layout: post
-title: "Exercise 18: Names, Variables, Code, Functions"
+title: "習題 18: 命名、變數、程式碼、函式"
 ---
-# Exercise 18: Names, Variables, Code, Functions
-Big title right? I am about to introduce you to the function! Dum dum dah! Every programmer will go on and on about functions and all the different ideas about how they work and what they do, but I will give you the simplest explanation you can use right now.
 
-Functions do three things:
+好大的一個標題。接下來我要教你「函式(function)」了！咚咚鏘！說到函式，不一樣的人會對它有不一樣的理解和使用方法，不過我只會教你現在能用到的最簡單的使用方式。
 
-1. They name pieces of code the way variables name strings and numbers.
-2. They take arguments the way your scripts take `ARGV`.
-3. Using #1 and #2 they let you make your own "mini scripts" or "tiny commands".
+函式可以做三件事情：
 
-You can create a function (also called "methods") by using the word `def` in Ruby. I'm going to have you make four different functions that work like your scripts, and then show you how each one is related.
+1. 它們可以給程式碼片段取名，就跟「變數」給字串和數字命名一樣。
+2. 它們可以接受參數，就跟你的腳本接受 `ARGV` 一樣。
+3. 通過使用 #1 和 #2 ，他們可以讓你創造出「迷你腳本」或者「微命令」。
+
+你可以在 Ruby 中使用 `def` 新建函式，我將讓你創造四個不同的函式，它們運作起來和你的腳本一樣。然後我會示範給你各個函數之間的關係。
 
 ```ruby
 # this one is like your scripts with argv
@@ -41,24 +41,23 @@ puts_one("First!")
 puts_none()
 ```
 
-Let's break down the first function, `puts_two` which is the most similar to what you already know from making scripts:
+讓我們把你一個函數 `puts_two` 肢解一下，這個函式和你寫腳本的方式差不多，因此看上去你應該會覺得比較眼熟：
 
+1. 首先我們告訴 Ruby 創造一個函式，使用 `def` 去「定義(define)」一個函式。
+2. 緊跟著 `def` 的是函數的名稱。本例中它的名稱是「puts_two」，但名字可以   隨便取，就叫「peanuts」也沒關係。但函式的名稱最好能夠表達出它的功能來。
+3. 然後我們告訴函數我們需要 `args` (asterisk args)，這和腳本的 `ARGV` 非常相似，參數必須放在小括號 `()` 中才能正常運作。
+4. 在定義(definition)之後，後面的行都必須以 2 個空格縮排。其中縮排的第一行的作用是將參數解包，就像我們在腳本中做的事一樣。
+5. 為了示範它的運作原理，我們把解包後的每個參數都印出來。`puts_two` 的問題是它不是建立一個函式最簡單的方法。在 Ruby 中我們可以直接跳過解包參數的過程直接使用 `()` 裡面的名稱作為變數名。就像 `puts_two_again` 實現的功能。
 
-1. First we tell Ruby we want to make a function using `def` for "define".
-2. On the same line as `def` we then give the function a name, in this case we just called it "puts_two" but it could be "peanuts" too. It doesn't matter, except that your function should have a short name that says what it does.
-3. Then we tell it we want `*args` (asterisk args) which is a lot like your `ARGV` parameter but for functions.
-4. After the definition, all the lines that are indented 2 spaces will become attached to this name, `puts_two`. Our first indented line is one that unpacks the arguments the same as with your scripts.
-5. To demonstrate how it works we print these arguments out, just like we would in a script.
-Now, the problem with `puts_two` is that it's not the easiest way to make a function. In Ruby we can skip the whole unpacking args and just use the names we want right inside `()`. That's what `print_two_again` does.
+接下來的例子事 `print_one` ，它像你示範了函式如何接收單個參數。
 
-After that you have an example of how you make a function that takes one argument in `puts_one`.
+最後一個例子是 `print_none` ，它向你示範了函式可以不接收任何參數。
 
-Finally you have a function that has no arguments in `puts_none`.
-
-> **Warning:** This is very important. Do not get discouraged right now if this doesn't quite make sense. We're going to do a few exercises linking functions to your scripts and show you how to make more. For now just keep thinking "mini script" when I say "function" and keep playing with them.
+> **Warning:** 如果你不太能看懂上面的內容也別氣餒。這是非常重要的。後面我們還有更多的習題向你示範如何創造和使用函式。現在你只要把函式理解成「迷你腳本」就可以了
 
 ## 你應該看到的結果
-If you run the above script you should see:
+
+執行上面的腳本會看到如下結果：
 
     $ ruby ex18.rb
     arg1: 'Zed', arg2: 'Shaw'
@@ -67,29 +66,30 @@ If you run the above script you should see:
     I got nothin'.
     $
 
-Right away you can see how a function works. Notice that you used your functions the way you use things like `File.exists?`, `File.open`, and other "commands". In fact, I've been tricking you because in Ruby those "commands" are just functions. This means you can make your own commands and use them in your scripts too.
+你應該看出來函式是怎樣運作的了。注意到函式的用法和你以前見過的 `File.exist?` 、 `File.open`以及別的「命令」有點類似了吧？其實我只是為了讓你容易禮節才叫他們「命令」。它們的本質其實就是函式。也就是說，你也可以在你自己的腳本中創造你自己的「命令」。
 
 ## 加分習題
-Write out a function checklist for later exercises. Write these on an index card and keep it by you while you complete the rest of these exercises or until you feel you do not need it:
 
-1. Did you start your function definition with `def`?
-2. Does your function name have only characters and `_` (underscore) characters?
-3. Did you put an open parenthesis `(` right after the function name?
-4. Did you put your arguments after the parenthesis `(` separated by commas?
-5. Did you make each argument unique (meaning no duplicated names).
-6. Did you put a close parenthesis `)` after the arguments?
-7. Did you indent all lines of code you want in the function 2 spaces?
-8. Did you close your function body by typing "end"?
+為自己寫一個函式檢查清單以供後續參考。你可以寫在一個索引卡片上隨時閱讀，直到你記住所有的藥典為止。注意事項如下：
 
-And when you run (aka "use" or "call") a function, check these things:
+1. 函式定義是以 `def` 開始的嗎？
+2. 函式名稱是以字串和底線 `_` 組成的嗎？
+3. 函式名稱是不是緊跟著括號 `(` ？
+4. 括號裡是否包含參數？多個參數是否以逗號隔開？
+5. 參數名稱是否有重複？（不能使用重複的參數名）
+6. 緊跟著參數的最後是否括號 `)` ？
+7. 緊跟著函式定義的程式碼是否用了 2 個空格的縮排 ( `indent` )？
+8. 函數結束的位置是不是「end」
 
-1. Did you call/use/run this function by typing its name?
-2. Did you put `(` character after the name to run it? (this isn't required, but is idiomatic)
-3. Did you put the values you want into the parenthesis separated by commas?
-4. Did you end the function call with a `)` character. 
+當你執行（或者說「使用(use)」或者「呼叫(call)」一個含數十，記得檢查下列幾項事情：
 
-Use these two checklists on the remaining lessons until you do not need them anymore.
+1. 呼叫函數時是否了函數的名稱？
+2. 函數名稱是否緊跟著`()`？（不是必要，但理想性的要加）
+3. 參數是否以逗號隔開？
+4. 函數是否以`)`結尾？
 
-Finally, repeat this a few times:
+按照這兩份檢查清單裡的內容檢查你的習題，直到你不需要檢查清單為止。
 
-> "To 'run', 'call', or 'use' a function all mean the same thing."
+最後，將下面這句話閱讀幾遍：
+
+>「執行(run)函數」、「呼叫(call)函數」和「使用(use)函數」是同一個意思。

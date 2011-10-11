@@ -1,19 +1,20 @@
 ---
 layout: post
-title: "Exercise 16: Reading And Writing Files"
+title: "習題 16: 讀寫檔案"
+
 ---
-# Exercise 16: Reading And Writing Files
-If you did the extra credit from the last exercise you should have seen all sorts of commands (methods/functions) you can give to files. Here's the list of commands I want you to remember:
 
-* close -- Closes the file. Like `File->Save..` in your editor.
-* read -- Reads the contents of the file, you can assign the result to a variable.
-* readline -- Reads just one line of a text file.
-* truncate -- Empties the file, watch out if you care about the file.
-* write(stuff) -- Writes stuff to the file.
+如果你做了上一個練習的加分習題，你應該已經了解了個個種文件相關的命令（方法/函數）。你應該記住的命令如下：
 
-For now these are the important commands you need to know. Some of them take parameters, but we do not really care about that. You only need to remember that write takes a parameter of a string you want to write to the file.
+*  close -- 關閉檔案。跟你編輯器的 `文件->儲存..` 是一樣的意思。
+*  read -- 讀取檔案內容。你可以把結果賦給一個變數。
+*  readline -- 讀取檔案文字中的一行。
+*  truncate -- 清空文件，請小心使用該命令。
+*  write(stuff) -- 將 stuff 寫入檔案。
 
-Let's use some of this to make a simple little text editor:
+這是你現在應該知道的重要命令。有些命令需要接收參數，但這對我們並不重要。你只要記住 write 的用法就可以了。 `write` 需要接收一個字串作為參數，從而將該字串寫入檔案。
+
+讓我們來使用這些命令做一個簡單的文字編輯器吧：
 
 ```ruby
 filename = ARGV.first
@@ -51,10 +52,11 @@ puts "And finally, we close it."
 target.close()
 ```
 
-That's a large file, probably the largest you have typed in. So go slow, do your checks, and make it run. One trick is to get bits of it running at a time. Get lines 1-8 running, then 5 more, then a few more, etc., until it's all done and running.
+這是一個大檔案，大概是你鍵入過的最大的檔案。所以慢慢來，仔細檢查，讓它能夠跑起來。有一個小技巧就是你可以讓你的腳本一部分一部分地跑起來。先寫 1-8 行，讓它能跑起來，再多做 5 行，再接著幾行，以此類推，直到整個腳本都可以跑起來為止。
 
 ## 你應該看到的結果
-There are actually two things you will see, first the output of your new script:
+
+你將看到兩樣東西，一樣是你新腳本的輸出：
 
     $ ruby ex16.rb test.txt
     We're going to erase 'test.txt'.
@@ -71,11 +73,12 @@ There are actually two things you will see, first the output of your new script:
     And finally, we close it.
     $
 
-Now, open up the file you made (in my case test.txt) in your editor and check it out. Neat right?
+這是一個大檔案，大概是你鍵入過的最大的檔案。所以慢慢來，仔細檢查，讓它能夠跑起來。有一個小技巧就是你可以讓你的腳本一部分一部分地跑起來。先寫 1-8 行，讓它能跑起來，再多做 5 行，再接著幾行，以此類推，直到整個腳本都可以跑起來為止。
 
 ## 加分習題
-1. If you feel you do not understand this, go back through and use the comment trick to get it squared away in your mind. One simple English comment above each line will help you understand, or at least let you know what you need to research more.
-2. Write a script similar to the last exercise that uses read and argv to read the file you just created.
-3. There's too much repetition in this file. Use strings, formats, and escapes to print out line1, line2, and line3 with just one `target.write()` command instead of 6.
-4. Find out why we had to pass a `'w'` as an extra parameter to open. Hint: open tries to be safe by making you explicitly say you want to write a file.
-5. If you open the file with `'w'` mode, then do you really need the `target.truncate()`? Go read the docs for Ruby's `File.open` function and see if that's true.
+
+1. 如果你覺得自己沒有弄懂的話，用我們的老方法，在每一行之前加上註釋，為自己理清思路。就算不能理清思路，你也可以知道自己究竟具體哪裡沒弄清楚。
+2. 寫一個和上一個習題類似的腳本，使用 `read` 和 `ARGV` 讀取你剛才新建立的文件。
+3. 檔案中重複的地方太多了。試著用一個 `target.write()` 將 `line1` ， `line2` ， `line3` 印出來，你可以使用字串、格式化字串以及跳脫字串。
+4. 找出為什麼我們打開檔案時要使用 `w` 模式，而你真的需要 `target.truncate()` 嗎？去看 Ruby 的 `File.open` 函數找答案吧。
+
