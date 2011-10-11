@@ -2,7 +2,6 @@
 layout: post
 title: "Exercise 29: What If"
 ---
-# Exercise 29: What If
 
 Here is the next script of Ruby you will enter, which introduces you to the `if-statement`. Type this in, make it run exactly right, and then we'll try see if your practice has paid off.
 

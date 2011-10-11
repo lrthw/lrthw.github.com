@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 39: Doing Things To Arrays"
 ---
-# Exercise 39: Doing Things To Arrays
+
 You have learned about arrays. When you learned about `while-loops` you "pushed" numbers onto the end of an array and printed them out. There was also extra credit where you were supposed to find all the other things you can do to arrays in the Ruby documentation. That was a while back, so go find in the book where you did that and review if you do not know what I'm talking about.
 
 Found it? Remember it? Good. When you did this you had a list, and you "called" the function `push` on it. However, you may not really understand what's going on so let's see what we can do to lists, and how doing things with "on" them works.

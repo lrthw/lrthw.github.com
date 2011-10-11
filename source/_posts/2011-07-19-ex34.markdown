@@ -2,7 +2,6 @@
 layout: post
 title: "Exercise 34: Accessing Elements Of Arrays"
 ---
-# Exercise 34: Accessing Elements Of Arrays
 
 Arrays are pretty useful, but unless you can get at the things in them they aren't all that great. You can already go through the elements of a list in order, but what if you want say, the 5th element? You need to know how to access the elements of an array. Here's how you would access the first element of an array:
 

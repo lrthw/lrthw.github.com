@@ -2,7 +2,6 @@
 layout: post
 title: "Exercise 32: Loops And Arrays"
 ---
-# Exercise 32: Loops And Arrays
 
 You should now be able to do some programs that are much more interesting. If you have been keeping up, you should realize that now you can combine all the other things you have learned with `if-statements` and boolean expressions to make your programs do smart things.
 

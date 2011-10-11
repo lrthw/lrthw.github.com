@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 45: Is-A, Has-A, Objects, and Classes"
 ---
-# Exercise 45: Is-A, Has-A, Objects, and Classes
+
 An important concept that you have to understand is the difference between a `Class` and an `Object`. The problem is, there is no real "difference" between a class and an object. They are actually the same thing at different points in time. I will demonstrate by a Zen koan:
 
 `What is the difference between a Fish and a Salmon?`

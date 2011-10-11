@@ -2,7 +2,6 @@
 layout: post
 title: "Exercise 19: Functions And Variables"
 ---
-# Exercise 19: Functions And Variables
 
 Functions may have been a mind-blowing amount of information, but do not worry. Just keep doing these exercises and going through your checklist from the last exercise and you will eventually get it.
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 38: Reading Code"
 ---
-# Exercise 38: Reading Code
+
 Now go find some Ruby code to read. You should be reading any Ruby code you can and trying to steal ideas that you find. You actually should have enough knowledge to be able to read, but maybe not understand what the code does. What I'm going to teach you in this lesson is how to apply things you have learned to understand other people's code.
 
 First, print out the code you want to understand. Yes, print it out, because your eyes and brain are more used to reading paper than computer screens. Make sure you only print a few pages at a time.
@@ -23,6 +23,7 @@ Lastly, on all of the difficult parts, trace the values of each variable line by
 Once you have a good idea of what the code does, go back to the computer and read it again to see if you find new things. Keep finding more code and doing this until you do not need the printouts anymore.
 
 ## 加分習題
+
 1. Find out what a "flow chart" is and write a few.
 2. If you find errors in code you are reading, try to fix them and send the author your changes.
 3. Another technique for when you are not using paper is to put `#` comments with your notes in the code. Sometimes, these could become the actual comments to help the next person.

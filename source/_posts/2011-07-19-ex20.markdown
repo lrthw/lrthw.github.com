@@ -2,7 +2,6 @@
 layout: post
 title: "Exercise 20: Functions And Files"
 ---
-# Exercise 20: Functions And Files
 
 Remember your checklist for functions, then do this exercise paying close attention to how functions and files can work together to make useful stuff.
 

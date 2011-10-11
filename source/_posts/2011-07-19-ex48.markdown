@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 48: Advanced User Input"
 ---
-# Exercise 48: Advanced User Input
+
 Your game probably was coming along great, but I bet how you handled what the user typed was becoming tedious. Each room needed its own very exact set of phrases that only worked if your player typed them perfectly. What you'd rather have is a device that lets users type phrases in various ways. For example, we'd like to have all of these phrases work the same:
 
 * open door

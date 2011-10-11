@@ -2,8 +2,6 @@
 layout: post
 title: "Exercise 33: While Loops"
 ---
-# Exercise 33: While Loops
-
 Now to totally blow your mind with a new loop, the `while-loop`. A `while-loop` will keep executing the code block under it as long as a boolean expression is **True**.
 
 Wait, you have been keeping up with the terminology right? That if we write a statement such as `if items > 5` or `for fruit in fruits` we are starting a code block.  Then we indent the lines that follow, which are said to be within the block, until we reach an `end` statement, which closes the block. This is all about structuring your programs so that Ruby knows what you mean. If you do not get that idea then go back and do some more work with `if-statements`, functions, and the `for-loop` until you get it.

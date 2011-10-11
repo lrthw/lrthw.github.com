@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 43: You Make A Game"
 ---
-# Exercise 43: You Make A Game
+
 You need to start learning to feed yourself. Hopefully as you have worked through this book, you have learned that all the information you need is on the internet, you just have to go search for it. The only thing you have been missing are the right words and what to look for when you search. Now you should have a sense of it, so it's about time you struggled through a big project and tried to get it working.
 
 Here are your requirements:

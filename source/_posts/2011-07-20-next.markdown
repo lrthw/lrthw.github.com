@@ -2,7 +2,7 @@
 layout: post
 title: "Next Steps"
 ---
-# Next Steps
+
 You're not a programmer quite yet. I like to think of this book as giving you your "programming brown belt". You know enough to start another book on programming and handle it just fine. This book should have given you the mental tools and attitude you need to go through most Ruby books and actually learn something. It might even make it easy.
 
 > **Rob says:** For fun, I recommend you check out Why's (Poignant) Guide to Ruby: 

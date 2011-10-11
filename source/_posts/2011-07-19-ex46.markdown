@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 46: A Project Skeleton"
 ---
-# Exercise 46: A Project Skeleton
+
 This will be where you start learning how to setup a good project "skeleton" directory. This skeleton directory will have all the basics you need to get a new project up and running. It will have your project layout, automated tests, modules, and install scripts.
 
 ## Skeleton Contents: Linux/OSX

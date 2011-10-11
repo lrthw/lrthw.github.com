@@ -2,7 +2,6 @@
 layout: post
 title: "Exercise 22: What Do You Know So Far?"
 ---
-# Exercise 22: What Do You Know So Far?
 
 There won't be any code in this exercise or the next one, so there's no WYSS or Extra Credit either. In fact, this exercise is like one giant Extra Credit. I'm going to have you do a form of review what you have learned so far.
 

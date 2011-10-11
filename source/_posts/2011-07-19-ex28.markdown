@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 28: Boolean Practice"
 ---
-# Exercise 28: Boolean Practice
+
 The logic combinations you learned from the last exercise are called "boolean" logic expressions. Boolean logic is used everywhere in programming. They are essential fundamental parts of computation and knowing them very well is akin to knowing your scales in music.
 
 In this exercise you will be taking the logic exercises you memorized and start trying them out in IRB. Take each of these logic problems, and write out what you think the answer will be. In each case it will be either true or false. Once you have the answers written down, you will start IRB in your terminal and type them in to confirm your answers.

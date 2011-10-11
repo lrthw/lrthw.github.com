@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 26: Congratulations, Take A Test!"
 ---
-# Exercise 26: Congratulations, Take A Test!
+
 You are almost done with the first half of the book. The second half is where things get interesting. You will learn logic and be able to do useful things like make decisions.
 
 Before you continue, I have a quiz for you. This quiz will be very hard because it requires you to fix someone else's code. When you are a programmer you often have to deal with another programmer's code, and also with their arrogance. They will very frequently claim that their code is perfect.

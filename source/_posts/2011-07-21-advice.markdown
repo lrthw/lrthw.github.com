@@ -2,7 +2,7 @@
 layout: post
 title: "Advice From An Old Programmer"
 ---
-# Advice From An Old Programmer
+
 You've finished this book and have decided to continue with programming. Maybe it will be a career for you, or maybe it will be a hobby. You'll need some advice to make sure you continue on the right path, and get the most enjoyment out of your newly chosen activity.
 
 I've been programming for a very long time. So long that it's incredibly boring to me. At the time that I wrote this book, I knew about 20 programming languages and could learn new ones in about a day to a week depending on how weird they were. Eventually though this just became boring and couldn't hold my interest anymore. This doesn't mean I think programming *is* boring, or that *you* will think it's boring, only that I find it uninteresting at this point in my journey.

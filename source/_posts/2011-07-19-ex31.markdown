@@ -2,7 +2,6 @@
 layout: post
 title: "Exercise 31: Making Decisions"
 ---
-# Exercise 31: Making Decisions
 
 In the first half of this book you mostly just printed out things and called functions, but everything was basically in a straight line. Your scripts ran starting at the top, and went to the bottom where they ended. If you made a function you could run that function later, but it still didn't have the kind of branching you need to really make decisions. Now that you have `if`, `else`, and `elsif` you can start to make scripts that decide things.
 

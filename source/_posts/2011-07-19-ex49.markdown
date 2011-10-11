@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 49: Making Sentences"
 ---
-# Exercise 49: Making Sentences
+
 What we should be able to get from our little game lexicon scanner is a list that looks like this (yours
 will be formatted differently):
 

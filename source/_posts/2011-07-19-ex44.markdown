@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 44: Evaluating Your Game"
 ---
-# Exercise 44: Evaluating Your Game
+
 In this exercise you will evaluate the game you just made. Maybe you got part-way through it and you got stuck. Maybe you got it working but just barely. Either way, we're going to go through a bunch of things you should know now and make sure you covered them in your game. We're going to study how to properly format a class, common conventions in using classes, and a lot of "textbook" knowledge.
 
 Why would I have you try to do it yourself and then show you how to do it right? From now on in the book I'm going to try to make you self-sufficient. I've been holding your hand mostly this whole time, and I can't do that for much longer. I'm now instead going to give you things to do, have you do them on your own, and then give you ways to improve what you did.

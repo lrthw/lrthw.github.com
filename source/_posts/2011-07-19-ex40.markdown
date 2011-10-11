@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 40: Dictionaries, Oh Lovely Dictionaries"
 ---
-# Exercise 40: Dictionaries, Oh Lovely Dictionaries
+
 Now I have to hurt you with another container you can use, because once you learn this container a massive world of ultra-cool will be yours. It is the most useful container ever: the hash.
 
 Ruby calls them "hashes", other languages call them, "dictionaries". I tend to use both names, but it doesn't matter. What does matter is what they do when compared to arrays. You see, an array lets you do this:

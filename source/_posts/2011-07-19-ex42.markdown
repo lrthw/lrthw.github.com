@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 42: Gothons Are Getting Classy"
 ---
-# Exercise 42: Gothons Are Getting Classy
+
 While it's fun to put functions inside of hashes, you'd think there'd be something in Ruby that does this for you. There is: the `class` keyword. Using `class` is how you create an even more awesome "hash with functions" than the one you made in the last exercise. Classes have all sorts of powerful features and uses that I could never go into in this book. Instead, you'll just use them like they're fancy `hashes` with functions.
 
 A programming language that uses classes is called "Object Oriented Programming". This is an old style of programming where you make "things" and you "tell" those things to do work. You've been doing a lot of this. A whole lot. You just didn't know it. Remember when you were doing this:

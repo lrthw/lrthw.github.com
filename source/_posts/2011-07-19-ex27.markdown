@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 27: Memorizing Logic"
 ---
-# Exercise 27: Memorizing Logic
+
 Today is the day you start learning about logic. Up to this point you have done everything you possibly can reading and writing files, to the terminal, and have learned quite a lot of the math capabilities of Ruby.
 
 From now on, you will be learning logic. You won't learn complex theories that academics love to study, but just the simple basic logic that makes real programs work and that real programmers need every day.

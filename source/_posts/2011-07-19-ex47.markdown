@@ -2,7 +2,7 @@
 layout: post
 title: "Exercise 47: Automated Testing"
 ---
-# Exercise 47: Automated Testing
+
 Having to type commands into your game over and over to make sure it's working is annoying. Wouldn't it be better to write little pieces of code that test your code? Then when you make a change, or add a new thing to your program, you just "run your tests" and the tests make sure things are still working. These automated tests won't catch all your bugs, but they will cut down on the time you spend repeatedly typing and running your code.
 
 Every exercise after this one will not have a `What You Should See section`, but instead it will have a `What You Should Test section`. You will be writing automated tests for all of your code starting now, and this will hopefully make you an even better programmer.
