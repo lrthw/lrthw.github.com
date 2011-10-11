@@ -1,25 +1,36 @@
 ---
 layout: post
-title: "The Hard Way Is Easier"
+title: "笨辦法更簡單"
 ---
-# The Hard Way Is Easier
-This simple book is meant to get you started in programming. The title says it's the hard way to learn to write code; but it's actually not. It's only the "hard" way because it's the way people *used* to teach things. With the help of this book, you will do the incredibly simple things that all programmers need to do to learn a language:
+
+這本小書的目的是讓你起步學習程式。雖然書名說是「笨辦法」，但其實並非如此。所謂的「笨辦法」是指本書教授的方式。在這本書的幫助下，你將通過非常簡單的練習學會一門程式語言。寫練習題是每個程序設計師的必經之路：
+
+
+1.  做每一道習題
+2. 一字不差地寫出每一個程式
+3. 讓程式運行起來
 
 1. Go through each exercise.
 2. Type in each sample exactly.
 3. Make it run.
 
-That's it. This will be *very* difficult at first, but stick with it. If you go through this book, and do each exercise for one or two hours a night, you will have a good foundation for moving onto another book. You might not really learn "programming" from this book, but you will learn the foundation skills you need to start learning the language.
+就是這樣了。剛開始這對你來說會*非常*難，但你需要堅持下去。如果你通讀了這本書，每晚花個一兩小時做做習題，你可以為自己讀下一本程式書籍打下良好的基礎。通過這本書你學到的可能不是真正的「寫程式」，但你會學到最基本的學習方法。
 
-This book's job is to teach you the three most essential skills that a beginning programmer needs to know: Reading and Writing, Attention to Detail, Spotting Differences.
+這本書的目的是教會你程式新手所需的三種最重要的技能：「讀和寫」、「注重細節」、「發現不同」。
 
-## Reading and Writing
+
+
+## 讀和寫
+
+
+
 It seems stupidly obvious, but, if you have a problem typing, you will have a problem learning to code. Especially if you have a problem typing the fairly odd characters in source code. Without this simple skill you will be unable to learn even the most basic things about how software works.
 
 Typing the code samples and getting them to run will help you learn the names of the symbols, get familiar with typing them, and get you reading the language.
 
 ## Attention to Detail
-The one skill that separates bad programmers from good programmers is attention to detail. In fact, it's what separates the good from the bad in any profession. Without paying attention to the tiniest details of your work, you will miss key elements of what you create. In programming, this is how you end up with bugs and difficult-to-use systems.
+
+區分好程序員和差程式設計師的最重要的一個技能就是對於細節的注重程度。事實上這是任何行業區分好壞的標準。如果缺乏對於工作的每一個微小細節的注意，你的工作成果將缺乏重要的元素。以寫程式來講，這樣你得到的結果只能是毛病多多難以使用的軟體。
 
 By going through this book, and copying each example *exactly*, you will be training your brain to focus on the details of what you are doing, as you are doing it.
 

@@ -2,10 +2,9 @@
 layout: post
 title: "習題 19: 函式和變數"
 ---
+函式這個概念也許承載了太多的資訊量。不過別擔心，只要堅持做這些練習題，對照上個練習中的檢查清單檢查這次練習的關聯，你最終會明白這些內容的。
 
-Functions may have been a mind-blowing amount of information, but do not worry. Just keep doing these exercises and going through your checklist from the last exercise and you will eventually get it.
-
-There is one tiny point though that you might not have realized which we'll reinforce right now: The variables in your function are not connected to the variables in your script. Here's an exercise to get you thinking about this:
+有一個你可能沒有注意到的細節，我們現在強調一下，函式裡面的變數和腳本裡面的變數之間是沒有連接的。下面的這個練習可以讓你對這一點有更多的思考：
 
 ```ruby
 def cheese_and_crackers(cheese_count, boxes_of_crackers)
@@ -31,13 +30,13 @@ puts "And we can combine the two, variables and math:"
 cheese_and_crackers(amount_of_cheese + 100, amount_of_crackers + 1000)
 ```
 
-This shows all different ways we're able to give our function `cheese_and_crackers` the values it needs to print them. We can give it straight numbers. We can give it variables. We can give it math. We can even combine math and variables.
+通過這個練習，你看到我們給我們的函式 `cheese_and_crackers` 很多的參數，然後在函式裡把他們印出來。我們可以塞數字、塞變數進去函式，我們甚至可以將變數和數學運算結合在一起。
 
-In a way, the arguments to a function are kind of like our `=` character when we make a variable. In fact, if you can use `=` to name something, you can usually pass it to a function as an argument.
+從一方面來說，函式的參數和我們生成變數時用的 `=` 賦值符號類似。事實上，如果一個物件你可以用 `=` 將其命名，你通常也可以將其作為參數傳給一個函式。
 
 ## 你應該看到的結果
 
-You should study the output of this script and compare it with what you think you should get for each of the examples in the script.
+你應該研究一下腳本的輸出，和你想像的結果對比一下看有什麼不同。
 
     $ ruby ex19.rb
     We can just give the function numbers directly:
@@ -66,6 +65,8 @@ You should study the output of this script and compare it with what you think yo
     $
 
 ## 加分習題
-1. Go back through the script and type a comment above each line explaining in English what it does.
-2. Start at the bottom and read each line backwards, saying all the important characters.
-3. Write at least one more function of your own design, and run it 10 different ways.
+
+1. 倒著將腳本讀完，在每一行上面添加一行註解，說明這行程式的作用。
+2. 從最後一行開始，倒著閱讀每一行，讀出所有重要的符號來。
+3. 自己邊寫出至少一個函式出來，然後用十種方法運行這個函式。
+
