@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 33: While Loops"
+title: "習題 33: While 迴圈"
 ---
 Now to totally blow your mind with a new loop, the `while-loop`. A `while-loop` will keep executing the code block under it as long as a boolean expression is **True**.
 

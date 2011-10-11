@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 27: Memorizing Logic"
+title: "習題 27: 記住邏輯關係"
 ---
 
 Today is the day you start learning about logic. Up to this point you have done everything you possibly can reading and writing files, to the terminal, and have learned quite a lot of the math capabilities of Ruby.

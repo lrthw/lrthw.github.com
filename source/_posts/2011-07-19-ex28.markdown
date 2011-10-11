@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 28: Boolean Practice"
+title: "習題 28: Boolean 練習"
 ---
 
 The logic combinations you learned from the last exercise are called "boolean" logic expressions. Boolean logic is used everywhere in programming. They are essential fundamental parts of computation and knowing them very well is akin to knowing your scales in music.

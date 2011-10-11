@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 44: Evaluating Your Game"
+title: "習題 44: 評價你的遊戲"
 ---
 
 In this exercise you will evaluate the game you just made. Maybe you got part-way through it and you got stuck. Maybe you got it working but just barely. Either way, we're going to go through a bunch of things you should know now and make sure you covered them in your game. We're going to study how to properly format a class, common conventions in using classes, and a lot of "textbook" knowledge.

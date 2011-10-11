@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 0 Help"
+title: "習題 0 Help"
 ---
 # Exercise 0 Help
 If you are on this page then you are doing Exercise 0 (Zero) and trying to complete it. Great, now you can download your editor. We will use the editor [gedit](http://projects.gnome.org/gedit/) as our editor. It works relatively the same on all computers, has good Ruby support, and is a great simple editor.

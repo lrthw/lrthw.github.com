@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 20: Functions And Files"
+title: "習題 20: 函式和檔案"
 ---
 
 Remember your checklist for functions, then do this exercise paying close attention to how functions and files can work together to make useful stuff.

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 38: Reading Code"
+title: "習題 38: 閱讀程式碼"
 ---
 
 Now go find some Ruby code to read. You should be reading any Ruby code you can and trying to steal ideas that you find. You actually should have enough knowledge to be able to read, but maybe not understand what the code does. What I'm going to teach you in this lesson is how to apply things you have learned to understand other people's code.

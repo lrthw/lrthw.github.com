@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 39: Doing Things To Arrays"
+title: "習題 39: 陣列的操作"
 ---
 
 You have learned about arrays. When you learned about `while-loops` you "pushed" numbers onto the end of an array and printed them out. There was also extra credit where you were supposed to find all the other things you can do to arrays in the Ruby documentation. That was a while back, so go find in the book where you did that and review if you do not know what I'm talking about.

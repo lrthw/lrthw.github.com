@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 25: Even More Practice"
+title: "習題 25: 更多更多的練習"
 ---
 
 We're going to do some more practice involving functions and variables to make sure you know them well. This exercise should be straight forward for you to type in, break down, and understand.

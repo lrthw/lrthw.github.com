@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 51: Getting Input From A Browser"
+title: "習題 51: 從瀏覽器中取得輸入"
 ---
 
 While it's exciting to see the browser display "Hello World", it's even more exciting to let the user submit text to your application from a form. In this exercise we'll improve our starter web application using forms and figure out how to do automated testing for a web application.

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 30: Else And If"
+title: "習題 30: Else 和 If"
 ---
 
 In the last exercise you worked out some `if-statements`, and then tried to guess what they are and how they work. Before you learn more I'll explain what everything is by answering the questions you had from extra credit. You did the extra credit right?

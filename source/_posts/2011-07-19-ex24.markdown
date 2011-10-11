@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 24: More Practice"
+title: "習題 24: 更多練習"
 ---
 
 You are getting to the end of this section. You should have enough Ruby "under your fingers" to move onto learning about how programming really works, but you should do some more practice. This exercise is longer and all about building up stamina. The next exercise will be similar. Do them, get them exactly right, and do your checks.

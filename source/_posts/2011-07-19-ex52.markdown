@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 52: The Start Of Your Web Game"
+title: "習題 52: 創造你的網頁遊戲"
 ---
 
 We're coming to the end of the book, and in this exercise I'm going to really challenge you. When you're done, you'll be a reasonably competent Ruby beginner. You'll still need to go through a few more books and write a couple more projects, but you'll have the skills to complete them. The only thing in your way will be time, motivation, and resources.

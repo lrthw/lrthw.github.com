@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 47: Automated Testing"
+title: "習題 47: 自動化測試"
 ---
 
 Having to type commands into your game over and over to make sure it's working is annoying. Wouldn't it be better to write little pieces of code that test your code? Then when you make a change, or add a new thing to your program, you just "run your tests" and the tests make sure things are still working. These automated tests won't catch all your bugs, but they will cut down on the time you spend repeatedly typing and running your code.

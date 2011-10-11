@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 50: Your First Website"
+title: "習題 50: 你的第一個網站"
 ---
 
 These final three exercises will be very hard and you should take your time with them. In this first one you'll build a simple web version of one of your games. Before you attempt this exercise you must have completed Exercise 46 successfully and have a working **RubyGems** installed such that you can install packages and know how to make a skeleton project directory. If you don't remember how to do this, go back to Exercise 46 and do it all over again.

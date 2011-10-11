@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 26: Congratulations, Take A Test!"
+title: "習題 26: 恭喜你，現在可以考試了！"
 ---
 
 You are almost done with the first half of the book. The second half is where things get interesting. You will learn logic and be able to do useful things like make decisions.

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 21: Functions Can Return Something"
+title: "習題 21: 函式可以傳回東西"
 ---
 
 You have been using the `=` character to name variables and set them to numbers or strings. We're now going to blow your mind again by showing you how to use `=` to set variables to be a value from a function. There will be one thing to pay close attention to, but first type this in:

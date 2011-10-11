@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 36: Designing and Debugging"
+title: "習題 36: 設計和測試"
 ---
 
 Now that you know `if-statements`, I'm going to give you some rules for `for-loops` and `while-loops` that will keep you out of trouble. I'm also going to give you some tips on debugging so that you can figure out problems with your program. Finally, you are going to design a similar little game as in the last exercise but with a slight twist.

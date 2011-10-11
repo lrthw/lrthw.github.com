@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Advice From An Old Programmer"
+title: "老程式設計師的建議"
 ---
 
 You've finished this book and have decided to continue with programming. Maybe it will be a career for you, or maybe it will be a hobby. You'll need some advice to make sure you continue on the right path, and get the most enjoyment out of your newly chosen activity.

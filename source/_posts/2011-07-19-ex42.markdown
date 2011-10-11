@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 42: Gothons Are Getting Classy"
+title: "習題 42: 物以類聚"
 ---
 
 While it's fun to put functions inside of hashes, you'd think there'd be something in Ruby that does this for you. There is: the `class` keyword. Using `class` is how you create an even more awesome "hash with functions" than the one you made in the last exercise. Classes have all sorts of powerful features and uses that I could never go into in this book. Instead, you'll just use them like they're fancy `hashes` with functions.

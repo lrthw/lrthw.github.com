@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 41: Gothons From Planet Percal #25"
+title: "習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)"
 ---
 
 Did you figure out the secret of the method in the hash from the last exercise? Can you explain it to yourself? I'll explain it and you can compare your explanation with mine. Here are the lines of code we are talking about:

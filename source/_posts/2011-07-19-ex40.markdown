@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 40: Dictionaries, Oh Lovely Dictionaries"
+title: "習題 40: 字典, 可愛的字典"
 ---
 
 Now I have to hurt you with another container you can use, because once you learn this container a massive world of ultra-cool will be yours. It is the most useful container ever: the hash.

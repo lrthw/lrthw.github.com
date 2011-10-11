@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Exercise 23: Read Some Code"
+title: "習題 23: 閱讀一些程式碼"
 ---
 
 You should have spent last week getting your list of symbols straight and locked in your mind. Now you get to apply this to another week reading code on the internet. This exercise will be daunting at first. I'm going to throw you in the deep end for a few days and have you just try your best to read and understand some source code from real projects. The goal isn't to get you to understand code, but to teach you the following three skills:
