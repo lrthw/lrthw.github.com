@@ -1,17 +1,17 @@
 ---
 layout: post
-title: "習題 37: Symbol Review"
+title: "習題 37: 複習各種符號"
 ---
 
-It's time to review the symbols and Ruby words you know, and to try to pick up a few more for the next few lessons. What I've done here is written out all the Ruby symbols and keywords that are important to know.
+現在該複習你學過的符號和 Ruby 關鍵字了，而且你在本節還會學到一些新的東西。我在這裡所作的是將所有的 Ruby 符號和關鍵字列出來，這些都是值得掌握的重點。
 
-In this lesson take each keyword, and first try to write out what it does from memory. Next, search online for it and see what it really does. It may be hard because some of these are going to be impossible to search for, but keep trying.
+在這節課中，你需要複習每一個關鍵字，從記憶中想起它的作用並且寫下來，接著上網搜索它真正的功能。有些內容可能是無法搜索的，所以這對你可能有些難度，不過你還是需要堅持嘗試。
 
-If you get one of these wrong from memory, write up an index card with the correct definition and try to "correct" your memory. If you just didn't know about it, write it down, and save it for later.
+如果你發現記憶中的內容有誤，就在索引卡片上寫下正確的定義，試著將自己的記憶糾正過來。如果你就是不知道它的定義，就把它也直接寫下來，以後再做研究。
 
-Finally, use each of these in a small Ruby program, or as many as you can get done. The key here is to find out what the symbol does, make sure you got it right, correct it if you do not, then use it to lock it in.
+最後，將每一種符號和關鍵字用在程式裡，你可以用一個小程式來做，也可以盡量多寫一些程式來鞏固記憶。這裡的關鍵點是明白各個符號的作用，確認自己沒搞錯，如果搞錯了就糾正過來，然後將其用在程序裡，並且通過這樣的方式鞏固自己的記憶。
 
-## Keywords
+## Keywords（關鍵字）
 * `alias`
 * `and`
 * `BEGIN`
@@ -51,10 +51,9 @@ Finally, use each of these in a small Ruby program, or as many as you can get do
 * `while`
 * `yield`
 
-## Data Types 
+## 資料類型
 
-
-For data types, write out what makes up each one. For example, with strings write out how you create a string. For numbers write out a few numbers.
+針對每一種資料類型，都舉出一些例子來，例如針對 string，你可以舉出一些字。針對number，你可以舉出一些數字。
 
 * **true**
 * **false**
@@ -66,8 +65,9 @@ For data types, write out what makes up each one. For example, with strings writ
 * `arrays`
 * `hashes`
 
-String Escapes Sequences
-For string escape sequences, use them in strings to make sure they do what you think they do.
+## 字串格式(String Formats)
+
+一樣的，在字符串中使用它們，確認它們的功能。
 
 * `\\`
 * `\'`
@@ -81,8 +81,9 @@ For string escape sequences, use them in strings to make sure they do what you t
 * `\v`
 
 
-Operators
-Some of these may be unfamiliar to you, but look them up anyway. Find out what they do, and if you still can't figure it out, save it for later.
+## Operators
+
+有些操作符號你可能還不熟悉，不過還是一一看過去，研究一下它們的功能，如果你研究不出來也沒關係，記錄下來日後解決。
 
 * `::`
 * `[]`
@@ -115,4 +116,4 @@ Some of these may be unfamiliar to you, but look them up anyway. Find out what t
 * `.. `
 * `...`
 
-Spend about a week on this, but if you finish faster that's great. The point is to try to get coverage on all these symbols and make sure they are locked in your head. What's also important is to find out what you do not know so you can fix it later.
+花一個星期學習這些東西，如果你能提前完成就更好了。我們的目的是覆蓋到所有的符號類型，確認你已經牢牢記住它們。另外很重要的一點是這樣你可以找出自己還不知道哪些東西，為自己日後學習找到一些方向。

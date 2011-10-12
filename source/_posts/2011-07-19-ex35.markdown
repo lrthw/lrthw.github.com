@@ -2,7 +2,8 @@
 layout: post
 title: "習題 35: 分支 (Branches) 和函式 (Functions)"
 ---
-You have learned to do `if-statements`, functions, and arrays. Now it's time to bend your mind. Type this in, and see if you can figure out what it's doing.
+
+你已經學會了 `if` 語句、函式、還有陣列。現在你要練習扭轉一下思維了。把下面的代碼寫下來，看你是否能弄懂它實現的是什麼功能。
 
 ```ruby
 def prompt()
@@ -95,7 +96,7 @@ start()
 
 ## 你應該看到的結果
 
-Here's me playing the game:
+你可以結果：
 
     $ ruby ex35.rb
     You are in a dark room.
@@ -115,8 +116,9 @@ Here's me playing the game:
     $
 
 ## 加分習題
-1. Draw a map of the game and how you flow through it.
-2. Fix all of your mistakes, including spelling mistakes.
-3. Write comments for the functions you do not understand. Remember **RDoc** comments?
-4. Add more to the game. What can you do to both simplify and expand it.
-5. The `gold_room` has a weird way of getting you to type a number. What are all the bugs in this way of doing it?  Can you make it better than just checking if "1" or "0" are in the number? Look at how `to_i()` works for clues.
+
+1. 把這個遊戲的地圖畫出來，把自己的路線也畫出來。
+2. 改正你所有的錯誤，包括拼寫錯誤。
+3. 為你不懂的函式寫註解。記得 **RDoc** 中的註釋嗎？
+4. 為遊戲添加更多元素。通過怎樣的方式可以簡化並且擴充遊戲的功能呢？
+5. 這個 gold\_room 遊戲使用了奇怪的方式讓你鍵入一個數字。這種方式會導致什麼樣的bug？你可以用比檢查 0、1更好的方式判斷輸入是否是數字嗎？ `to_i()` 這個函式可以給你一些頭緒。

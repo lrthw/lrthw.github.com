@@ -3,35 +3,40 @@ layout: post
 title: "習題 36: 設計和測試"
 ---
 
-Now that you know `if-statements`, I'm going to give you some rules for `for-loops` and `while-loops` that will keep you out of trouble. I'm also going to give you some tips on debugging so that you can figure out problems with your program. Finally, you are going to design a similar little game as in the last exercise but with a slight twist.
+現在你已經學會了「`if` 語句」，我將給你一些使用 `for` 迴圈和 `while` 迴圈的規則，一面你日後碰到麻煩。我還會教你一些測試的小技巧，以便你能發現自己程式的問題。最後，你將需要設計一個和上節類似的小遊戲，不過內容略有更改。
 
-## Rules For If-Statements
-1. Every `if-statement` must have an `else`.
-2. If this `else` should never be run because it doesn't make sense, then you must use a `die` function in the `else` that prints out an error message and dies, just like we did in the last exercise. This will find many errors.
-3. Never nest `if-statements` more than 2 deep and always try to do them 1 deep. This means if you put an `if` in an `if` then you should be looking to move that second `if` into another function.
-4. Treat `if-statements` like paragraphs, where each `if`,`elsif`,`else` grouping is like a set of sentences. Put blank lines before and after.
-5. Your boolean tests should be simple. If they are complex, move their calculations to variables earlier in your function and use a good name for the variable.
+## If 語句的規則
 
-If you follow these simple rules, you will start writing better code than most programmers. Go back to the last exercise and see if I followed all of these rules. If not, fix it.
+1.每一個「if語句」必伴隨須一個 `else`。
+2. 如果這個 `else` 因為沒有意義，而永遠都沒被執行到，那你必須在 `else` 語句後面使用一個叫 `die` 的函式，讓它印出錯誤並死給你看，這和上一節的習題類似，這樣你可以找到很多的錯誤。
+3. 千萬不要使用超過兩層的 `if` 語句，最好盡量保持只有 1 層。那你就需要把第二個 if 移到另一個函式裡面。
+4. 將`if`語句當做段落來對待，其中的每一個 `if`、`elsif`、`else`組合就跟
+一個段落的句子組合一樣。在這種組合的最前面和最後面留一個空行以作區分。
+5. 你的布林測試應該很簡單，如果它們很複雜的話，你需要將它們的運算式先放到一個變數裡，並且為變數取一個好名字。
 
-> **Warning:** Never be a slave to the rules in real life. For training purposes you need to follow these rules to make your mind strong, but in real life sometimes these rules are just stupid. If you think a rule is stupid, try not using it.
+如果你遵循上面的規則，你就會寫出比大部分程式設計師都好的程式碼來。回到上一個練習中，看看我有沒有遵循這些規則，如果沒有的話，就將其改正過來。
+
+
+> **Warning:** 在日常寫程式中不要成為這些規則的奴隸。在訓練中，你需要通過這些規則的應用來鞏固你學到的知識，而在實際寫程式中這些規則有時其實很蠢。如果你覺得哪個規則很蠢，就別使用它。
 
 ## Rules For Loops
-1. Use a `while-loop` only to loop forever, and that means probably never. This only applies to Ruby, other languages are different.
-2. Use a `for-loop` for all other kinds of looping, especially if there is a fixed or limited number of things to loop over.
 
-## Tips For Debugging
-1. Do not use a "debugger". A debugger is like doing a full-body scan on a sick person. You do not get any specific useful information, and you find a whole lot of information that doesn't help and is just confusing.
-2. The best way to debug a program is to use `puts` or `p` to print out the values of variables at points in the program to see where they go wrong.
-3. Make sure parts of your programs work as you work on them. Do not write massive files of code before you try to run them. Code a little, run a little, fix a little.
+1. 只有在迴圈循環永不停止時使用 `while` 迴圈，這意味著你可能永遠都用不到。這條只有 Ruby 中成立，其他的語言另當別論。
+2. 其他類型的迴圈都使用 `for` 迴圈，尤其是在迴圈的對象數量固定或者有限的情況下。
 
-## Homework
-Now write a similar game to the one that I created in the last exercise. It can be any kind of game you want in the same flavor. Spend a week on it making it as interesting as possible. For extra credit, use arrays, functions, and modules (remember those from Ex. 13?) as much as possible, and find as many new pieces of Ruby as you can to make the game work.
+## 除錯（Debug) 的小技巧
 
-There is one catch though, write up your idea for the game first. Before you start coding you must write up a map for your game. Create the rooms, monsters, and traps that the player must go through on paper before you code.
+1. 不要使用「debugger」。Debugger 所作的相當於對病人的全身掃描。你並不會得到某方面的有用資訊，而且你會發現它輸出的資訊太多，而且大部分沒有用，或者只會讓你更困惑。
+2. 最好的除錯技巧是使用 `puts` 或 `p` 在各個你想要檢查的關鍵環節將關鍵變數印出來，從而檢查哪裡是否有錯。
+3. 讓程式一部分一部分地運行起來。不要等一個很長的腳本寫完後才去運行它。寫一點，運行一點，再修改一點。
 
-Once you have your map, try to code it up. If you find problems with the map then adjust it and make the code match.
+## 家庭作業
+寫一個和上節練習類似的遊戲。同類的任何題材的遊戲都可以，花一個星期讓它盡可能有趣一些。作為加分習題，你可以盡量多使用陣列、函式、以及模組（記得習題 13 嗎？），而且盡量多弄一些新的 Ruby 程式讓你的遊戲跑起來。
 
-One final word of advice: Every programmer becomes paralyzed by irrational fear starting a new large project. They then use procrastination to avoid confronting this fear and end up not getting their program working or even started. I do this. Everyone does this. The best way to avoid this is to make a list of things you should do, and then do them one at a time.
+過有一點需要注意，你應該把遊戲的設計先寫出來。在你開始寫程式碼之前，你應該設計出遊戲的地圖，創建出玩家會碰到的房間、怪物、以及陷阱等環節。
 
-Just start doing it, do a small version, make it bigger, keep a list of things to do, and do them.
+一旦搞定了地圖，你就可以寫寫程式碼了。如果你發現地圖有問題，就調整一下地圖，讓寫程式碼和地圖互相符合。
+
+最後一個建議：每一個程式設計師在開始一個新的大項目時，都會被非理性的恐懼影響到。為了避免這種恐懼，他們會拖延時間，到最後一事無成。我有時會這樣，每個人都會有這樣的經歷，避免這種情況的最好的方法是把自己要做的事情列出來，一次完成一樣。
+
+開始做吧。先做一個小一點的版本，擴充它讓它變大，把自己要完成的事情一一列出來，然後逐個完成就可以了。

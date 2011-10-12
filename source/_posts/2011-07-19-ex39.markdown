@@ -3,18 +3,18 @@ layout: post
 title: "習題 39: 陣列的操作"
 ---
 
-You have learned about arrays. When you learned about `while-loops` you "pushed" numbers onto the end of an array and printed them out. There was also extra credit where you were supposed to find all the other things you can do to arrays in the Ruby documentation. That was a while back, so go find in the book where you did that and review if you do not know what I'm talking about.
+你已經學過了陣列。在你學習“`while` 迴圈的時候，你對陣列進行過「pushed」動作，而且將陣列的內容印了出來。另外你應該還在加分習題裡研究過 Ruby 文件，看了陣列支援的其他操作。這已經是一段時間以前了，所以如果你不記得了的話，就回到本書的前面再複習一遍吧。
 
-Found it? Remember it? Good. When you did this you had a list, and you "called" the function `push` on it. However, you may not really understand what's going on so let's see what we can do to lists, and how doing things with "on" them works.
+找到了嗎？還記得嗎？很好。那時候你對一個陣列執行了 ``push`` 函式。不過，你也許還沒有真正明白發生的事情，所以我們再來看看我們可以對陣列進行什麼樣的操作。
 
-When you type Ruby code that reads `mystuff.push('hello')` you are actually setting off a chain of events inside Ruby to cause something to happen to the `mystuff` array. Here's how it works:
+當你看到像 `mystuff.append('hello')`這樣的程式時，你事實上已經在 Ruby 內部激發了一個連鎖反應。以下是它的運作原理：
 
-1. Ruby sees you mentioned `mystuff` and looks up that variable. It might have to look backwards to see if you created with `=`, look and see if it is a function argument, or maybe it's a global variable. Either way it has to find the `mystuff` array first.
-2. Once it finds `mystuff` it then hits the `.` (period) operator and starts to look at variables that are a part of `mystuff`. Since `mystuff` is an array, it knows that `mystuff` has a bunch of functions.
-3. It then hits `push` and compares the name "push" to all the ones that `mystuff` says it responds to. If `push` is in there (it is) then it grabs that to use.
-4. Next Ruby sees the `(` (parenthesis) and realizes, "Oh hey, this should be a function." At this point it calls (aka runs, executes) the function.
+1. Ruby 看到你用到了 `mystuff`，於是就去找到這個變數。也許它需要倒著檢查看你有沒有在哪裡用 `=` 建立過這個變數，或者檢查它是不是一個函式參數，或者看它是不是一個全局變數。不管哪種方式，它得先找到 `mystuff` 這個變數才行。
+2. 一旦它找到了 `mystuff`，就輪到處理句點 `.` (period)這個操作符號，而且開始查看 `mystuff` 內部的一些變數了。由於 `mystuff` 是一個陣列，Ruby 知道 `mystuff` 支援一些函式。
+3. 接下來輪到了處理 `push`。Ruby會將 「push」和 `mystuff` 支援的所有函式的名稱一一對比，如果確實其中有一個叫 `push` 的函式，那麼Ruby就會去使用這個函式。
+4. 接下來Ruby看到了括號(parenthesis)並且意識到, 「噢，原來這應該是一個函式」，到了這裡，它就正常會呼叫這個函式了，不過這裡的函式還要多一個參數才行。
 
-That might be a lot to take in, but we're going to spend a few exercises getting this concept firm in your brain. To kick things off, here's an exercise that mixes strings and lists for all kinds of fun.
+一下子要消化這麼多可能有點難度，不過我們將做幾個練習，讓你頭腦中有一個深刻的印象。下面的練習將字符串和列表混在一起，看看你能不能在裡邊找出點樂子來：
 
 ```ruby
 ten_things = "Apples Oranges Crows Telephone Light Sugar"
@@ -64,7 +64,8 @@ puts stuff.values_at(3,5).join('#') # super stellar!
     $
 
 ## 加分習題
-1. Go read about "Object Oriented Programming" online. Confused? Yeah I was too. Do not worry. You will learn enough to be dangerous, and you can slowly learn more later.
-Read up on what a "class" is in Ruby. *Do not read about how other languages use the word "class".* That will only mess you up.
-2. What's the relationship between `something.methods` and the "class" of `something`?
-3. If you do not have any idea what I'm talking about do not worry. Programmers like to feel smart so they invented Object Oriented Programming, named it OOP, and then used it way too much. If you think that's hard, you should try to use "functional programming".
+
+1. 上網閱讀一些關於「物件導向程式(Object Oriented Programming)」的資料。暈了吧？嗯，我以前也是。別擔心。你將從這本書學到足夠用的關於物件導向程式的基礎知識，而以後你還可以慢慢學到更多。
+3. `something.methods` 和 something的 class 有什麼關係？
+3. 如果你不知道我講的是些什麼東西，別擔心。程式設計師為了顯得自己聰明，於是就發明了Opject Oriented Programming，簡稱為OOP，然後他們就開始濫用這個東西了。如果你覺得這東西太難，你可以開始學一下「函式式程式(functional programming)」。
+

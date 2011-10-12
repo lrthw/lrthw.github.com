@@ -1,9 +1,8 @@
 ---
 layout: post
-title: "習題 29: 如果 If"
+title: "習題 29: 如果（If）"
 ---
-
-Here is the next script of Ruby you will enter, which introduces you to the `if-statement`. Type this in, make it run exactly right, and then we'll try see if your practice has paid off.
+這裡是你接下要寫的作業，這段介紹了 `if-statement` （if 語句）。把這段輸入進去，讓它能夠正確執行。然後我們看看你是否有收穫。
 
 ```ruby
 people = 20
@@ -51,8 +50,10 @@ end
     $
 
 ## 加分習題
-In this extra credit, try to guess what you think the `if-statement` is and what it does. Try to answer these questions in your own words before moving onto the next exercise:
 
-1. What do you think the `if` does to the code under it?
-2. Can you put other boolean expressions from Ex. 27 in the `if-statement`? Try it.
-3. What happens if you change the initial variables for people, cats, and dogs?
+猜猜「if 語句」是什麼，它有什麼用處。在做下一道習題前，試著用自己的話回答下面的問題:
+
+1. 你認為 if 對於它下一行的程式碼做了什麼？
+2. 把習題 29 中的其它布林表示式放到「if 語句」中會不會也可以運行呢？試一下。
+3. 如果把變數 people、cats 和 dogs 的初始值改掉，會發生什麼事情？
+

@@ -3,15 +3,15 @@ layout: post
 title: "習題 30: Else 和 If"
 ---
 
-In the last exercise you worked out some `if-statements`, and then tried to guess what they are and how they work. Before you learn more I'll explain what everything is by answering the questions you had from extra credit. You did the extra credit right?
+前一習題中你寫了一些「if 語句 (if-statements)」，並且試圖猜出它們是什麼，以及實現的是什麼功能。在你繼續學習之前，我給你解釋一下上一節的加分習題的答案。上一節的加分習題你做過了吧，有沒有？
 
-1. What do you think the if does to the code under it? An `if` statement creates what is called a "branch" in the code. It's kind of like those choose your own adventure books where you are asked to turn to one page if you make one choice, and another if you go a different direction. The `if-statement` tells your script, "If this boolean expression is True, then run the code under it, otherwise skip it."
-2. Can you put other boolean expressions from Ex. 27 in the `if` statement? Try it. Yes you can, and they can be as complex as you like, although really complex things generally are bad style.
-3. What happens if you change the initial variables for people, cats, and dogs? Because you are comparing numbers, if you change the numbers, different `if-statements` will evaluate to **True** and the blocks of code under them will run. Go back and put different numbers in and see if you can figure out in your head what blocks of code will run.
+1. 你認為 if 對於它下一行的代碼做了什麼？`if` 語句為程式碼創建了一個所謂的「分支(branch)」，就跟 RPG遊戲中的情節分支一樣。if 語句告訴你的腳本：「如果這個布林表示式為真，就執行接下來的程式碼，否則就跳過這一段。」
+2. 把習題29中的其它布林表示式放到 if 語句中會不會也可以執行呢？試一下。可以。而且不管多複雜都可以，雖然寫複雜的東西通常是一種不好的寫作風格。
+3. 如果把變數 people、cats和 dogs 的初始值改掉，會發生什麼事情？因為你比較的對象是數字，如果你把這些數字改掉的話，某些位置的 if 語句會被演繹為 True，而它下面的程式區段將被運行。你可以試著修改這些數字，然後在頭腦裡假想一下那一段程式碼會被運行。
 
-Compare my answers to your answers, and make sure you really understand the concept of a "block" of code. This is important for when you do the next exercise where you write all the parts of `if-statements` that you can use.
+把我的答案和你的答案比較一下，確認自己真正懂得程式碼「區段(block)」的含義。這點對於你下一節的習題習很重要，因為你將會寫很多的if 語句。
 
-Type this one in and make it work too.
+把這一段寫下來，並讓它運行起來：
 
 ```ruby
 people = 30
@@ -50,7 +50,8 @@ end
     $
 
 ## 加分習題
-1. Try to guess what `elsif` and `else` are doing.
-2. Change the numbers of `cars`, `people`, and `buses` and then trace through each `if-statement` to see what will be printed.
-3. Try some more complex boolean expressions like `cars > people and buses < cars`.
-Above each line write an English description of what the line does.
+
+1. 猜想一下 `elsif` 和 `else` 的功能。
+2. 將 `cars`、`people`和`buses`的數量改掉，然後追溯每一個if語句。看看最後會印出什麼來。
+3. 試著寫一些複雜的布林表示式，例如 `cars > people and buses < cars`。
+在每一行的上面寫註解，說明這一行的功用。

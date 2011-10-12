@@ -2,23 +2,24 @@
 layout: post
 title: "習題 32: 迴圈和陣列"
 ---
+現在你應該有能力寫更有趣的程式出來了。如果你能夠一直跟得上，你應該已意識到你能將之前學到的將 `if` 語句 和 「布林表示式」這些東西結合起來，讓程式做出一些聰明的事了。
 
-You should now be able to do some programs that are much more interesting. If you have been keeping up, you should realize that now you can combine all the other things you have learned with `if-statements` and boolean expressions to make your programs do smart things.
+然而，我們的城市還需要能很快地完成重複的事情。這節習題中我們將使用 `for-loop` (for 迴圈) 來建立和印出各式的陣列。在做習題的過程中，你將會逐漸搞懂它們是怎麼回事。現在我不會告訴你，你需要自己找到答案。
 
-However, programs also need to do repetitive things very quickly. We are going to use a `for-loop` in this exercise to build and print various arrays. When you do the exercise, you will start to figure out what they are. I won't tell you right now. You have to figure it out.
-
-Before you can use a `for-loop`, you need a way to store the results of loops somewhere. The best way to do this is with an `array`. An array is a container of things that are organized in order. It's not complicated; you just have to learn a new syntax. First, there's how you make an array:
+在你開始使用 for 迴圈之前，你需要在某個位置存放迴圈的結果。最後的方法是使用陣列 `array`。一個陣列，就是一個按照順序存放東西的容器。陣列並不複雜，你只是要學習一點新的語法。首先我們來看看如何建立一個陣列：
 
 ```ruby
 hairs = ['brown', 'blond', 'red']
 eyes = ['brown', 'blue', 'green']
 weights = [1, 2, 3, 4]
 ```
-What you do is start the array with the `[` (left-bracket) which "opens" the array. Then you put each item you want in the array separated by commas, just like when you did function arguments. Lastly you end the array with a `]` (right-bracket) to indicate that it's over. Ruby then takes this array and all its contents, and assigns them to the variable.
 
-> **Warning:** This is where things get tricky for people who can't program. Your brain has been taught that the world is flat. Remember in the last exercise where you put `if-statements` inside `if-statements`? That probably made your brain hurt because most people do not ponder how to "nest" things inside things. In programming this is all over the place. You will find functions that call other functions that have `if-statements` that have arrays with arrays inside arrays. If you see a structure like this that you can't figure out, take out pencil and paper and break it down manually bit by bit until you understand it.
+你要做的是以 `[` 左中括號開頭「打開」陣列，然後寫下你要放入陣列的東西、用逗號 `,` 隔開，就跟函式的參數一樣，最後你需要用 `]` 右中括號結束陣列的定義。然後 Ruby 接收這個陣列以及裡面所有的內容，將其賦予給一個變數。
 
-We now will build some arrays using some loops and print them out:
+
+> **Warning:** 對於不會寫程式的人來說這是一個困難點。習慣性思維告訴你的大腦大地是平的。記得上一個練習中的巢狀 if 語句吧，你可能覺得要理解它有些難度，因為生活中一般人不會去想這樣的問題，但這樣的問題在程式中幾乎到處都是。你會看到一個函式呼叫用另外一個包含 if 語句的函式，其中又有巢狀陣列的陣列。如果你看到這樣的東西一時無法弄懂，就用紙筆記下來，手動分割下去，直到弄懂為止。
+
+現在我們將使用迴圈建立一些陣列，然後將它們印出來：
 
 ```ruby
 the_count = [1, 2, 3, 4, 5]
@@ -89,6 +90,7 @@ end
     $
 
 ## 加分習題
-1. Take a look at how you used the range `(0..5)`. Look up the `Range` class to understand it.
-2. Could you have avoided that `for-loop` entirely on line 24 and just assigned `(0..5)` directly to `elements`?
-3. Find the Ruby documentation on arrays and read about them. What other operations can you do to arrays besides `push`?
+
+1. 注意一下 range `(0..5)`。查一下 `Range` class (類別) 並弄懂它。
+2. 在第 24 行，你可以直接將 `elements` 賦值為 `(0..5)`，而不需使用 for 迴圈嗎？
+3. 在 Ruby 文件中可以找到關於陣列的內容，仔細閱讀一下，除了 `push` 以外，陣列還支援那些操作？

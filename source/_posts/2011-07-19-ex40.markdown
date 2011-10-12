@@ -1,11 +1,10 @@
 ---
 layout: post
-title: "習題 40: 字典, 可愛的字典"
+title: "習題 40: Hash, 可愛的 Hash"
 ---
+接下來我要教你另外一種讓你傷腦筋的容器型數據結構，因為一旦你學會這種容器，你將擁有超酷的能力。這是最有用的容器：Hash。
 
-Now I have to hurt you with another container you can use, because once you learn this container a massive world of ultra-cool will be yours. It is the most useful container ever: the hash.
-
-Ruby calls them "hashes", other languages call them, "dictionaries". I tend to use both names, but it doesn't matter. What does matter is what they do when compared to arrays. You see, an array lets you do this:
+Ruby 將這種資料類型叫做「Hash」，有的語言裡它的名稱是「dictionaries」。這兩種名字我都會用到，不過這並不重要，重要的是它們和陣列的區別。你看，針對陣列你可以做這樣的事情：
 
 ```ruby
 ruby-1.9.2-p180 :015 > things = ['a','b','c','d']
@@ -20,8 +19,7 @@ ruby-1.9.2-p180 :019 > print things
 ["a", "z", "c", "d"] => nil 
 ruby-1.9.2-p180 :020 >
 ```
-
-You can use numbers to "index" into an array, meaning you can use numbers to find out what's in arrays. You should know this by now, but what a hash does is let you use *anything*, not just numbers. Yes, a hash associates one thing to another, no matter what it is. Take a look:
+你可以使用數字作為陣列的「索引」，也就是你可以通過數字找到陣列中的元素。而 Hash 所作的，是讓你可以通過任何東西找到元素，不只是數字。是的，Hash 可以將一個物件和另外一個東西關聯，不管它們的類型是什麼，我們來看看：
 
 ```ruby
 ruby-1.9.2-p180 :001 > stuff = {:name => "Rob", :age => 30, :height => 5*12+10}
@@ -43,7 +41,7 @@ New York
 ruby-1.9.2-p180 :007 > 
 ```
 
-You will see that instead of just numbers we're using symbols, which are just lightweight strings (think name tags) in Ruby, to say what we want from the `stuff` hash. We can also put new things into the hash with symbols. It doesn't have to be symbols though, we can also do this:
+你將看到除了通過數字以外，我們在 Ruby 還可以用字串來從 Hash 中獲取 `stuff`，我們還可以用字串來往 Hash 中添加元素。當然它支持的不只有字串，我們還可以做這樣的事情：
 
 ```ruby
 ruby-1.9.2-p180 :004 > stuff[1] = "Wow"
@@ -61,10 +59,9 @@ ruby-1.9.2-p180 :008 > puts stuff
  => nil 
 ruby-1.9.2-p180 :009 >
 ```
+在這裡我使用了數字。其實我可以使用任何東西，不過這麼說並不准確，不過你先這麼理解就行了。
 
-In this one I just used numbers. I could use anything. Well almost but just pretend you can use anything for now.
-
-Of course, a hash that you can only put things in is pretty stupid, so here's how you delete things, with the `delete` function:
+當然了，一個只能放東西進去的 Hash是沒啥意思的，所以我們還要有刪除物件的方法，也就是使用 `delete` 這個關鍵字：
 
 ```ruby
 ruby-1.9.2-p180 :009 > stuff.delete(:city)
@@ -77,8 +74,7 @@ ruby-1.9.2-p180 :012 > stuff
  => {:name=>"Rob", :age=>30, :height=>70} 
 ruby-1.9.2-p180 :013 > 
 ```
-
-We'll now do an exercise that you must study *very* carefully. I want you to type this exercise in and try to understand what's going on. It is a very interesting exercise that will hopefully make a big light turn on in your head very soon.
+接下來我們要做一個練習，你必須「非常」仔細，我要求你將這個練習寫下來，然後試著弄懂它做了些什麼。這個練習很有趣，做完以後你可能會有豁然開朗的感覺。
 
 ```ruby
 cities = {'CA' => 'San Francisco', 
@@ -126,6 +122,7 @@ end
     State? (ENTER to quit) >
 
 ## 加分習題
-1. Go find the Ruby documentation for hashes and try to do even more things to them.
-2. Find out what you can't do with hashes. A big one is that they do not have order, so try playing with that.
-3. Try doing a `for-loop` over them, and then try the `each` method of iterating through a hash.
+
+1. 在 Ruby 文件中找到 Hash 相關的內容，學著對 Hash 做更多的操作。
+2. 找出一些 Hash 無法做到的事情。例如比較重要的一個就是 Hash 的內容是無序的，你可以檢查一下看看是否真是這樣。
+3. 試著把 `for` 迴圈執行到 Hash 上面，然後試著在 `for` 迴圈中使用 Hash 的 each 函式，看看會有什麼樣的結果。

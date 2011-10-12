@@ -3,9 +3,9 @@ layout: post
 title: "習題 31: 做出決定"
 ---
 
-In the first half of this book you mostly just printed out things and called functions, but everything was basically in a straight line. Your scripts ran starting at the top, and went to the bottom where they ended. If you made a function you could run that function later, but it still didn't have the kind of branching you need to really make decisions. Now that you have `if`, `else`, and `elsif` you can start to make scripts that decide things.
+這本書的上半部分，你印出了一些東西，並且呼叫了函式，不過一切都是直線式進行的。你的腳本從最上面一行開始，一路運行到結束，但其中並沒有決定程式流向的分支點。現在你已經學會了 `if`、`else`和 `elsif`，你就可以開始建立包含條件判斷的腳本了。
 
-In the last script you wrote out a simple set of tests asking some questions. In this script you will ask the user questions and make decisions based on their answers. Write this script, and then play with it quite a lot to figure it out.
+上一個腳本中你寫了一系列的簡單提問測試。這節的腳本中，你江需要像使用者提問，依據使用者的答案來做出決定。把腳本寫下來，多多搗鼓一陣子，看看他的運作原理是什麼。
 
 ```ruby
 def prompt
@@ -50,12 +50,14 @@ else
 end
 ```
 
-A key point here is that you are now putting the `if-statements` *inside* `if-statements` as code that can run. This is very powerful and can be used to create "nested" decisions, where one branch leads to another and another.
+這裡的重點是你可以在 `if` 語句中內部再放一個 `if` 語句。這是一個很強大的功能，可以用來建立「巢狀(nested)」的決定（decision)。
 
-Make sure you understand this concept of `if-statements` inside `if-statements`. In fact, do the extra credit to really nail it.
+你需要理解 `if` 語句包含 `if` 語句的概念。做一下加分習題，這樣你會確信自己真正理解了它們。
+
 
 ## 你應該看到的結果
-Here is me playing this little adventure game. I do not do so well.
+
+我在玩一個小冒險遊戲。我的水準不怎麼樣。
 
     $ ruby ex31.rb
     You enter a dark room with two doors.  Do you go through door #1 or door #2?
@@ -111,4 +113,4 @@ Here is me playing this little adventure game. I do not do so well.
 
 ## 加分習題
 
-Make new parts of the game and change what decisions people can make. Expand the game out as much as you can before it gets ridiculous.
+為遊戲添加新的部分，改變玩家做決定的位置。盡自己能力擴充這個遊戲，不過別把遊戲弄得太詭異了。
