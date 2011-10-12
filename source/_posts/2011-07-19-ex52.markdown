@@ -3,24 +3,25 @@ layout: post
 title: "習題 52: 創造你的網頁遊戲"
 ---
 
-We're coming to the end of the book, and in this exercise I'm going to really challenge you. When you're done, you'll be a reasonably competent Ruby beginner. You'll still need to go through a few more books and write a couple more projects, but you'll have the skills to complete them. The only thing in your way will be time, motivation, and resources.
+這本書馬上就要結束了。本章的練習對你是一個真正的挑戰。當你完成以後，你就可以算是一個能力不錯的 Ruby 初學者了。為了進一步學習，你還需要多讀一些書，多寫一些程式，不過你已經具備進一步學習的技能了。接下來的學習就只是時間、動力、以及資源的問題了。
 
-In this exercise, we won't make a complete game, but instead we'll make an "engine" that can run the game from Exercise 42 in the browser. This will involve refactoring Exercise 42, mixing in the structure from Exercise 47, adding automated tests, and finally creating a web engine that can run the games.
+在本章習題中，我們不會去創建一個完整的遊戲，取而代之的是我們會為《習題42》中的遊戲建立一個“引擎(engine)”，讓這個遊戲能夠在瀏覽器中運行起來。這會涉及到將《習題42》中的遊戲「重構(refactor)」，將《習題47》中的架構混合進來，添加自動測試程式碼，最後建立一個可以運行遊戲的web 引擎。
 
-This exercise will be *huge*, and I predict you could spend anywhere from a week to months on it before moving on. It's best to attack it in little chunks and do a bit a night, taking your time to make everything work before moving on.
+這是一節很「龐大」的習題。我預測你要花一周到一個月才能完成它。最好的方法是一點一點來，每晚上完成一點，在進行下一步之前確認上一步有正確完成。
 
-## Refactoring The Exercise 42 Game
-You've been altering the `gothonweb` project for two exercises and you'll do it one more time in this exercise. The skill you're learning is called "refactoring", or as I like to call it, "fixing stuff". Refactoring is a term programmers use to describe the process of taking old code, and changing it to have new features or just to clean it up. You've been doing this without even knowing it, as it's second nature to building software.
+## 重構《習題42》的遊戲
 
-What you'll do in this part is take the ideas from Exercise 47 of a testable "map" of Rooms, and the game from Exercise 42, and combine them together to create a new game structure. It will have the same content, just "refactored" to have a better structure.
+你已經在兩個練習中修改了 `gothonweb` 專案，這節習題中你會再修改一次。這種修改的技術叫做「重構(refactoring)」，或者用我喜歡的講法來說，叫「修修補補(fixing stuff)」。重構是一個程式術語，它指的是清理舊程式碼或者為舊程式碼添加新功能的過程。你其實已經做過這樣的事情了，只不過不知道這個術語而已。這是寫軟體過程的第二個自然屬性。
 
-First step is to grab the code from `ex47.rb` and copy it to `gothonweb/lib/map.rb` and copy `ex47_tests.rb` file to `gothonweb/test/test_map.rb` and run the test suite again to make sure it keeps working.
+你在本節中要做的，是將《習題47》中的可以測試的房間地圖，以及《習題42》中的遊戲這兩樣東西歸併到一起，創建一個新的遊戲架構。遊戲的內容不會發生變化，只不過我們會通過“重構”讓它有一個更好的架構而已。
 
-> **Note:** From now on I won't show you the output of a test run, just assume that you should be doing it and it'll look like the above unless you have an error.
+第一步是將 `ex47.rb` 的內容複製到 `gothonweb/lib/map.rb` 中，然後將 `ex47_tests.rb` 的內容複製到 `gothonweb/test/test_map.rb`中，然後再次運行測試，確認他們還能正常運作。
 
-Once you have the code from Exercise 47 copied over, it's time to refactor it to have the Exercise 42 map in it. I'm going to start off by laying down the basic structure, and then you'll have an assignment to make the `map.rb` file and the `map_tests.rb` file complete.
+> **Note:** 從現在開始我不會再向你展示運行測試的輸出了，我就假設你回去運行這些測試，而且知道怎樣的輸出是正確的。
 
-First thing to do is lay out the basic structure of the map using the `Room` class as it is now:
+將《習題47》的程式碼拷貝完畢後，你就該開始重構它，讓它包含《習題42》中的地圖。我一開始會把基本架構為你準備好，然後你需要去完成`map.rb`和`map_tests.rb` 裡邊的內容。
+
+首先要做的是使用 `Room` 類來構建基本的地圖架構：
 
 ```ruby
 class Room
@@ -158,14 +159,17 @@ central_corridor.add_paths({
 START = central_corridor
 ```
 
-You'll notice that there are a couple of problems with our Room class and this map:
+你會發現我們的 `Room` 類和地圖有一些問題：
 
-1. We have to put the text that was in the `if-else` clauses that got printed before entering a room as part of each room. This means you can't shuffle the map around which would be nice. You'll be fixing that up in this exercise.
-2. There are parts in the original game where we ran code that determined things like the bomb's keypad code, or the right pod. In this game we just pick some defaults and go with it, but later you'll be given extra credit to make this work again.
-3. I've just made a `generic_death` ending for all of the bad decisions, which you'll have to finish for me. You'll need to go back through and add in all the original endings and make sure they work.
-4. I've got a new kind of transition labeled `"*"` that will be used for a "catch-all" action in the engine.
+1. 在進入一個房間以前會打出一段文字作為房間的描述，我們需要將這些描述和每個房間關聯起來，這樣房間的次序就不會被打亂了，這對我們的遊戲是一件好事。這些描述本來是在 `if-else` 結構中的，這是我們後面要修改的東西。
 
-Once you've got that basically written out, here's the new automated test `test/test_map.rb` that you should have to get yourself started:
+2. 原版遊戲中我們使用了專門的程式來生成一些內容，例如炸彈的激活鍵碼，艦艙的選擇等，這次我們做遊戲時就先使用預設值好了，不過後面的加分習題裡，我會要求你把這些功能再加到遊戲中。
+
+3. 我為所有的遊戲中的失敗結尾寫了一個 `generic_death`，你需要去補全這個函式。你需要把原版遊戲中所有的失敗結尾都加進去，並確保程式碼能正確運行。
+
+4. 我添加了一種新的轉換模式，以`"*"`為標記，用來在遊戲引擎中實現「catch-all」動作。
+
+等你把上面的程式碼基本寫好以後，接下來就是引導你繼續寫下去的自動測試的內容 `test/test_map.rb` 了：
 
 ```ruby
 require 'test/unit'
@@ -216,12 +220,13 @@ class MapTests < Test::Unit::TestCase
 end
 ```
 
-Your task in this part of the exercise is to complete the map, and make the automated test completely validate the whole map. This includes fixing all the `generic_death` objects to be real endings. Make sure this works really well and that your test is as complete as possible because we'll be changing this map later and you'll use the tests to make sure it keeps working.
+你在這部分練習中的任務是完成地圖，並且讓自動測試可以完整地檢查過整個地圖。這包括將所有的 `generic_death` 物件修正為遊戲中實際的失敗結尾。讓你的程式碼成功運行起來，並讓你的測試越全面越好。後面我們會對地圖做一些修改，到時候這些測試將保證修改後的程式碼還可以正常工作。
 
-## Sessions And Tracking Users
-At a certain point in your web application you'll need to keep track of some information and associate it with the user's browser. The web (because of HTTP) is what we like to call "stateless", which means each request you make is independent of any other requests being made. If you request page A, put in some data, and click a link to page B, all the data you sent to page A just disappears.
+## 會話(session)和用戶跟踪
 
-The solution to this is to create a little data store (usually in a database, on disk, or in cookies) that uses a number unique to each browser to keep track of what that browser was doing. In Sinatra it's fairly easy, and here's an example showing how it's done using Rack middleware:
+在你的 web 程式運行的某個位置，你需要追踪一些信息，並將這些信息和用戶的瀏覽器關聯起來。在HTTP 協議的框架中，web 環境是「無狀態(stateless)」的，這意味著你的每一次請求和你其它的請求都是相互獨立的。如果你請求了頁面A，輸入了一些資料，然後點了一個頁面B 的鏈接，那你在頁面A 輸入的數據就全部消失了。
+
+解決這個問題的方法是為 web 程式建立一個很小的資料儲存功能，給每個瀏覽器賦予一個獨一無二的數字，用來跟踪瀏覽器所作的事情。這個功能通常適用資料庫或者是存儲在磁碟上的檔案來實現。在 Sinatra 這個框架中實現這樣的功能是很容易的，以下就是一個這樣的例子（使用 Rack middleware)：
 
 ```ruby
 require 'rubygems'
@@ -241,16 +246,17 @@ get '/reset' do
 end
 ```
 
-## Creating An Engine
-You should have your game map working and a good unit test for it. I now want to make a simple little game engine that will run the rooms, collect input from the player, and keep track of where a play is in the game. We'll be using the sessions you just learned to make a simple game engine that will:
+## 建立引擎
 
-1. Start a new game for new users.
-2. Present the room to the user.
-3. Take input from the user.
-4. Run their input through the game.
-5. Display the results and keep going until they die.
+你應該已經寫好了遊戲地圖和它的單元測試程式碼碼。現在我要求你製作一個簡單的遊戲引擎，用來讓遊戲中的各個房間運轉起來，從玩家收集輸入，並且記住玩家到了那一幕。我們將用到你剛學過的會話來製作一個簡單的引擎，讓它可以：
 
-To do this, you're going to take the trusty `lib/gothonsweb.rb` you've been hacking on and create a fully working, session based, game engine. The catch is I'm going to make a very simple one with basic HTML files, and it'll be up to you to complete it. Here's the base engine:
+1. 為新使用者啟動新的遊戲。
+2. 將房間展示給使用者。
+3. 接受使用者的輸入。
+4. 在遊戲中處理使用者的輸入。
+5. 顯示遊戲的結果，繼續遊戲的下一幕，知道玩家角色死亡為止。
+
+為了建立這個引擎，你需要將我們久經考驗的`lib/gothonsweb.rb` 搬過來，建立一個功能完備的、基於 session 的遊戲引擎。這裡的難點是我會先使用基本的 HTML 檔案創建一個非常簡單的版本，接下來將由你完成它，基本的引擎是這個樣子的：
 
 ```ruby
 require_relative "gothonweb/version"
@@ -289,8 +295,7 @@ module Gothonweb
 
 end
 ```
-
-You should next delete `lib/views/hello_form.erb` and `lib/views/index.erb` and create the two templates mentioned in the above code. Here's a very simple `lib/views/show_room.erb`:
+下一步，你應該刪除 `lib/views/hello_form.erb` 和 `lib/views/index.erb` 然後創作兩個在上述 code 提到的 template，這裡是一個非常簡單的 `lib/views/show_room.erb`:
 
 ``` erb
 <h1><%= room.name %></h1>
@@ -312,7 +317,7 @@ You should next delete `lib/views/hello_form.erb` and `lib/views/index.erb` and 
 <% end %>
 ```
 
-That is the template to show a room as you travel through the game. Next you need one to tell someone they died in the case that they got to the end of the map on accident, which is `lib/views/you_died.erb`:
+這就用來顯示遊戲中的房間的模板。接下來，你需要在使用者跑到地圖的邊界時，用一個模板告訴使用者他的角色的死亡信息，也就是`lib/views/you_died.erb` 這個模板：
 
 ``` erb
 <h1>You Died!</h1>
@@ -320,24 +325,24 @@ That is the template to show a room as you travel through the game. Next you nee
 <p>Looks like you bit the dust.</p>
 <p><a href="/">Play Again</a></p>
 ```
+準備好了這些文件，你現在可以做下面的事情了：
 
-With those in place, you should now be able to do the following:
+1. 讓測試代碼 `test/test_gothonsweb.rb` 再次運行起來，這樣你就可以去測試這個遊戲。由於 session 的存在，你可能頂多只能實現幾次點擊，不過你應該可以做出一些基本的測試來。
+2. 執行 lib/gothonsweb.rb` 腳本，試玩一下你的遊戲。
+3. 你需要和往常一樣刷新和修正你的遊戲，慢慢修改遊戲的HTML 檔案和引擎，直到你實現遊戲需要的所有功能為止。
 
-1. Get the test `test/test_gothonsweb.rb` working again so that you are testing the game. You won't be able to do much more than a few clicks in the game because of sessions, but you should be able to do some basics.
-2. Run the `lib/gothonsweb.rb` script and test out the game.
-3. You should be able to refresh and fix the game like normal, and work with the game HTML and engine until it does all the things you want it to do.
+## 你的期末考試
 
-## Your Final Exam
-Do you feel like this was a huge amount of information thrown at you all at once? Good, I want you to have something to tinker with while you build your skills. To complete this exercise, I'm going to give you a final set of exercises for you to complete on your own. You'll notice that what you've written so far isn't very well built, it is just a first version of the code. Your task now is to make the game more complete by doing these things:
+你有沒有覺著我一下子給了你超多的資訊呢？那就對了，我想要你在學習技能的同時可以有一些可以用來鼓搗的東西。為了完成這節習題，我將給你最後一套需要你自己完成的練習。你將注意到，到目前為止你寫的遊戲並不是很好，這只是你的第一版程式碼而已。你現在的任務是讓遊戲更加完善，實現下面的這些功能：
 
-1. Fix all the bugs I mention in the code, and any that I didn't mention. If you find new bugs, let me know.
-2. Improve all of the automated tests so that you test more of the application and get to a point where you use a test rather than your browser to check the application while you work.
-3. Make the HTML look better.
-4. Research logins and create a signup system for the application, so people can have logins and high scores.
-5. Complete the game map, making it as large and feature complete as possible.
-6. Give people a "help" system that lets them ask what they can do at each room in the game.
-7. Add any other features you can think of to the game.
-8. Create several "maps" and let people choose a game they want to run. Your `lib/gothonsweb.rb` engine should be able to run any map of rooms you give it, so you can support multiple games.
-9. Finally, use what you learned in Exercises 48 and 49 to create a better input processor. You have most of the code necessary, you just need to improve the grammar and hook it up to your input form and the GameEngine.
+1. 修正程式碼中所有我提到和沒提到的bug，如果你發現了新的bug，你可以告訴我。
+2. 改進所有的自動測試，讓你可以測試更多的內容，直到你可以不用瀏覽器就能測到所有的內容為止。
+3. 讓HTML 頁面看上去更美觀一些。
+4. 研究一下網頁登錄系統，為這個程式創建一個登錄界面，這樣人們就可以登錄這個遊戲，並且可以保存遊戲高分。
+5. 完成遊戲地圖，盡可能地把遊戲做大，功能做全。
+6. 給用戶一個「幫助系統」，讓他們可以查詢每個房間裡可以執行哪些命令。
+7. 為你的遊戲添加新功能，想到什麼功能就添加什麼功能。
+8. 創建多個地圖，讓用戶可以選擇他們想要玩的一張來進行遊戲。你的 `lib/gothonsweb.rb` 應該可以運行提供給它的任意的地圖，這樣你的引擎就可以支持多個不同的遊戲。
+9. 最後，使用你在習題 48 和49 中學到的東西來創建一個更好的輸入處理器。你手頭已經有了大部分必要的程式碼，你只需要改進語法，讓它和你的輸入表單以及遊戲引擎掛鉤即可。
 
-Good luck!
+祝你好運！

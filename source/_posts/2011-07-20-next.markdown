@@ -3,14 +3,14 @@ layout: post
 title: "下一步"
 ---
 
-You're not a programmer quite yet. I like to think of this book as giving you your "programming brown belt". You know enough to start another book on programming and handle it just fine. This book should have given you the mental tools and attitude you need to go through most Ruby books and actually learn something. It might even make it easy.
+現在還不能說你是一個程式員。這本書的目的相當於給你一個「程式設計師棕帶」。你已經了解了足夠的寫程式基礎，並且有能力閱讀別的寫程式書籍了。讀完這本書，你應該已經掌握了一些學習的方法，並且具備了該有的學習態度，這樣你在閱讀其他 Ruby 書籍時也許會更順利，而且能學到更多東西。
 
-> **Rob says:** For fun, I recommend you check out Why's (Poignant) Guide to Ruby: 
-> http://mislav.uniqpath.com/poignant-guide
-> Most of the actual programming content will be review by now, but Why is a brilliant mind and his book is a work of art.  Check out some of his open source projects, which are still floating around.  You can learn a lot by reading his code.
+> **Rob says:** 為了更有趣，我推薦你閱讀 Why's (Poignant) Guide to Ruby: 
+> <http://mislav.uniqpath.com/poignant-guide>
+> 大部份的程式內容現在都正在被 review。但是 Why 的心智無比聰明，而且他的書就像是一件藝術品。去看看它的一些 opensource 專案，你可以從他的程式碼裡學到許多東西。
 
-You could probably start hacking away at some programs right now, and if you have that itch, go ahead. Just understand anything you write will probably suck. That's alright though, I suck at every programming language I first start using. Nobody writes pure perfect gold when they're a beginner, and anyone who tells you they did is a huge liar.
+或許，你現在已經可以開始鼓搗一些程式出來了。如果你手上有需要解決的問題，試著寫個程式解決一下。你一開始寫的東西可能很挫，不過這沒有關係。以我為例，我在學每一種語言的初期都是很挫的。沒有哪個初學者能寫出完美的代碼來，如果有人告訴你他有這本事，那他只是在厚著臉皮撒謊而已。
 
-Finally, remember that this is something you have to do at least a couple hours a night for a while before you can get good. If it helps, while you're struggling to learn Ruby every night, I'm hard at work learning to play guitar. I work at it about 2 or 4 hours a day and still practice scales.
+最後，記住學習寫程式是要投入時間的，你可能需要至少每天晚上練習幾個小時。順便告訴你，當你每晚學習 Ruby 的時候，我在努力學習彈吉他。我每天練習2 到4 小時，而且還在學習基本的音階。
 
-Everyone is a beginner at something.
+每個人都是某一方面的菜鳥。
