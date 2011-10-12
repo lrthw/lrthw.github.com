@@ -3,39 +3,41 @@ layout: post
 title: "習題 27: 記住邏輯關係"
 ---
 
-Today is the day you start learning about logic. Up to this point you have done everything you possibly can reading and writing files, to the terminal, and have learned quite a lot of the math capabilities of Ruby.
+到此為止你已經學會了讀寫檔案，命令列處理，以及很多 Ruby 數學運算功能。
 
-From now on, you will be learning logic. You won't learn complex theories that academics love to study, but just the simple basic logic that makes real programs work and that real programmers need every day.
+今天，你將要開始學習邏輯了。你要學習的不是研究院裡的高深邏輯理論，只是程式設計師每天都用到的讓程式跑起來的基礎邏輯知識。
 
-Learning logic has to come after you do some memorization. I want you to do this exercise for an entire week. Do not falter. Even if you are bored out of your mind, keep doing it. This exercise has a set of logic tables you must memorize to make it easier for you to do the later exercises.
+學習邏輯之前你需要先記住一些東西。這個練習我要求你一個星期完成，不要擅自修改 schedule，就算你煩得不得了，也要堅持下去。這個練習會讓你背下來一系列的邏輯表格，這會讓你更容易地完成後面的習題。
 
-I'm warning you this won't be fun at first. It will be downright boring and tedious but this is to teach you a very important skill you will need as a programmer. You will need to be able to memorize important concepts as you go in your life. Most of these concepts will be exciting once you get them. You will struggle with them, like wrestling a squid, then one day snap you will understand it. All that work memorizing the basics pays off big later.
+需要事先警告你的是：這件事情一開始一點樂趣都沒有，你會一開始就覺得它很無聊乏味，但它的目的是教你程式設計師必須的一個重要技能 --- 一些重要的概念是必須記住的，一旦你明白了這些概念，你會獲得相當的成就感，但是一開始你會覺得它們很難掌握，就跟和烏賊摔跤一樣，而等到某一天，你會刷的一下豁然開朗。你會從這些基礎的記憶學習中得到豐厚的回報。
 
-Here's a tip on how to memorize something without going insane: Do a tiny bit at a time throughout the day and mark down what you need to work on most. Do not try to sit down for two hours straight and memorize these tables. This won't work. Your brain will really only retain whatever you studied in the first 15 or 30 minutes anyway.
+這裡告訴你一個記住某樣東西，而不讓自己抓狂的方法：在一整天裡，每次記憶一小部分，把你最需要加強的部分標記起來。不要想著在兩小時內連續不停地背誦，這不會有什麼好的結果。不管你花多長時間，你的大腦也只會留住你在前15 或者30 分鐘內看過的東西。
 
-Instead, what you should do is create a bunch of index cards with each column on the left on one side (True or False) and the column on the right on the back. You should then pull them out, see the "True or False" and be able to immediately say "True!" Keep practicing until you can do this.
+取而代之，你需要做的是創建一些索引卡片，卡片有兩列內容，正面寫下邏輯關係，反面寫下答案。你需要做到的結果是：拿出一張卡片來，看到正面的表達式，例如「True or False」，你可以立即說出背面的結果是「True」！堅持練習，直到你能做到這一點為止。
 
-Once you can do that, start writing out your own truth tables each night into a notebook. Do not just copy them. Try to do them from memory, and when you get stuck glance quickly at the ones I have here to refresh your memory. Doing this will train your brain to remember the whole table.
+一旦你能做到這一點了，接下來你需要每天晚上自己在筆記​​本上寫一份真值表出來。不要只是抄寫它們，試著默寫真值表，如果發現哪裡沒記住的話，就飛快地撇一眼這裡的答案。這樣將訓練你的大腦讓它記住整個真值表。
 
-Do not spend more than one week on this, because you will be applying it as you go.
+不要在這上面花超過一周的時間，因為你在後面的應用過程中還會繼續學習它們。
 
-## The Truth Terms
-In Ruby we have the following terms (characters and phrases) for determining if something is "true" or "false". Logic on a computer is all about seeing if some combination of these characters and some variables is True at that point in the program.
+## 邏輯術語
 
-* `and`
-* `or`
-* `not`
-* `!=` (not equal)
-* `==` (equal)
-* `>=` (greater-than-equal)
-* `<=` (less-than-equal)
-* true
-* false
+在 Ruby 中我們會用到下面的術語（符號或者詞彙）來定義事物的真(True)或者假(False)。電腦的邏輯就是在程式的某個位置檢查這些符號或者變數組合在一起表達的結果是真是假。
 
-You actually have run into these characters before, but maybe not the phrases. The phrases (and, or, not) actually work the way you expect them to, just like in English.
+* `and` 和
+* `or` 或
+* `not` 非
+* `!=` (not equal) 不等於
+* `==` (equal) 等於
+* `>=` (greater-than-equal) 大於等於
+* `<=` (less-than-equal) 小於等於
+* true 真
+* false 假
 
-## The Truth Tables
-We will now use these characters to make the truth tables you need to memorize.
+其實你已經見過這些符號了，但這些詞彙你可能還沒見過。這些詞彙(and, or, not)和你期望的效果其實是一樣的，跟英語裡的意思一模一樣。
+
+## 真值表
+
+我們將使用這些符號來創建你需要記住的真值表。
 
 <table border="1" class="docutils">
 <colgroup>
@@ -207,4 +209,5 @@ We will now use these characters to make the truth tables you need to memorize.
 </tbody>
 </table>
 
-Now use these tables to write up your own cards and spend the week memorizing them. Remember though, there is no failing in this book, just trying as hard as you can each day, and then a little bit more.
+
+現在使用這些表格創建你自己的卡片，再花一個星期慢慢記住它們。記住一點，這本書不會要求你成功或者失敗，只要每天盡力去學，在盡力的基礎上多花一點功夫就可以了。

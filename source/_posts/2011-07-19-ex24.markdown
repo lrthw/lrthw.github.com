@@ -3,7 +3,7 @@ layout: post
 title: "習題 24: 更多練習"
 ---
 
-You are getting to the end of this section. You should have enough Ruby "under your fingers" to move onto learning about how programming really works, but you should do some more practice. This exercise is longer and all about building up stamina. The next exercise will be similar. Do them, get them exactly right, and do your checks.
+你離這本書第一部分的結尾已經不遠了，你應該已經具備了足夠的 Ruby 基礎知識，可以繼續學習一些程式的原理了，但你應該做更多的練習。這個練習的內容比較長，它的目的是鍛煉你的毅力，下一個習題也差不多是這樣的，好好完成它們，做到完全正確，記得仔細檢查。
 
 ```ruby
 puts "Let's practice everything."
@@ -73,5 +73,5 @@ puts "We'd have %s beans, %s jars, and %s crates." % secret_formula(start_point)
 
 ## 加分習題
 
-1. Make sure to do your checks: read it backwards, read it out loud, put comments above confusing parts.
-2. Break the file on purpose, then run it to see what kinds of errors you get. Make sure you can fix it.
+1. 記得仔細檢查結果，從後往前倒著檢查，把程式碼朗讀出來，在不清楚的位置加上註釋。
+2. 故意將程式碼改爛，執行並檢查會發生什麼樣的錯誤，並且確認你有能力改正這些錯誤。

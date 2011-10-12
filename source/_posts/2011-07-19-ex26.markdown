@@ -1,24 +1,24 @@
 ---
 layout: post
-title: "習題 26: 恭喜你，現在可以考試了！"
+title: "習題 26: 恭喜你，現在來考試了！"
 ---
 
-You are almost done with the first half of the book. The second half is where things get interesting. You will learn logic and be able to do useful things like make decisions.
+你已經差不多完成這本書的前半部分了，不過後半部分才是更有趣的。你將學到邏輯，並通過條件判斷實現有用的功能。
 
-Before you continue, I have a quiz for you. This quiz will be very hard because it requires you to fix someone else's code. When you are a programmer you often have to deal with another programmer's code, and also with their arrogance. They will very frequently claim that their code is perfect.
+在你繼續學習之前，你有一道試題要做。這道試題很難，因為它需要你修正別人寫的程式碼。當你成為程式設計師以後，你將需要經常面對別的程式設計師的程式碼，也許還有他們的傲慢態度，他們會經常說自己的程式碼是完美的。
 
-These programmers are stupid people who care little for others. A good programmer assumes, like a good scientist, that there's always some probability their code is wrong. Good programmers start from the premise that their software is broken and then work to rule out all possible ways it could be wrong before finally admitting that maybe it really is the other guy's code.
+這樣的程式設計師是自以為是不在乎別人的蠢貨。優秀的科學家會對他們自己的工作持懷疑態度，同樣，優秀的程式設計師也會認為自己的程式碼總有出錯的可能，他們會先假設是自己的程式碼有問題，然後用排除法清查所有可能是自己有問題的地方，最後才會得出「這是別人的錯誤」這樣的結論。
 
-In this exercise, you will practice dealing with a bad programmer by fixing a bad programmer's code. I have poorly copied exercises 24 and 25 into a file and removed random characters and added flaws. Most of the errors are things Ruby will tell you, while some of them are math errors you should find. Others are formatting errors or spelling mistakes in the strings.
+在這節習題中，你將面對一個程度糟糕的程式設計師，並改好他的程式碼。我將習題24 和25 胡亂拷貝到了一個檔案中，隨機地刪掉了一些字，然後添加了一些錯誤進去。大部分的錯誤是 Ruby 在執行時會告訴你的，還有一些算術錯誤是你要自己找出來的。再剩下來的就是格式和拼寫錯誤了
 
-All of these errors are very common mistakes all programmers make. Even experienced ones.
+所有這些錯誤都是程式設計師很容易犯的，就算有經驗的程式設計師也不例外。
 
-Your job in this exercise is to correct this file. Use all of your skills to make this file better. Analyze it first, maybe printing it out to edit it like you would a school term paper. Fix each flaw and keep running it and fixing it until the script runs perfectly. Try not to get help, and instead if you get stuck take a break and come back to it later.
+你的任務是將此檔案修改正確，用你所有的技能改進這個腳本。你可以先分析這個文件，或者你還可以把它像學期論文一樣印出來，修正裡邊的每一個缺陷，重複修正和運行的動作，直到這個腳本可以完美地運行起來。在整個過程中不要尋求幫助，如果你卡在某個地方無法進行下去，那就休息一會晚點再做。
 
-Even if this takes days to do, bust through it and make it right.
+就算你需要幾天才能完成，也不要放棄，直到完全改對為止。
 
-Finally, the point of this exercise isn't to type it in, but to fix an existing file. To do that, you must go to:
+最後要說的是，這個練習的目的不是寫程式，而是修正現有的程式，習題放在下面的網站：
 
-http://ruby.learncodethehardway.org/book/exercise26.txt
+<http://ruby.learncodethehardway.org/book/exercise26.txt>
 
-Copy-paste the code into a file named `ex26.rb`. This is the only time you are allowed to copy-paste.
+從那裡把程式碼複製過來，命名為 `ex26.rb`，這也是本書唯一一處允許你複製貼上的地方。
