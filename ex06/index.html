@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 6: 字串(string)和文字 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 6: 字串(string)和文字                        Jul 19th, 2011                    雖然你已經在程式中寫過字串了，你還沒學過它們的用處。在這章習題中我們將使用複雜的字串來建立一系列的變數，從中你將...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex06/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 6: 字串(string)和文字</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>雖然你已經在程式中寫過字串了，你還沒學過它們的用處。在這章習題中我們將使用複雜的字串來建立一系列的變數，從中你將學到它們的用途。首先我們解釋一下字串是什麼東西。</p>
+
+<p>字串通常是指你想要展示給別人的，或者是你想要從程式裡「導出」的一小段字符。Ruby 可以通過文字裡的雙引號 <code>"</code> 或者是單引號 <code>'</code> 識別出字串來。這在你以前的 <code>puts</code>練習中你已經見過很多次了。如果你把單引號或者雙引號括起來的文字放到 <code>puts</code> 後面，他們就會被 Ruby 印出來。</p>
+
+<p>字串可以包含你目前學過的格式化字串。你只要將格式化的變數放到字串中，跟著一個百分比符號 <code>%</code> (percent)，再緊跟著變數名稱即可。唯一要注意的地方，是如果你想要在字串中通過格式化字串放入多個變數的結果，你需要將變數放到 <code>[]</code> 中括號(brackets) 中，而且變數之間用 <code>,</code> 逗號(comma)隔開。就像你逛商店時說「我要買牛奶、麵包、雞蛋、湯」一樣，只不過程式設計師說的是&#8221;[milk, eggs, bread, soup]&#8221;。</p>
+
+<p>另一種方式是使用字串插值 (string interpolation) 這種技巧，將變數注入到你的字串中。方法是使用 <code>#{}</code> 井號和大括號(pound and curly brace)。與其使用這種格式化字串</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">name1</span> <span class="o">=</span> <span class="s2">&quot;Joe&quot;</span>
+</span><span class='line'><span class="n">name2</span> <span class="o">=</span> <span class="s2">&quot;Mary&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello %s, where is %s?&quot;</span> <span class="o">%</span> <span class="o">[</span><span class="n">name1</span><span class="p">,</span> <span class="n">name2</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們可以鍵入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">name1</span> <span class="o">=</span> <span class="s2">&quot;Joe&quot;</span>
+</span><span class='line'><span class="n">name2</span> <span class="o">=</span> <span class="s2">&quot;Mary&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Hello </span><span class="si">#{</span><span class="n">name1</span><span class="si">}</span><span class="s2">, where is </span><span class="si">#{</span><span class="n">name2</span><span class="si">}</span><span class="s2">?&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我們將鍵入大量的字串、變數和格式化字串，並且將它們印出來。我們還將練習使用簡寫的變數名稱。程式設計師喜歡使用惱人的隱晦簡寫來節省打字時間，所以我們現在就將提早學會這件事，這樣你就能讀懂並寫出這些東西了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;There are </span><span class="si">#{</span><span class="mi">10</span><span class="si">}</span><span class="s2"> types of people.&quot;</span>
+</span><span class='line'><span class="n">binary</span> <span class="o">=</span> <span class="s2">&quot;binary&quot;</span>
+</span><span class='line'><span class="n">do_not</span> <span class="o">=</span> <span class="s2">&quot;don&#39;t&quot;</span>
+</span><span class='line'><span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;Those who know </span><span class="si">#{</span><span class="n">binary</span><span class="si">}</span><span class="s2"> and those who </span><span class="si">#{</span><span class="n">do_not</span><span class="si">}</span><span class="s2">.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">x</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">y</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;I said: </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2">.&quot;</span>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;I also said: &#39;</span><span class="si">#{</span><span class="n">y</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">hilarious</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'><span class="n">joke_evaluation</span> <span class="o">=</span> <span class="s2">&quot;Isn&#39;t that joke so funny?! </span><span class="si">#{</span><span class="n">hilarious</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">joke_evaluation</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">w</span> <span class="o">=</span> <span class="s2">&quot;This is the left side of...&quot;</span>
+</span><span class='line'><span class="n">e</span> <span class="o">=</span> <span class="s2">&quot;a string with a right side.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">w</span> <span class="o">+</span> <span class="n">e</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你應該看到的結果</p>
+
+<pre><code>There are 10 types of people.
+Those who know binary and those who don't.
+I said: There are 10 types of people..
+I also said: 'Those who know binary and those who don't.'.
+Isn't that joke so funny?! false
+This is the left side of...a string with a right side.
+</code></pre>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>遍歷程式，在每一行的上面寫一行註釋，給自己解釋這一行的作用。</li>
+<li>找到所有的「字串包含字串」的位置，總共有四個位置。</li>
+<li>你確定只有四個位置嗎？你怎麼知道的？說不定我在騙你呢。</li>
+<li>解釋一下為什麼 <code>w</code> 和 <code>e</code> 用 <code>+</code> 連起來就可以生成一個更長的字串。</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex05/" title="Previous Post: 
+">&laquo; 習題 5: 更多的變數和印出</a>
+       
+       || 
+        
+       <a href="/ex07/" title="next Post: 
+">習題 7: 更多印出 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex06/" data-via="" data-counturl="http://learnrubythehardway.org/ex06/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

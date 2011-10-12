@@ -1,0 +1,653 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 45: 物件、類和從屬關係 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 45: 物件、類和從屬關係                        Jul 19th, 2011                    有一個重要的概念你需要弄明白，那就是 Class「類」和 Object「物件」的區別。問題在於，class 和 obj...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex45/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 45: 物件、類和從屬關係</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>有一個重要的概念你需要弄明白，那就是 <code>Class</code>「類」和 <code>Object</code>「物件」的區別。問題在於，class 和 object 並沒有真正的不同。它們其實是同樣的東西，只是在不同的時間名字不同罷了。我用禪語來解釋一下吧：</p>
+
+<p><code>魚(Fish)和鮭魚(Salmon)有什麼區別？</code></p>
+
+<p>這個問題有沒有讓你有點暈呢？說真的，坐下來想一分鐘。我的意思是說，魚和鮭魚是不一樣，不過它們其實也是一樣的是不是？泥鰍是魚的一種，所以說沒什麼不同，不過泥鰍又有些特別，它和別的種類的魚的確不一樣，比如鮭魚和比目魚就不一樣。所以鮭魚和魚既相同又不同。怪了。</p>
+
+<p>這個問題讓人暈的原因是大部分人不會這樣去思考問題，其實每個人都懂這一點，你無須去思考魚和鮭魚的區別，因為你知道它們之間的關係。你知道鮭魚是魚的一種，而且魚還有別的種類，根本就沒必要去思考這類問題。</p>
+
+<p>讓我們更進一步，假設你有一隻水桶，裡邊有三條鮭魚。假設你的好人卡多到沒地方用，於是你給它們分別取名叫Frank，Joe，Mary。現在想想這個問題：</p>
+
+<p><code>Mary 和鮭魚有什麼區別？</code></p>
+
+<p>這個問題一樣的奇怪，但比起魚和鮭魚的問題來還好點。你知道 Mary是一條鮭魚，所以他並沒什麼不同，他只是鮭魚的一個「實例(instance)」。Joe 和Frank 一樣也是鮭魚的實例。我的意思是說，它們是由鮭魚創建出來的，而且代表著和鮭魚一樣的屬性。</p>
+
+<p>所以我們的思維方式是（你可能會有點不習慣）：魚是一個「類(class)」，鮭魚是一個「類(class)」，而 Mary 是一個「物件(object)」。仔細想想，然後我再一點一點慢慢解釋給你。</p>
+
+<p>魚是一個「類」，表示它不是一個真正的東西，而是一個用來描述具有同類屬性的實例的概括性詞彙。你有鰭？你有鰾？你住在水裡？好吧那你就是一條魚。</p>
+
+<p>後來一個博士路過，看到你的水桶，於是告訴你：「小伙子，你這些魚是鮭魚。」 專家一出，真相即現。並且專家還定義了一個新的叫做​​「鮭魚」的「類」，而這個「類」又有它特定的屬性。長鼻子？紅肉？體型大？住在海裡或是乾淨新鮮的水裡？吃起來味道不錯？那你就是一條鮭魚。</p>
+
+<p>最後一個廚師過來了，他跟博士說：「非也非也，你看到的是鮭魚，我看到的是Mary，而且我要把 Mary 淋上美味醬料做一道小菜。 」於是你就有了一隻叫做Mary 的鮭魚的「實例(instance)」（鮭魚也是魚的一個「實例」），並且你使用了它（把它塞到你的胃裡了），這樣它就是一個​​「物件(object)」。</p>
+
+<p>這會你應該了解了：Mary 是鮭魚的成員，而鮭魚又是魚的成員。這裡的關係式：物件屬於某個類，而某個類又屬於另一個類。</p>
+
+<h2>寫成程式碼是什麼樣子</h2>
+
+<p>這個概念有點詭異，不過實話說，你只要在建立和使用class的時候操心一下就可以了。我來給你兩個區分 <code>Class</code> 和 <code>Object</code>的小技巧。</p>
+
+<p>首先針對類和物件，你需要學會兩個說法，「is-a(是啥)」和「has-a(有啥)」。「是啥」要用在談論「兩者以類的關係互相關聯」的時候，而「有啥」要用在「兩者無共同點，僅是互為參照」的時候。</p>
+
+<p>接下來，通讀這段程式碼，將每一個註解為<code>##??</code>的位置標明他是「is-a」還是「has-a」的關係，並講明白這個關係是什麼。在程式碼的開始我還舉了幾個例子，所以你只要寫剩下的就可以了。</p>
+
+<p>記住，「是啥」指的是魚和鮭魚的關係，而「有啥」指的是鮭魚和烤肉架的關係。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">## Animal is-a object (yes, sort of confusing) look at the extra credit</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Animal</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">## ??</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Cat</span> <span class="o">&lt;</span> <span class="no">Animal</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">## ??</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:pet</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">## ??</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">## Person has-a pet of some kind</span>
+</span><span class='line'>    <span class="vi">@pet</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Employee</span> <span class="o">&lt;</span> <span class="no">Person</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">salary</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">## ?? hmm what is this strange magic?</span>
+</span><span class='line'>    <span class="k">super</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1">## ??</span>
+</span><span class='line'>    <span class="vi">@salary</span> <span class="o">=</span> <span class="n">salary</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Fish</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Salmon</span> <span class="o">&lt;</span> <span class="no">Fish</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Halibut</span> <span class="o">&lt;</span> <span class="no">Fish</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## rover is-a Dog</span>
+</span><span class='line'><span class="n">rover</span> <span class="o">=</span> <span class="no">Dog</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Rover&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">satan</span> <span class="o">=</span> <span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Satan&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">mary</span> <span class="o">=</span> <span class="no">Person</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Mary&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">mary</span><span class="o">.</span><span class="n">pet</span> <span class="o">=</span> <span class="n">satan</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">frank</span> <span class="o">=</span> <span class="no">Employee</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Frank&quot;</span><span class="p">,</span> <span class="mi">120000</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">frank</span><span class="o">.</span><span class="n">pet</span> <span class="o">=</span> <span class="n">rover</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">flipper</span> <span class="o">=</span> <span class="no">Fish</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">crouse</span> <span class="o">=</span> <span class="no">Salmon</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">## ??</span>
+</span><span class='line'><span class="n">harry</span> <span class="o">=</span> <span class="no">Halibut</span><span class="o">.</span><span class="n">new</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>加分習題</h2>
+
+<ol>
+<li>有沒有辦法把 <code>Class</code> 當作 <code>Object</code> 使用呢？</li>
+<li>在習題中為 animals、fish、還有people 添加一些函式，讓它們做一些事情。看看當函數在 Animal 這樣的「基類(base class)」裡和在 Dog 裡有什麼區別。</li>
+<li>找些別人的程式碼，理清裡邊的「是啥」和「有啥」的關係。</li>
+<li>使用 Array 和 Hash 建立一些新的一對應多的「has-many」的關係。</li>
+<li>你認為會有一種「has-many」的關係嗎？閱讀一下關於「多重繼承(multiple inheritance)」的資料，然後儘量避免這種用法。</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex44/" title="Previous Post: 
+">&laquo; 習題 44: 評估你的遊戲</a>
+       
+       || 
+        
+       <a href="/ex46/" title="next Post: 
+">習題 46: 一個專案骨架 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex45/" data-via="" data-counturl="http://learnrubythehardway.org/ex45/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,942 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 41: 來自 Percal 25 號行星的哥頓人(Gothons) - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)                        Jul 19th, 2011                    你在上一節中發現 Hash 的秘密功能了嗎？你可以解釋給自己嗎？讓我來給你解釋...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex41/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>你在上一節中發現 Hash 的秘密功能了嗎？你可以解釋給自己嗎？讓我來給你解釋一下，順便和你自己的理解對比看有什麼不同。這裡是我們要討論的程式碼：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">cities</span><span class="o">[</span><span class="ss">:find</span><span class="o">]</span> <span class="o">=</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:find_city</span><span class="p">)</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">cities</span><span class="o">[</span><span class="ss">:find</span><span class="o">].</span><span class="n">call</span><span class="p">(</span><span class="n">cities</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你要記住一個函式也可以作為一個變數，為了要將一個程式碼區段儲存在一個變數裡，我們創造了一個東西叫「proc」，proc 是 procedure 縮寫。在這段程式碼中，首先我們呼叫了 Ruby 內建的函式 <code>method</code>，它會回傳一個 proc 版的 <code>find_city</code> 函式。然後我們將之除存在一個 Hash 裡：key 是 <code>:find</code>，value 是 <code>cities</code>。。這和我們將州和市關聯起來的程式碼做的事情一樣，只不過在這個情況裡是個 proc。</p>
+
+<p>好了，所以一旦我們知道 <code>find_city</code> 是在Hash中 <code>:find</code> 的位置，這就意味著我們可以去呼叫它。第二行程式碼可以分解成如下步驟：</p>
+
+<ol>
+<li>Ruby 讀到了 <code>cities</code>，然後知道了它是一個 「Hash」。</li>
+<li>然後看到了<code>[:find]</code>，於是 Ruby 就從索引找到了 cities Hash 中對應的位置，並且獲取了該位置的內容。</li>
+<li><code>[:find]</code> 這個位置的內容是我們的函式 <code>find_city</code>，所以Ruby就知道了這裡表示一個函式，於是當它碰到<code>.call</code>就開始了 proc呼叫。</li>
+<li><code>cities</code>、<code>state</code> 這兩個參數將被傳遞到函式 <code>find_city</code> 中，然後這個函式就被運行了。</li>
+<li><code>find_city</code> 接著從 <code>cities</code> 中尋找 <code>states</code>，並且回傳它找到的內容，如果什麼都沒找到，就返回一個信息說它什麼都沒找到。</li>
+<li>Ruby 接受 <code>find_city</code> 傳回的資訊，最後將該資訊賦值給一開始的 <code>city_found</code> 這個變數。</li>
+</ol>
+
+
+<p>我再教你一個小技巧。如果你倒著閱讀的話，程式碼可能會變得更容易理解。讓我們來試一下，一樣是那行：</p>
+
+<ol>
+<li><code>state</code> 和 <code>city</code> 是&#8230;</li>
+<li>最為參數傳遞給&#8230;</li>
+<li>一個 proc 位於&#8230;</li>
+<li><code>:find</code> 然後尋找，目的地為&#8230;</li>
+<li><code>cities</code> 這個 Hash&#8230;</li>
+<li>最後印到螢幕上</li>
+</ol>
+
+
+<p>還有一種方法讀它，這回是「由裡向外」。</p>
+
+<ol>
+<li>找到表示式的中心位置，此次為<code>[:find]</code>。</li>
+<li>逆時針追溯，首先看到的是一個叫 <code>cities</code>的 Hash，這樣就知道了 <code>cities</code> 中的 <code>:find</code> 元素。</li>
+<li>上一步得到一個函式。繼續逆時針尋找，看到的是參數。</li>
+<li>參數傳遞給函式後，函式會傳回一個值。然後再逆時針尋找。</li>
+<li>最後，我們到了<code>city_found</code> =的賦值位置，並且得到了最終結果。</li>
+</ol>
+
+
+<p>數十年的程式經驗下來，我在讀程式碼的過程中已經用不到上面的三種方法了。我只要瞄一眼就能知道它的意思。甚至給我一整頁的程式碼，我也可以一眼瞄出裡邊的 bug 和錯誤。這樣的技能是花了超乎常人的時間和精力才鍛煉得來的。在磨練的過程中，我學會了下面三種讀程式碼的方法：</p>
+
+<ol>
+<li>從前向後。</li>
+<li>從後向前。</li>
+<li>逆時針方向。</li>
+</ol>
+
+
+<p>現在我們來寫這次的練習，寫完後再過一遍，這節習題其實挺有趣的。</p>
+
+<p>程式碼不少，不過還是從頭寫完吧。確認它能運行，然後玩一下看看。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">prompt</span><span class="p">()</span>
+</span><span class='line'>  <span class="nb">print</span> <span class="s2">&quot;&gt; &quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">death</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">quips</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;You died.  You kinda suck at this.&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;Nice job, you died ...jackass.&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;Such a luser.&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;I have a small puppy that&#39;s better at this.&quot;</span><span class="o">]</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">quips</span><span class="o">[</span><span class="nb">rand</span><span class="p">(</span><span class="n">quips</span><span class="o">.</span><span class="n">length</span><span class="p">())</span><span class="o">]</span>
+</span><span class='line'>  <span class="no">Process</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">central_corridor</span><span class="p">()</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;The Gothons of Planet Percal #25 have invaded your ship and destroyed&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;your entire crew.  You are the last surviving member and your last&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;mission is to get the neutron destruct bomb from the Weapons Armory,&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;put it in the bridge, and blow the ship up after getting into an &quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;escape pod.&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;You&#39;re running down the central corridor to the Weapons Armory when&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;flowing around his hate filled body.  He&#39;s blocking the door to the&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Armory and about to pull a weapon to blast you.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">prompt</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">action</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;shoot!&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Quick on the draw you yank out your blaster and fire it at the Gothon.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;His clown costume is flowing and moving around his body, which throws&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;off your aim.  Your laser hits his costume but misses him entirely.  This&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;completely ruins his brand new costume his mother bought him, which&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;makes him fly into an insane rage and blast you repeatedly in the face until&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;you are dead.  Then he eats you.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:death</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">elsif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;dodge!&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Like a world class boxer you dodge, weave, slip and slide right&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;as the Gothon&#39;s blaster cranks a laser past your head.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;In the middle of your artful dodge your foot slips and you&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;bang your head on the metal wall and pass out.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You wake up shortly after only to die as the Gothon stomps on&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;your head and eats you.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:death</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">elsif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;tell a joke&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Lucky for you they made you learn Gothon insults in the academy.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You tell the one Gothon joke you know:&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The Gothon stops, tries not to laugh, then busts out laughing and can&#39;t move.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;While he&#39;s laughing you run up and shoot him square in the head&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;putting him down, then jump through the Weapon Armory door.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:laser_weapon_armory</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;DOES NOT COMPUTE!&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:central_corridor</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">laser_weapon_armory</span><span class="p">()</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;You do a dive roll into the Weapon Armory, crouch and scan the room&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;for more Gothons that might be hiding.  It&#39;s dead quiet, too quiet.&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;You stand up and run to the far side of the room and find the&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;neutron bomb in its container.  There&#39;s a keypad lock on the box&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;and you need the code to get the bomb out.  If you get the code&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;wrong 10 times then the lock closes forever and you can&#39;t&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;get the bomb.  The code is 3 digits.&quot;</span>
+</span><span class='line'>  <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;%s%s%s&quot;</span> <span class="o">%</span> <span class="o">[</span><span class="nb">rand</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'>  <span class="nb">print</span> <span class="s2">&quot;[keypad]&gt; &quot;</span>
+</span><span class='line'>  <span class="n">guess</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">guesses</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while</span> <span class="n">guess</span> <span class="o">!=</span> <span class="n">code</span> <span class="ow">and</span> <span class="n">guesses</span> <span class="o">&lt;</span> <span class="mi">10</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;BZZZZEDDD!&quot;</span>
+</span><span class='line'>    <span class="n">guesses</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="nb">print</span> <span class="s2">&quot;[keypad]&gt; &quot;</span>
+</span><span class='line'>    <span class="n">guess</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">code</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The container clicks open and the seal breaks, letting gas out.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You grab the neutron bomb and run as fast as you can to the&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;bridge where you must place it in the right spot.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:the_bridge</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The lock buzzes one last time and then you hear a sickening&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;melting sound as the mechanism is fused together.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You decide to sit there, and finally the Gothons blow up the&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;ship from their ship and you die.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:death</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">the_bridge</span><span class="p">()</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;You burst onto the Bridge with the netron destruct bomb&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;under your arm and surprise 5 Gothons who are trying to&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;take control of the ship.  Each of them has an even uglier&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;clown costume than the last.  They haven&#39;t pulled their&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;weapons out yet, as they see the active bomb under your&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;arm and don&#39;t want to set it off.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">prompt</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">action</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;throw the bomb&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;In a panic you throw the bomb at the group of Gothons&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;and make a leap for the door.  Right as you drop it a&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Gothon shoots you right in the back killing you.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;As you die you see another Gothon frantically try to disarm&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;the bomb. You die knowing they will probably blow up when&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;it goes off.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:death</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">elsif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;slowly place the bomb&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You point your blaster at the bomb under your arm&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;and the Gothons put their hands up and start to sweat.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You inch backward to the door, open it, and then carefully&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;place the bomb on the floor, pointing your blaster at it.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You then jump back through the door, punch the close button&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;and blast the lock so the Gothons can&#39;t get out.&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Now that the bomb is placed you run to the escape pod to&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;get off this tin can.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:escape_pod</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;DOES NOT COMPUTE!&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:the_bridge</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">escape_pod</span><span class="p">()</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;You rush through the ship desperately trying to make it to&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;the escape pod before the whole ship explodes.  It seems like&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;hardly any Gothons are on the ship, so your run is clear of&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;interference.  You get to the chamber with the escape pods, and&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;now need to pick one to take.  Some of them could be damaged&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;but you don&#39;t have time to look.  There&#39;s 5 pods, which one&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;do you take?&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">good_pod</span> <span class="o">=</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+</span><span class='line'>  <span class="nb">print</span> <span class="s2">&quot;[pod #]&gt;&quot;</span>
+</span><span class='line'>  <span class="n">guess</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">guess</span><span class="o">.</span><span class="n">to_i</span> <span class="o">!=</span> <span class="n">good_pod</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You jump into pod %s and hit the eject button.&quot;</span> <span class="o">%</span> <span class="n">guess</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The pod escapes out into the void of space, then&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;implodes as the hull ruptures, crushing your body&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;into jam jelly.&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="ss">:death</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;You jump into pod %s and hit the eject button.&quot;</span> <span class="o">%</span> <span class="n">guess</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;The pod easily slides out into space heading to&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;the planet below.  As it flies to the planet, you look&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;back and see your ship implode then explode like a&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;bright star, taking out the Gothon ship at the same&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;time.  You won!&quot;</span>
+</span><span class='line'>    <span class="no">Process</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">ROOMS</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>  <span class="ss">:death</span> <span class="o">=&gt;</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:death</span><span class="p">),</span>
+</span><span class='line'>  <span class="ss">:central_corridor</span> <span class="o">=&gt;</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:central_corridor</span><span class="p">),</span>
+</span><span class='line'>  <span class="ss">:laser_weapon_armory</span> <span class="o">=&gt;</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:laser_weapon_armory</span><span class="p">),</span>
+</span><span class='line'>  <span class="ss">:the_bridge</span> <span class="o">=&gt;</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:the_bridge</span><span class="p">),</span>
+</span><span class='line'>  <span class="ss">:escape_pod</span> <span class="o">=&gt;</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:escape_pod</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">runner</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">next_one</span> <span class="o">=</span> <span class="n">start</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">while</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="n">room</span> <span class="o">=</span> <span class="n">map</span><span class="o">[</span><span class="n">next_one</span><span class="o">]</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--------&quot;</span>
+</span><span class='line'>    <span class="n">next_one</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">call</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">runner</span><span class="p">(</span><span class="no">ROOMS</span><span class="p">,</span> <span class="ss">:central_corridor</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>你應該看到的結果</h2>
+
+<pre><code>$ ruby ex41.rb
+
+--------
+The Gothons of Planet Percal #25 have invaded your ship and destroyed
+your entire crew.  You are the last surviving member and your last
+mission is to get the neutron destruct bomb from the Weapons Armory,
+put it in the bridge, and blow the ship up after getting into an 
+escape pod.
+
+
+You're running down the central corridor to the Weapons Armory when
+a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume
+flowing around his hate filled body.  He's blocking the door to the
+Armory and about to pull a weapon to blast you.
+&gt; dodge!
+Like a world class boxer you dodge, weave, slip and slide right
+as the Gothon's blaster cranks a laser past your head.
+In the middle of your artful dodge your foot slips and you
+bang your head on the metal wall and pass out.
+You wake up shortly after only to die as the Gothon stomps on
+your head and eats you.
+
+--------
+Such a luser.
+
+$ ruby ex41.rb 
+
+--------
+The Gothons of Planet Percal #25 have invaded your ship and destroyed
+your entire crew.  You are the last surviving member and your last
+mission is to get the neutron destruct bomb from the Weapons Armory,
+put it in the bridge, and blow the ship up after getting into an 
+escape pod.
+
+
+You're running down the central corridor to the Weapons Armory when
+a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume
+flowing around his hate filled body.  He's blocking the door to the
+Armory and about to pull a weapon to blast you.
+&gt; tell a joke
+Lucky for you they made you learn Gothon insults in the academy.
+You tell the one Gothon joke you know:
+Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr.
+The Gothon stops, tries not to laugh, then busts out laughing and can't move.
+While he's laughing you run up and shoot him square in the head
+putting him down, then jump through the Weapon Armory door.
+
+--------
+You do a dive roll into the Weapon Armory, crouch and scan the room
+for more Gothons that might be hiding.  It's dead quiet, too quiet.
+You stand up and run to the far side of the room and find the
+neutron bomb in its container.  There's a keypad lock on the box
+and you need the code to get the bomb out.  If you get the code
+wrong 10 times then the lock closes forever and you can't
+get the bomb.  The code is 3 digits.
+[keypad]&gt; 123 
+BZZZZEDDD!
+[keypad]&gt; 234
+BZZZZEDDD!
+[keypad]&gt; 345
+BZZZZEDDD!
+[keypad]&gt; 456
+BZZZZEDDD!
+[keypad]&gt; 567
+BZZZZEDDD!
+[keypad]&gt; 678
+BZZZZEDDD!
+[keypad]&gt; 789
+BZZZZEDDD!
+[keypad]&gt; 384
+BZZZZEDDD!
+[keypad]&gt; 764
+BZZZZEDDD!
+[keypad]&gt; 354
+BZZZZEDDD!
+[keypad]&gt; 263
+The lock buzzes one last time and then you hear a sickening
+melting sound as the mechanism is fused together.
+You decide to sit there, and finally the Gothons blow up the
+ship from their ship and you die.
+
+--------
+You died.  You kinda suck at this.
+</code></pre>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>解釋一下返回至下一個房間的運作原理。
+2.建立更多的房間，讓遊戲規模變大。</li>
+<li>除了讓每個函式印出自己以外，試試學習一下「文件註解(doc comments)」。</li>
+<li>看看你能不能將房間描述寫成文件註解，然後修改運行它的程式碼，讓它把文檔註解打印出來。</li>
+<li>一旦你用了文件註解作為房間描述，你還需要讓這個函式打出用戶提示嗎？試著讓運行函數的代碼打出用戶提示來，然後將用戶輸入傳遞到各個函式。你的函式應該只是一些 <code>if</code> 語句組合，將結果印出來，並且返回下一個房間。</li>
+<li>這其實是一個小版本的「有限狀態機(finite state machine)」，找資料閱讀了解一下，雖然你可能看不懂，但還是找來看看吧</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex40/" title="Previous Post: 
+">&laquo; 習題 40: Hash, 可愛的 Hash</a>
+       
+       || 
+        
+       <a href="/ex42/" title="next Post: 
+">習題 42: 物以類聚 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex41/" data-via="" data-counturl="http://learnrubythehardway.org/ex41/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

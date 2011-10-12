@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 44: 評估你的遊戲 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 44: 評估你的遊戲                        Jul 19th, 2011                    這節練習的目的是檢查評估你的遊戲。也許你只完成了一半，卡在那裡沒有進行下去，也許你勉強做出來了。不管怎樣，我們將串一下你應該...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex44/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 44: 評估你的遊戲</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>這節練習的目的是檢查評估你的遊戲。也許你只完成了一半，卡在那裡沒有進行下去，也許你勉強做出來了。不管怎樣，我們將串一下你應該弄懂的一些東西，並確認你的遊戲裡有使用到它們。我們將學習如何用正確的格式構建class，使用class 的一些通用習慣，另外還有很多的「書本知識」讓你學習。</p>
+
+<p>為什麼我會讓你先行嘗試，然後才告訴你正確的做法呢？因為從現在開始你要學會「自給自足」，以前是我牽著你前行，以後就得靠你自己了。後面的習題我只會告訴你你的任務，你需要自己去完成，在你完成後我再告訴你如何可以改進你的作業。</p>
+
+<p>一開始你會覺得很困難並且很不習慣，但只要堅持下去，你就會培養出自己解決問題的能力。你還會找出創新的方法解決問題，這比從課本中拷貝解決方案強多了。</p>
+
+<h2>函式的風格</h2>
+
+<p>以前我教過的怎樣寫好函式的方法一樣是適用的，不過這裡要添加幾條：</p>
+
+<ul>
+<li>由於各種各樣的原因，程序員將 class (類)裡邊的函式稱作method（方法）。很大程度上這只是個市場策略（用來推銷OOP），不過如果你把它們稱作「函式」的話，是會有囉嗦的人跳出來糾正你的。如果你覺得他們太煩了，你可以告訴他們從數學方面示範一下「函式」和「方法」究竟有什麼不同，這樣他們會很快閉嘴的。</li>
+<li>在你使用class的過程中，很大一部分時間是告訴你的 class如何「做事情」。給這些函式命名的時候，與其命名成一個名詞，不如命名為一個動詞，作為給class的一個命令。就和陣列中 的 <code>pop</code> 函式一樣，它相當於說：「嘿，陣列，把這東西給我 <code>pop</code>出去。」它的名字不是 <code>remove_from_end_of_list</code>，因為即使它的功能的確是這樣，這一個字串也不是一個命令。</li>
+<li>讓你的函式保持簡單小巧。由於某些原因，有些人開始學習 class 後就會忘了這一條。</li>
+</ul>
+
+
+<h2>Classh (類) 的風格</h2>
+
+<ul>
+<li>你的 class 應該使用「camel case（駝峰式大小寫）」，例如你應該使用<code>SuperGoldFactory</code> 而不是 <code>super_gold_factory</code></li>
+<li>你的 <code>initialize</code> 不應該做太多的事情，這會讓 class 變得難以使用。</li>
+<li>你的其它函式應該使用「underscore format（下劃線隔詞）」，所以你可以寫<code>my_awesome_hair</code>，而不是 <code>myawesomehair</code> 或者 <code>MyAwesomeHair</code>。</li>
+<li>用一致的方式組織函式的參數。如果你的 class 需要處理 users、dogs、和cats，就保持這個次序（特別情況除外）。如果一個函式的參數是(dog, cat, user)，另一個的是(user, cat, dog) ，這會讓函式使用起來很困難。</li>
+<li>不要對全局變數或者來自模組的變數進行重定義或者賦值，讓這些東西自顧自就行了。</li>
+<li>不要一根筋式地維持風格一致性，這是思維力底下的妖怪嘍囉做的事情。一致性是好事情，不過愚蠢地跟著別人遵從一些白痴口號是錯誤的行為——這本身就是一種壞的風格。好好為自己著想吧。</li>
+</ul>
+
+
+<h2>程式碼風格</h2>
+
+<ul>
+<li>為了以方便他人閱讀，在自己的程式碼之間留下一些空白。你將會看到一些很差的程式設計師，他們寫的程式碼還算通順，但程式碼之間沒有任何空間。這種風格在任何程式語言中都是壞習慣，人的眼睛和大腦會通過空白和垂直對齊的位置來掃描和區隔視覺元素，如果你的程式碼裡沒有任何空白，這相當於為你的程式碼上了迷彩裝。</li>
+<li>如果一段程式碼你無法朗讀出來，那麼這段程式碼的可讀性可能就有問題。如你找不到讓某個東西易用的方法，試著也朗讀出來。這樣不僅會逼迫你慢速而且真正仔細閱讀過去，還會幫你找到難讀的段落，從而知道那些程式碼的易讀性需要作出改進。</li>
+<li>學著模仿別人的風格寫程式，直到哪天你找到你自己的風格為止。</li>
+<li>一旦你有了自己的風格，也別把它太當回事。程式設計師工作的一部分就是和別人的程式碼打交道，有的人審美觀就是很差。相信我，你的審美觀某一方面一定也很差，只是你從未意識到而已。</li>
+<li>如果你發現有人寫的程式碼風格你很喜歡，那就模仿他們的風格。</li>
+</ul>
+
+
+<h2>好的註釋</h2>
+
+<ul>
+<li>有程序員會告訴你，說你的程式碼需要有足夠的可讀性，這樣你就無需寫註釋了。他們會以自己接近官腔的聲音說「所以你永遠都不應該寫程式碼註釋。」這些人要嘛是一些顧問型的人物，如果別人無法使用他們的程式碼，就會付更多錢給他們讓他們解決問題。要嘛他們能力不足，從來沒有跟別人合作過。別理會這些人，好好寫你的註解。</li>
+<li>寫註解的時候，描述清楚為什麼你要這樣做。程式碼只會告訴你「這樣實現」，而不會告訴你「為什麼要這樣實現」，而後者比前者更重要。</li>
+<li>當你為函式寫文件註解的時候，記得為別的程式碼使用者也寫些東西。你不需要狂寫一大堆，但一兩句話謝謝這個函式的用法還是很有用的。</li>
+<li>最後要說的是，雖然註解是好東西，太多的註解就不見得是了。而且註解也是需要維護的，你要盡量讓註解短小精悍一語中的，如果你對程式碼做了更改，記得檢查並更新相關的註解，確認它們還是正確的。</li>
+</ul>
+
+
+<h2>評估你的遊戲</h2>
+
+<p>現在我要求你假裝成是我，板起臉來，把你的程式碼打印出來，然後拿一支紅筆，把程式碼中所有的錯誤都標出來。你要充分利用你在本​​章以及前面學到的知識。等你批改完了，我要求你把所有的錯誤改對。這個過程我需要你多重複幾次，爭取找到更多的可以改進的地方。使用我前面教過的方法，把程式碼分解成最細小的單元一一進行分析。</p>
+
+<p>這節練習的目的是訓練你對於細節的關注程度。等你檢查完自己的程式碼，再找一段別人的程式碼用這種方法檢查一遍。把程式碼打印出來，檢查出所有程式碼和風格方面的錯誤，然後試著在不改壞別人程式碼的前提下把它們修改正確。</p>
+
+<p>這週我要求你的事情就是批改和糾錯，包含你自己的程式碼和別人的程式碼，再沒有別的了。這節習題難度還是挺大，不過一旦你完成了任務，你學過的東西就會牢牢記在腦中。</p>
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex43/" title="Previous Post: 
+">&laquo; 習題 43: 你來製作一個遊戲</a>
+       
+       || 
+        
+       <a href="/ex45/" title="next Post: 
+">習題 45: 物件、類和從屬關係 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex44/" data-via="" data-counturl="http://learnrubythehardway.org/ex44/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 28: 布林（Boolean）表示式練習 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 28: 布林（Boolean）表示式練習                        Jul 19th, 2011                    上一節你學到的邏輯組合的正式名稱是「布林邏輯表示式(boolean logic expression)」...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex28/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 28: 布林（Boolean）表示式練習</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>上一節你學到的邏輯組合的正式名稱是「布林邏輯表示式(boolean logic expression)」。在程式中，布林邏輯可以說是無處不在。它們是電腦運算的基礎和重要組成部分，掌握它們就跟學音樂掌握音階一樣重要。</p>
+
+<p>在這節練習中，你將在 IRB 裡使用到上節學到的邏輯表示式。先為下面的每一個邏輯問題寫出你認為的答案，每一題的答案要嘛為 True 要嘛為 False。寫完以後，你需要將 IRB 運行起來，把這些邏輯語句輸入進去，確認你寫的答案是否正確。</p>
+
+<pre><code>1. true and true
+2. false and true
+3. 1 == 1 and 2 == 1
+4. "test" == "test"
+5. 1 == 1 or 2 != 1
+6. true and 1 == 1
+7. false and 0 != 0
+8. true or 1 == 1
+9. "test" == "testing"
+10. 1 != 0 and 2 == 1
+11. "test" != "testing"
+12. "test" == 1
+13. not (true and false)
+14. not (1 == 1 and 0 != 1)
+15. not (10 == 1 or 1000 == 1000)
+16. not (1 != 10 or 3 == 4)
+17. not ("testing" == "testing" and "Zed" == "Cool Guy")
+18. 1 == 1 and not ("testing" == 1 or 1 == 0)
+19. "chunky" == "bacon" and not (3 == 4 or 3 == 3)
+20. 3 == 3 and not ("testing" == "testing" or "Ruby" == "Fun")
+</code></pre>
+
+<p>在本節結尾的地方我會給你一個理清複雜邏輯的技巧。</p>
+
+<p>所有的布林邏輯式都可以用下面的簡單流程得到結果：</p>
+
+<ol>
+<li>找到相等判斷的部分 (== or !=)，將其改寫為其最終值(True 或False)。</li>
+<li>找到括號裡的 and/or，先算出它們的值。</li>
+<li>找到每一個 not，算出他們反過來的值。</li>
+<li>找到剩下的 and/or，解出它們的值。</li>
+<li>等你都做完後，剩下的結果應該就是 True 或者 False 了。</li>
+</ol>
+
+
+<p>下面我們以 #20 邏輯式示範一下：</p>
+
+<p><code>3 != 4 and not ("testing" != "test" or "Ruby" == "Ruby")</code></p>
+
+<p>接下來你將看到這個複雜表達式是如何逐級解析為一個單獨結果的：</p>
+
+<ol>
+<li>出每一個等值判斷:
+
+<ul>
+<li><code>3 != 4</code> 為 <strong>True</strong>: <code>true and not ("testing" != "test" or "Ruby" == "Ruby")</code></li>
+<li><code>"testing" != "test"</code> 為 <strong>True</strong>: <code>true and not (true or "Ruby" == "Ruby")</code></li>
+<li><code>"Ruby" == "Ruby"</code>: <code>true and not (true or true)</code></li>
+</ul>
+</li>
+<li>找到 <code>()</code> 中的每一個 and/or :
+
+<ul>
+<li><code>(true or true)</code> is <strong>True</strong>: <code>true and not (true)</code></li>
+</ul>
+</li>
+<li>找到每一個not 並將其逆轉:
+
+<ul>
+<li><code>not (true)</code> is <strong>False</strong>: <code>true and false</code></li>
+</ul>
+</li>
+<li>找到剩下的and/or，解出它們的值:
+
+<ul>
+<li><code>true and false</code> is <strong>False</strong></li>
+</ul>
+</li>
+</ol>
+
+
+<p>這樣我們就解出了它最終的值為 False .</p>
+
+<blockquote><p><strong>Warning:</strong> 雜的邏輯表達式一開始看上去可能會讓你覺得很難。而且你也許已經碰壁過了，不過別灰心，這些「邏輯體操」式的訓練只是讓你逐漸習慣起來，這樣後面你可以輕易應對程式裡邊更酷的一些東西。只要你堅持下去，不放過自己做錯的地方就行了。如果你暫時不太能理解也沒關係，弄懂的時候總會到來的。</p></blockquote>
+
+<h2>你應該看到的結果</h2>
+
+<p>以下內容是在你自己猜測結果以後，通過和 IRB 對話得到的結果：</p>
+
+<pre><code>$ irb
+ruby-1.9.2-p180 :001 &gt; true and true
+ =&gt; true 
+ruby-1.9.2-p180 :002 &gt; 1 == 1 and 2 == 2
+ =&gt; true 
+</code></pre>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>Ruby 裡還有很多和 <code>!=</code>、<code>==</code>類似的操作符號。試著盡可能多的列出 Ruby 中的「等價運算符號」。例如 <code>&lt;</code> 或是 <code>&lt;=</code>。</li>
+<li>寫出每一個等價運算符號的名稱。例如 <code>!=</code> 叫「not equal（不等於」。</li>
+<li>在 IRB 裡測試新的布林邏輯式。在敲 Enter 前你需要喊出它的結果。不要思考，憑自己的第一直覺就可以了。把表達式和結果用筆寫下來再敲 Enter，最後看自己做對多少，做錯多少。</li>
+<li>把習題 3 那張紙丟掉，以後你不再需要查詢它了。</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex27/" title="Previous Post: 
+">&laquo; 習題 27: 記住邏輯關係</a>
+       
+       || 
+        
+       <a href="/ex29/" title="next Post: 
+">習題 29: 如果（If） &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex28/" data-via="" data-counturl="http://learnrubythehardway.org/ex28/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

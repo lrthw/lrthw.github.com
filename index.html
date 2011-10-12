@@ -1,1 +1,597 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="          《 笨方法學 Ruby 》(Learn Ruby The Hard Way)是 Zed Shaw 編寫的一本Ruby 入門書籍。適合對電腦了解不多，沒有學過寫程式，但對寫程式感興趣的朋友學習使用。這本書以習題的方式引導讀者一步一步學習寫程式，從簡單的打印一直講到完整專案的實...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  <article>
+    <p>《 笨方法學 Ruby 》(Learn Ruby The Hard Way)是 Zed Shaw 編寫的一本Ruby 入門書籍。適合對電腦了解不多，沒有學過寫程式，但對寫程式感興趣的朋友學習使用。這本書以習題的方式引導讀者一步一步學習寫程式，從簡單的打印一直講到完整專案的實現。也許讀完這本書並不意味著你已經學會了寫程式，但至少你會對程式語言以及開發程式這個行業有一個初步的了解。</p>
+
+    <p>筆者認為本書區別於其它入門書籍的特點如下：</p>
+
+    <ul>
+    <li><strong>注重實踐</strong>。本書提供了足夠的練習代碼，如果你完成了所有的練習（包括加分習題），那你已經寫了上萬行的代碼。要知道很多職業程式設計師一年也就寫幾萬行程式碼而已。</li>
+    <li><strong>注重能力培養</strong>。除了原序言提到的「讀和寫」、「注重細節」、以及「發現不同」這樣的基本能力以外，本書還培養了讀者自己鑽研問題和尋求答案的能力。</li>
+    <li><strong>注重好習慣的養成</strong>。本書詳細地講解了怎樣寫出好的代碼、好的註釋、好的項目。這會讓你在後續的學習中少走很多彎路。</li>
+    </ul>
+
+
+    <p>本書結構非常簡單，其實就是52 個習題而已。其中26 個覆蓋了輸入輸出、變量、以及函式三個課題，另外 26 個覆蓋了一些比較進階的話題，如條件判斷、迴圈、類和物件、程式碼測試、以及專案的實現等。每一章節的格式基本都是一樣的，以程式碼練習題開始，讀者照著說明編寫程式碼（不允許複製貼上），運行並檢查結果，然後再做一下加分習題就可以了。當然如果你覺得加分習題對你來說有點難，你也可以暫時跳過，以後再完成也沒關係。</p>
+
+    <p>另外閱讀本書還需要你有一定的英文能力。其實學習寫程式不懂英語是很吃虧的，畢竟編程語言都是基於英語，而程式社群的主要交流方式也是英語。不會英語的人在程式界可能就只好當二等公民了。本書的翻譯盡量保留了所有的英文專業詞彙（可能會有中文說明），而且遵照 Zed 的建議，程式碼及答案部分沒有翻譯成中文，讀者看到不懂的地方，請自己查字典解決。</p>
+
+    <p>如果你對自己的英文能力比較有信心，譯者強烈推薦你直接去下載閱讀英文原版。這本書代碼較多，文字內容較少，因此英文原版的閱讀理解也比較容易。</p>
+
+    <p>LRTHW的風格和別的書差異很大。它沒有像一般的入門書籍一樣通過討好讀者以激發讀者興趣，而是直截了當地告訴你你需要做什麼，需要注意什麼。這種風格可能會讓人覺得枯燥乏味，讀者姑且把這也當做 Hard Way 的一部分吧。</p>
+    
+    <p> <a href="http://readthedocs.org/docs/learn-python-the-hard-way-zh_cn-translation/en/latest/index.html">LPTHW 簡體中文版</a>的翻譯者是 <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x77;&#97;&#110;&#103;&#x64;&#x69;&#x6e;&#103;&#x77;&#x65;&#x69;&#x38;&#x32;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#119;&#97;&#x6e;&#x67;&#100;&#x69;&#110;&#x67;&#119;&#101;&#x69;&#x38;&#50;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a>，而他的 blog 是 <a href="http://ducktypist.com/">http://ducktypist.com/</a></p>
+
+    <p> LRTHW 中文版是 <a href="http://blog.xdite.net"> xdite</a> 基於 LPTHW 中文版的翻譯成果，改編成 Ruby 版，並修正當中繁簡以及不同程式（ Python / Ruby )環境所造成的差異改譯而成。</p>
+
+    <p>如果你對 LRTHW 的翻譯有任何意見和建議，請在這個 project 的 Github issue 頁發 issue 給我，或者是直接 pull request 也行。</p>
+
+    <p>你也可以上 LRTHW 官網購買本書正版，這也是對 Zed Shaw 的支持。</p>
+  </article>
+  
+  
+    <article>
+      <h3><a href="/intro/">笨方法更簡單</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex00/">習題 0: 準備工作</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex01/">習題 1: 第一個程式</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex02/">習題 2: 註釋和井號</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex03/">習題 3: 數字和數學計算</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex04/">習題 4: 變數(variable)和命名</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex05/">習題 5: 更多的變數和印出</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex06/">習題 6: 字串(string)和文字</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex07/">習題 7: 更多印出</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex08/">習題 8: 印出，印出</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex09/">習題 9: 印出，印出，印出</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex10/">習題 10: 那是什麼？</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex11/">習題 11: 提問</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex12/">習題 12: 模組 (Module)</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex13/">習題 13: 参数、解包、參數</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex14/">習題 14: 提示和傳遞</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex15/">習題 15: 讀取檔案</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex16/">習題 16: 讀寫檔案</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex17/">習題 17: 更多的檔案操作</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex19/">習題 19: 函式和變數</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex20/">習題 20: 函式和檔案</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex21/">習題 21: 函式可以傳回東西</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex23/">習題 23: 閱讀一些程式碼</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex24/">習題 24: 更多練習</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex25/">習題 25: 更多更多的練習</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex27/">習題 27: 記住邏輯關係</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex29/">習題 29: 如果（If）</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex30/">習題 30: Else 和 If</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex31/">習題 31: 做出決定</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex32/">習題 32: 迴圈和陣列</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex33/">習題 33: While 迴圈</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex34/">習題 34: 存取陣列裡的元素</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex36/">習題 36: 設計和測試</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex37/">習題 37: 複習各種符號</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex38/">習題 38: 閱讀程式碼</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex39/">習題 39: 陣列的操作</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex40/">習題 40: Hash, 可愛的 Hash</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex42/">習題 42: 物以類聚</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex43/">習題 43: 你來製作一個遊戲</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex44/">習題 44: 評估你的遊戲</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex45/">習題 45: 物件、類和從屬關係</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex46/">習題 46: 一個專案骨架</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex47/">習題 47: 自動化測試</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex48/">習題 48: 更進階的使用者輸入</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex49/">習題 49: 創造句子</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex50/">習題 50: 你的第一個網站</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/ex52/">習題 52: 創造你的網頁遊戲</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/next/">下一步</a></h3>
+    </article>
+  
+    <article>
+      <h3><a href="/advice/">一個老程式設計師的建議</a></h3>
+    </article>
+  
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

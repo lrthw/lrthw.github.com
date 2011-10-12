@@ -1,0 +1,517 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 39: 陣列的操作 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 39: 陣列的操作                        Jul 19th, 2011                    你已經學過了陣列。在你學習“while 迴圈的時候，你對陣列進行過「pushed」動作，而且將陣列的內容印了出來。另外你應該還...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex39/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 39: 陣列的操作</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>你已經學過了陣列。在你學習“<code>while</code> 迴圈的時候，你對陣列進行過「pushed」動作，而且將陣列的內容印了出來。另外你應該還在加分習題裡研究過 Ruby 文件，看了陣列支援的其他操作。這已經是一段時間以前了，所以如果你不記得了的話，就回到本書的前面再複習一遍吧。</p>
+
+<p>找到了嗎？還記得嗎？很好。那時候你對一個陣列執行了 <code>push</code> 函式。不過，你也許還沒有真正明白發生的事情，所以我們再來看看我們可以對陣列進行什麼樣的操作。</p>
+
+<p>當你看到像 <code>mystuff.append('hello')</code>這樣的程式時，你事實上已經在 Ruby 內部激發了一個連鎖反應。以下是它的運作原理：</p>
+
+<ol>
+<li>Ruby 看到你用到了 <code>mystuff</code>，於是就去找到這個變數。也許它需要倒著檢查看你有沒有在哪裡用 <code>=</code> 建立過這個變數，或者檢查它是不是一個函式參數，或者看它是不是一個全局變數。不管哪種方式，它得先找到 <code>mystuff</code> 這個變數才行。</li>
+<li>一旦它找到了 <code>mystuff</code>，就輪到處理句點 <code>.</code> (period)這個操作符號，而且開始查看 <code>mystuff</code> 內部的一些變數了。由於 <code>mystuff</code> 是一個陣列，Ruby 知道 <code>mystuff</code> 支援一些函式。</li>
+<li>接下來輪到了處理 <code>push</code>。Ruby會將 「push」和 <code>mystuff</code> 支援的所有函式的名稱一一對比，如果確實其中有一個叫 <code>push</code> 的函式，那麼Ruby就會去使用這個函式。</li>
+<li>接下來Ruby看到了括號(parenthesis)並且意識到, 「噢，原來這應該是一個函式」，到了這裡，它就正常會呼叫這個函式了，不過這裡的函式還要多一個參數才行。</li>
+</ol>
+
+
+<p>一下子要消化這麼多可能有點難度，不過我們將做幾個練習，讓你頭腦中有一個深刻的印象。下面的練習將字符串和列表混在一起，看看你能不能在裡邊找出點樂子來：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">ten_things</span> <span class="o">=</span> <span class="s2">&quot;Apples Oranges Crows Telephone Light Sugar&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Wait there&#39;s not 10 things in that list, let&#39;s fix that.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">stuff</span> <span class="o">=</span> <span class="n">ten_things</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">more_stuff</span> <span class="o">=</span> <span class="sx">%w(Day Night Song Frisbee Corn Banana Girl Boy)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">while</span> <span class="n">stuff</span><span class="o">.</span><span class="n">length</span> <span class="o">!=</span> <span class="mi">10</span>
+</span><span class='line'>  <span class="n">next_one</span> <span class="o">=</span> <span class="n">more_stuff</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Adding: </span><span class="si">#{</span><span class="n">next_one</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="n">stuff</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">next_one</span><span class="p">)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;There&#39;s </span><span class="si">#{</span><span class="n">stuff</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2"> items now.&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;There we go: </span><span class="si">#{</span><span class="n">stuff</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Let&#39;s do some things with stuff.&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">stuff</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">stuff</span><span class="o">[-</span><span class="mi">1</span><span class="o">]</span> <span class="c1"># whoa! fancy</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">stuff</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">stuff</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="c1"># what? cool!</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">stuff</span><span class="o">.</span><span class="n">values_at</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span> <span class="c1"># super stellar!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>你應該看到的結果</h2>
+
+<pre><code>$ ruby ex39.rb 
+Wait there's not 10 things in that list, let's fix that.
+Adding: Boy
+There's 7 items now.
+Adding: Girl
+There's 8 items now.
+Adding: Banana
+There's 9 items now.
+Adding: Corn
+There's 10 items now.
+There we go: ["Apples", "Oranges", "Crows", "Telephone", "Light", "Sugar", "Boy", "Girl", "Banana", "Corn"]
+Let's do some things with stuff.
+Oranges
+Corn
+Corn
+Apples Oranges Crows Telephone Light Sugar Boy Girl Banana
+Telephone#Sugar
+$
+</code></pre>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>上網閱讀一些關於「物件導向程式(Object Oriented Programming)」的資料。暈了吧？嗯，我以前也是。別擔心。你將從這本書學到足夠用的關於物件導向程式的基礎知識，而以後你還可以慢慢學到更多。</li>
+<li><code>something.methods</code> 和 something的 class 有什麼關係？</li>
+<li>如果你不知道我講的是些什麼東西，別擔心。程式設計師為了顯得自己聰明，於是就發明了Opject Oriented Programming，簡稱為OOP，然後他們就開始濫用這個東西了。如果你覺得這東西太難，你可以開始學一下「函式式程式(functional programming)」。</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex38/" title="Previous Post: 
+">&laquo; 習題 38: 閱讀程式碼</a>
+       
+       || 
+        
+       <a href="/ex40/" title="next Post: 
+">習題 40: Hash, 可愛的 Hash &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex39/" data-via="" data-counturl="http://learnrubythehardway.org/ex39/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

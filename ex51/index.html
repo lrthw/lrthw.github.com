@@ -1,0 +1,828 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 51: 從瀏覽器中取得輸入 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 51: 從瀏覽器中取得輸入                        Jul 19th, 2011                    雖然能讓瀏覽器顯示「Hello World」是很有趣的一件事情，但是如果能讓用戶通過表單(form)向你的應用程序提交...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex51/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 51: 從瀏覽器中取得輸入</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>雖然能讓瀏覽器顯示「Hello World」是很有趣的一件事情，但是如果能讓用戶通過表單(form)向你的應用程序提交資訊就更有趣了。這節習題中，我們將使用form 改進你的web 程式，並且搞懂如何為一個網站程式寫自動化測試。</p>
+
+<h2>Web 運作原理</h2>
+
+<p>該學點無趣的東西了。在建立 form 前你需要先多學一點關於 web的運作原理。這裡講的並不完整，但是相當準確，在你的程式出錯時，它會幫你找到出錯的原因。另外，如果你理解了form 的應用，那麼建立form 對你來說就會更容易了。</p>
+
+<p>我將以一個簡單的圖示講起，它向你展示了web 請求的各個不同的部分，以及資訊傳遞的大致流程：</p>
+
+<p><img src="http://learnpythonthehardway.org/book/_images/http_request_diagram.png" alt="http request diagram" /></p>
+
+<p>為了方便講述HTTP 請求(request) 的流程，我在每條線上面加了字母標籤以作區別。</p>
+
+<ol>
+<li>你在瀏覽器中輸入網址http://learnpythonthehardway.org/，然後瀏覽器會通過你的電腦的網路設備發出request（<code>線路A</code>）。</li>
+<li>你的request 被傳送到網際網路（<code>線路B</code>），然後再抵達遠端服務器（<code>線路C</code>），然後我的伺服器將接受這個request。</li>
+<li>我的伺服器接受 request 後，我的 web 應用程式就去處理這個請求（<code>線路D</code>），然後我的軮頁應用程式就會去運行 <code>/</code> (index) 這個「處理程序(handler)」。</li>
+<li>在程式碼 return 的時候，我的伺服器就會發出響應(response)，這個響應會再通過<code>線路D</code>傳遞到你的瀏覽器。</li>
+<li>這個網站所在的伺服器將響應由<code>線路D</code>獲取，然後通過<code>線路C</code>傳至網際網路。</li>
+<li>響應通過網路網路由<code>線路B</code>傳至你的電腦，電腦的網路卡再通過<code>線路A</code>將響應傳給你的瀏覽器。</li>
+<li>最後，你的瀏覽器顯示了這個響應的內容。</li>
+</ol>
+
+
+<p>這段詳解中用到了一些術語。你需要掌握這些術語，以便在談論你的 web 應用時你能明白而且應用它們：</p>
+
+<h3>瀏覽器(browser)</h3>
+
+<p>這是你幾乎每天都會用到的軟件。大部分人不知道它真正的原理，他們只會把它叫作「網際網路」。它的作用其實是接收你輸入到地址欄網址(例如<a href="http://learnpythonthehardway.org">http://learnpythonthehardway.org</a>)，然後使用該資訊向該網址對應的伺服器提出請求(request)。</p>
+
+<h3>IP 位址 ( Address )</h3>
+
+<p>通常這是一個像 <a href="http://learnpythonthehardway.org/">http://learnpythonthehardway.org/</a> 一樣的URL (Uniform Resource Locator，統一資源定位符 )，它告訴瀏覽器該打開哪個網站。前面的 <code>http</code> 指出了你要使用的協議(protocol)，這裡我們用的是「超文本傳輸協議(Hyper-Text Transport Protocol)」。你還可以試試ftp://ibiblio.org/，這是一個「FTP文件傳輸協議(File Transport Protocol)‘的例子。<code>learnpythonthehardway.org</code> 這部分是「主機名(hostname)」，也就是一個便於人閱讀和記憶的字串，主機名會被匹配到一串叫作「IP 位址」的數字上面，這個「IP 位址」就相當於網路中一台電腦的電話號碼，通過這個號碼可以訪問到這台電腦。最後，URL中還可以尾隨一個「路徑「，例如http://learnpythonthehardway.org/book/ 中的 <code>/book/</code>，它對應的是伺服器上的某個文件或者某些資源，通過訪問這樣的網址，你可以向伺服器發出請求，然後獲得這些資源。網站地址還有很多別的組成部分，不過這些是最主要的。</p>
+
+<h3>連接(connection)</h3>
+
+<p>一旦瀏覽器知道了協議(http)、伺服器(learnpythonthehardway.org)、以及要獲得的資源，它就要去建立一個連接。這個過程中，瀏覽器讓操作系統(Operating System, OS) 打開計算機的一個「埠號(port)」（通常是80埠號），埠號準備好以後，操作系統會回傳給你的程式一個類似檔案的東西，它所做的事情就是通過網路傳輸和接收資料，讓你的電腦和learnpythonthehardway.org這個網站所屬的伺服器之間實現資料交流。當你使用 http://localhost:4567/ 訪問你自己的站點時，發生的事情其實是一樣的，只不過這次你告訴了瀏覽器要訪問的是你自己的電腦(localhost)，要使用的端口不是默認的80，而是 4567 。你還可以直接訪問http://learnpythonthehardway.org:80/，這和不輸入埠號效果一樣，因為HTTP的默認埠號本來就是80。</p>
+
+<h3>請求(request)</h3>
+
+<p>你的瀏覽器通過你提供的地址建立了連接，現在它需要從遠端伺服器要到它（或你）想要的資源。如果你在URL的結尾加了 <code>/book/</code>，那你想要的就是<code>/book/</code> 對應的檔案或資源，大部分的伺服器會直接為你呼叫<code>/book/index.html</code> 這個檔案，不過我們就假裝不存在好了。瀏覽器為了獲得伺服器上的資源，它需要向伺服器發送一個「請求」。這裡我就不講細節了，為了得到伺服器上的內容，你必須先向伺服器發送一個請求才行。有意思的是，「資源」不一定非要是檔案。例如當瀏覽器向你的應用程序提出請求的時候，伺服器返回的其實是你的程式碼生成的一些東西。</p>
+
+<h3>伺服器(server)</h3>
+
+<p>伺服器指的是瀏覽器另一端連接的電腦，它知道如何回應瀏覽器請求的檔案和資源。大部分的 web 伺服器只要發送檔案就可以了，這也是伺服器流量的主要部分。不過你學的是使用 Ruby 組建一個伺服器，這個伺服器知道如何接受請求，然後返回用 Ruby 處理過的字符串。當你使用這種處理方式時，你其實是假裝把檔案發給了瀏覽器，其實你用的都只是程式碼而已。就像你在《習題50》中看到的，要構建一個「響應」其實也不需要多少程式碼。</p>
+
+<h3>響應(response)</h3>
+
+<p>這就是你的伺服器回覆給你的請求，傳回至瀏覽器的HTML，它裡邊可能有css、javascript、或者圖像等內容。以檔案響應為例，伺服器只要從磁碟讀取檔案，發送給瀏覽器就可以了，不過它還要將這些內容包在一個特別定義的「header]」中，這樣瀏覽器就會知道它獲取的是什麼類型的內容。以你的web 應用程式為例，你發送的其實還是一樣的東西，包括 header 也一樣，只不過這些資料是你用 Ruby 程式碼即時生成的。</p>
+
+<p>這個可以算是你能在網上找到的關於瀏覽器如何訪問網站的最快的快速課程了。這節課程應該可以幫你更容易地理解本節的習題，如果你還是不明白，就到處找資料多多了解這方面的資訊，知道你明白為止。有一個很好的方法，就是你對照著上面的圖示，將你在《習題50》中創建的 web 程式中的內容分成幾個部分，讓其中的各部分對應到上面的圖示。如果你可以正確地將程式的各部分對應到這個圖示，你就大致開始明白它的運作原理了。</p>
+
+<h2>表單(form)的運作原理</h2>
+
+<p>熟悉「表單」最好的方法就是寫一個可以接收表單資料的程式出來，然後看你可以對它做些什麼。先將你的<code>lib/gothonsweb.rb</code> 修改成下面的樣子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">require_relative</span> <span class="s2">&quot;gothonweb/version&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;sinatra&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;erb&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Gothonweb</span>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello, World!&quot;</span>
+</span><span class='line'>    <span class="n">erb</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:locals</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:greeting</span> <span class="o">=&gt;</span> <span class="n">greeting</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/hello&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="nb">name</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:name</span><span class="o">]</span> <span class="o">||</span> <span class="s2">&quot;Nobody&quot;</span>
+</span><span class='line'>    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="n">erb</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:locals</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:greeting</span> <span class="o">=&gt;</span> <span class="n">greeting</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重啟你的 Sinatra（按CTRL-C後重新運行），確認它有運行起來，然後使用瀏覽器訪問 http://localhost:4567/hello，這時瀏覽器應該會顯示 &#8220;I just wanted to say Hello , Nobody.&#8221;，接下來，將瀏覽器的地址改成 http://localhost:4567/hello?name=Frank，然後你可以看到頁面顯示為 &#8220;Hello, Frank.&#8221;，最後將 <code>name=Frank</code> 修改為你自己的名字，你就可以看到它對你說 Hello 了。</p>
+
+<p>讓我們研究一下你的程式裡做過的修改。</p>
+
+<ol>
+<li>我們沒有直接為 greeting 賦值，而是使用了 <code>params</code> Hash 從瀏覽器獲取數據。這Sinatra 個函數會將一組在 URL <code>?</code> 後面的部份的 key / value 組加進 <code>prarms</code> Hash 裡。</li>
+<li>然後我從 <code>params[:name]</code> 中找到 <code>name</code> 的值，並為 <code>greeting</code> 賦值，這部份相信你已經很熟悉了。</li>
+<li>其他的內容和以前是一樣的，我們就不再分析了。</li>
+</ol>
+
+
+<p>URL中該還可以包含多個參數。將本例的URL改成這樣子： <code>http://localhost:4567/hello?name=Frank&amp;greet=Hola</code>。然後修改程式碼，讓它去存取 <code>prarams[:name]</code> 和 <code>params[:greet]</code>，如下所示：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">greet</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>創建HTML表單</h2>
+
+<p>你可以通過URL參數實現表單提交，不過這樣看上去有些醜陋，而且不方便一般人使用，你真正需要的是一個「POST表單」，這是一種包含了<code>&lt;form&gt;</code>標籤的特殊 HTML 檔案。這種表單收集使用者輸入並將其傳遞給你的web程式，這和你上面實現的目的基本是一樣的。</p>
+
+<p>讓我們來快速建立一個，從中你可以看出它的運作原理。你需要創建一個新的HTML文件，叫做 <code>lib/views/hello_form.erb</code>：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;html&gt;</span>
+</span><span class='line'><span class="x">    &lt;head&gt;</span>
+</span><span class='line'><span class="x">        &lt;title&gt;Sample Web Form&lt;/title&gt;</span>
+</span><span class='line'><span class="x">    &lt;/head&gt;</span>
+</span><span class='line'><span class="x">&lt;body&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;h1&gt;Fill Out This Form&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;form action=&quot;/hello&quot; method=&quot;POST&quot;&gt;</span>
+</span><span class='line'><span class="x">    A Greeting: &lt;input type=&quot;text&quot; name=&quot;greet&quot;&gt;</span>
+</span><span class='line'><span class="x">    &lt;br/&gt;</span>
+</span><span class='line'><span class="x">    Your Name: &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;</span>
+</span><span class='line'><span class="x">    &lt;br/&gt;</span>
+</span><span class='line'><span class="x">    &lt;input type=&quot;submit&quot;&gt;</span>
+</span><span class='line'><span class="x">&lt;/form&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;/body&gt;</span>
+</span><span class='line'><span class="x">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然後將 <code>lib/gothonsweb.rb</code>改成這樣：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">require_relative</span> <span class="s2">&quot;gothonweb/version&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;sinatra&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;erb&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Gothonweb</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello, World!&quot;</span>
+</span><span class='line'>    <span class="n">erb</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:locals</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:greeting</span> <span class="o">=&gt;</span> <span class="n">greeting</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/hello&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">erb</span> <span class="ss">:hello_form</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">post</span> <span class="s1">&#39;/hello&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:greet</span><span class="o">]</span> <span class="o">||</span> <span class="s2">&quot;Hello&quot;</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:name</span><span class="o">]</span> <span class="o">||</span> <span class="s2">&quot;Nobody&quot;</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="n">erb</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:locals</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:greeting</span> <span class="o">=&gt;</span> <span class="n">greeting</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>都寫好以後，重啟 web 程式，然後通過你的瀏覽器訪問它。</p>
+
+<p>這回你會看到一個表單，它要求你輸入「一個問候語句(A Greeting)」和「你的名字(Your Name)」，等你輸入完後點擊「提交(Submit)」按鈕，它就會輸出一個正常的問候頁面，不過這一次你的URL還是 http://localhost:4567/hello，並沒有添加參數進去。</p>
+
+<p>在<code>hello_form.erb</code> 裡面關鍵的一行是<code>&lt;form action="/hello" method="POST"&gt;</code>，它告訴你的瀏覽器以下內容：</p>
+
+<ol>
+<li>從表單中的各個欄位收集使用者輸入的資料。</li>
+<li>讓瀏覽器使用一種POST類型的請求，將這些資料發送給服務器。這是另外一種瀏覽器請求，它會將表單欄位「隱藏」起來。</li>
+<li>將這個請求發送至<code>/hello</code> URL，這是由<code>action="/hello"</code>告訴瀏覽器的。</li>
+<li>你可以看到兩段<code>&lt;input&gt;</code>標籤的名字屬性(name)和程式碼中的變數是對應的，另外我們在 class index 中使用的不再只是 GET 方法，而是另一個 POST 方法。</li>
+</ol>
+
+
+<p>這個新程式的運作原理如下：</p>
+
+<ol>
+<li>瀏覽器訪問到 web 程式的 <code>/hello</code> 目錄，它發送了一個 GET 請求，於是我們的 <code>get '/hello/</code> 就運行了並傳回了hello_form。</li>
+<li>你填好了瀏覽器的表單，然後瀏覽器依照<code>&lt;form&gt;</code>中的要求，將資料通過POST 請求的方式發給web程式。</li>
+<li>Web 程式運行了 <code>post '/hello'</code> 而不是不是 <code>get '/hello/</code>來處理這個請求。</li>
+<li>這個 <code>post '/hello'</code>完成了它正常的功能，將 <code>hello</code> 頁面返回，這裡並沒有新的東西，只是一個新函式名稱而已。</li>
+</ol>
+
+
+<p>作為練習，在 <code>lib/views/index.erb</code> 中添加一個鏈接，讓它指向 <code>/hello</code>，這樣你可以反覆填寫並提交表單查看結果。確認你可以解釋清楚這個鏈接的工作原理，以及它是如何讓你實現在 <code>lib/views/index.erb</code> 和<code>lib/views/hello_form.erb</code>之間循環跳轉的，還有就是要明白你新修改過的 Ruby 程式碼，你需要知道在什麼情況下會運行到哪一部分程式碼。</p>
+
+<h2>Creating A Layout Template</h2>
+
+<p>在你下一節練習建立遊戲的過程中，你需要建立很多的小 HTML 頁面。如果你每次都寫一個完整的網頁，你會很快感覺到厭煩的。幸運的是你可以建立一個「外觀 (layout」模板，也就是一種提供了通用的 headers 和 footers 的外殼模板，你可以用它將你所有的其他網頁包裹起來。好程式設計師會盡可能減少重複動作，所以要做一個好程式設計師，使用外觀模板是很重要的。</p>
+
+<p>將 <code>lib/views/index.erb</code> 修改成這樣：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">greeting</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;p&gt;I just wanted to say &lt;em style=&quot;color: green; font-size: 2em;&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">greeting</span> <span class="cp">%&gt;</span><span class="x">&lt;/em&gt;.</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">else</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;em&gt;Hello&lt;/em&gt;, world!</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然後把 <code>lib/views/hello_form.erb</code> 修改成這樣：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;h1&gt;Fill Out This Form&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;form action=&quot;/hello&quot; method=&quot;POST&quot;&gt;</span>
+</span><span class='line'><span class="x">    A Greeting: &lt;input type=&quot;text&quot; name=&quot;greet&quot;&gt;</span>
+</span><span class='line'><span class="x">    &lt;br/&gt;</span>
+</span><span class='line'><span class="x">    Your Name: &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;</span>
+</span><span class='line'><span class="x">    &lt;br/&gt;</span>
+</span><span class='line'><span class="x">    &lt;input type=&quot;submit&quot;&gt;</span>
+</span><span class='line'><span class="x">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>面這些修改的目的，是將每一個頁面頂部和底部的反覆用到的「樣板 (boilerplate)」程式碼剝掉。這些被剝掉的程式碼會被放到一個單獨的<code>lib/views/layout.erb</code> 檔案中，從此以後，這些反覆用到的程式碼就由<code>lib/views/layout.erb</code> 來提供了。</p>
+
+<p>上面的都改好以後，建立一個 <code>lib/views/layout.erb</code> 檔案，內容如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;html&gt;</span>
+</span><span class='line'><span class="x">  &lt;head&gt;</span>
+</span><span class='line'><span class="x">    &lt;title&gt;Gothons From Planet Percal #25&lt;/title&gt;</span>
+</span><span class='line'><span class="x">  &lt;/head&gt;</span>
+</span><span class='line'><span class="x">  &lt;body&gt;</span>
+</span><span class='line'><span class="x">    </span><span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;/body&gt;</span>
+</span><span class='line'><span class="x">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Sinatra 預設會自動去找名字為 <code>layout</code> 的外觀模板，並且使用它作為其他模板的「基礎」模板。你也可以修改已經用作任何頁面的基礎模板的 template。重啟你的程式觀察一下，然後試著用各種方法修改你的layout模板，不要修改你別的模板，看看輸出會有什麼樣的變化。</p>
+
+<h2>為表單撰寫自動測試程式碼</h2>
+
+<p>使用瀏覽器測試 web 程式是很容易的，只要點刷新按鈕就可以了。不過畢竟我們是程式設計師嘛，如果我們可以寫一些程式碼來測試我們的程式，為什麼還要重複手動測試呢？接下來你要做的，就是為你的web 程式寫一個小測試。這會用到你在《習題47》學過的一些東西，如果你不記得的話，可以回去複習一下。</p>
+
+<p>我已經為此建立了一個簡單的小函式，讓你判斷(assert) web程序的響應，這個函數有一個很合適的名字，就叫 <code>assert_response</code>。創建一個 <code>tests/tools.rb</code> 檔案，內容如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;test/unit&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">assert_response</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span> <span class="n">matches</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">assert_equal</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="s2">&quot;Expected response </span><span class="si">#{</span><span class="n">status</span><span class="si">}</span><span class="s2"> not in </span><span class="si">#{</span><span class="n">resp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">200</span>
+</span><span class='line'>    <span class="n">assert</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="s2">&quot;Response data is empty.&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">contains</span>
+</span><span class='line'>    <span class="n">assert</span><span class="p">((</span><span class="n">resp</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">include?</span> <span class="n">contains</span><span class="p">),</span> <span class="s2">&quot;Response does not contain </span><span class="si">#{</span><span class="n">contains</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">matches</span>
+</span><span class='line'>    <span class="n">reg</span> <span class="o">=</span> <span class="no">Regexp</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert</span> <span class="n">reg</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">contains</span><span class="p">),</span> <span class="s2">&quot;Response does not match </span><span class="si">#{</span><span class="n">matches</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">headers</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">headers</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最後，執行 <code>test/test_gothonsweb.rb</code> 去測試你的程式：</p>
+
+<pre><code>$ ruby test/test_gothonweb.rb 
+Loaded suite test/test_gothonweb
+Started
+.
+Finished in 0.023839 seconds.
+
+1 tests, 9 assertions, 0 failures, 0 errors, 0 skips
+
+Test run options: --seed 57414
+</code></pre>
+
+<p><code>rack/test</code> 函式庫包含了一串很簡單的 API 可以讓你處理請求。他們是 <code>get</code>, <code>put</code>, <code>post</code>, <code>delete</code> 和 <code>head</code> 函式，模擬程式會遇到的各類類型請求。</p>
+
+<p>所有假的 (mock) request 函式會有一樣的參數模式：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">get</span> <span class="s1">&#39;/path&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{},</span> <span class="n">rack_env</span><span class="o">=</span><span class="p">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><code>/path</code> 是 request 路徑，而且可以選擇性的包含一個 query string。</li>
+<li><code>params</code> 是一組 query/post 的 Hash 參數，一個  request body 字串，或者是 nil</li>
+<li><code>rack_env</code> 是一個 Rack 環境值 Hash。這可以用來設置 request 的 header 和其他 request 相關的資訊，例如 session 內的資料。</li>
+</ul>
+
+
+<p>這樣的運作方式就不用實際運作一個真的 web 伺服器，如此一來你就可以使用自動化測試程式碼去測試，當然同時你也可以使用瀏覽器去測試一個執行中的伺服器。</p>
+
+<p>為了驗證(validate) 函式的響應，你需要使用 <code>test/tools.rb</code> 中定義的<code>assert_response</code> 函式，裡面內容是：</p>
+
+<p>To validate responses from this function, use the <code>assert_response</code> function from <code>test/tools.rb</code> which has:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">assert_response</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="n">contains</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span> <span class="n">matches</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kp">nil</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把你呼叫 <code>get</code> 或 <code>post</code> 得到的響應傳遞給這個函數，然後將你要檢查的內容作為參數傳遞給這個函數。你可以使用 <code>contains</code>參數來檢查響應中是否包含指定的值，使用 <code>status</code> 參數可以檢查指定的響應狀態。這個小函式其實包含了很多的資訊，所以你還是自己研究一下的比較好。</p>
+
+<p>在 <code>test/test_gothonsweb.rb</code> 自動測試腳本中，我首先確認 <code>/foo</code> URL 傳回了一個「404 Not Found」響應，因為這個 URL其實是不存在的。然後我檢查了<code>/hello</code> 在 GET 和 POST 兩種請求的情況下都能正常運作。就算你沒有弄明白測試的原理，這些測試程式碼應該是很好讀懂的。</p>
+
+<p>花一些時間研究一下這個最新版的web程式，重點研究一下自動測試的運作原理。</p>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>閱讀和HTML 相關的更多資料，然後為你的表單設計一個更好的輸出格式。你可以先在紙上設計出來，然後用HTML 去實現它。</li>
+<li>這是一道難題，試著研究一下如何進行檔案上傳，通過網頁上傳一張圖像，然後將其保存到磁碟中。</li>
+<li>更難的難題，找到 HTTP RFC 文件（講述HTTP 運作原理的技術文件），然後努力閱讀一下。這是一篇很無趣的文件，不過偶爾你會用到裡邊的一些知識。</li>
+<li>又是一道難題，找人幫你設置一個 web 伺服器，例如Apache、Nginx、或者thttpd。試著讓伺服器伺服一下你建立的.html 和.css 文件。如果失敗了也沒關係，web 服務器本來就都有點爛。</li>
+<li>完成上面的任務後休息一下，然後試著多建立一些 web 程式出來。你應該仔細閱讀 Sinatra 中關於會話(session)的內容，這樣你可以明白如何存留使用者的狀態資訊。</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex50/" title="Previous Post: 
+">&laquo; 習題 50: 你的第一個網站</a>
+       
+       || 
+        
+       <a href="/ex52/" title="next Post: 
+">習題 52: 創造你的網頁遊戲 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex51/" data-via="" data-counturl="http://learnrubythehardway.org/ex51/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

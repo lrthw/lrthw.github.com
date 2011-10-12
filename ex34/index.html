@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 34: 存取陣列裡的元素 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 34: 存取陣列裡的元素                        Jul 19th, 2011                    陣列非常有用，但只有你存取裡面的內容時，它才能發揮出作用來。你已經學會了案順序讀出陣列中的內容，但如果你要得到第 5 個...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex34/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 34: 存取陣列裡的元素</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>陣列非常有用，但只有你存取裡面的內容時，它才能發揮出作用來。你已經學會了案順序讀出陣列中的內容，但如果你要得到第 5 個元素該怎麼辦呢？你需要知道如何存取陣列中的元素。存取第一個元素的方法是這樣的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;bear&#39;</span><span class="p">,</span> <span class="s1">&#39;tiger&#39;</span><span class="p">,</span> <span class="s1">&#39;penguin&#39;</span><span class="p">,</span> <span class="s1">&#39;zebra&#39;</span><span class="o">]</span>
+</span><span class='line'><span class="n">bear</span> <span class="o">=</span> <span class="n">animals</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你定義一個 animals 的陣列，然後你用 <code>0</code> 來存取第一個元素！？這是怎麼回事啊？因為數學裡面就是這樣，所以 Ruby 的陣列也是從 0 開始的。雖然看起來很奇怪，這樣定義其實有它的好處。</p>
+
+<p>最好的解釋方式勢將你平常使用數字的方式和程式設計師使用數字的方式做比較。</p>
+
+<p>假設你在觀看上面陣列中的四種動物：(<code>['bear', 'tiger', 'penguin', 'zebra']</code>) 的賽跑。而它們比賽的名次正好跟陣列中的順樹一樣。這是一場很刺激的比賽，因為這些動物沒打算吃掉對方，而且比賽還真的舉辦起來了。結果你的朋友來晚了，他想知道誰贏了比賽，他會問你「嘿，誰是第 0 名？」嗎？不會的，他會問「嘿，誰是第 1 名？」</p>
+
+<p>這是因為動物的次序是很重要的。沒有第一個就沒有第二個，沒有第二個話也不會有第三個。第零個是不存在的，因為零的意思是什麼都沒有。「什麼都沒有」怎麼贏比賽嘛？完全不和邏輯。這樣的數字我們稱之為「序數(ordinal number)」</p>
+
+<p>而程式設計師不能用這種方式思考問題，因為他們可以從陣列中的任何一個位置取出一個元素來。對程式設計師來說，上述的陣列更像是一疊卡片。如果他們想要 tiger，就抓它出來，如果想要 zeebra，也一樣抓出來。要隨機地抓陣列裡的內容，陣列的每一個元素都應該要有一個地址(address)，或者一個「索引(index)」，而最好的方式就是使用以 0 開頭的索引。相信我說的這一點吧，這種方式獲取元素會更容易。而這一類的數字被稱為「基數(cardinal number)」，它意味著你可以任意抓取元素，所以我們需要一個 0 號元素。</p>
+
+<p>那麼，這些知識對你的陣列操作有什麼幫助呢？很簡單，每次你對自己說：「我要第 3 隻動物」時，你需要將「序數」轉換成「基數」，只要將前者減 1 就可以了。第 3 隻動物的索引是 2，也就是 penguin。由於你一輩子都在跟序數打交道，所以你需要這種方式來獲得基數，只要減 1 就都搞定了。</p>
+
+<p>記住：ordinal == 有序，以 1 開始；cardinal == 隨機存取，以 0 開始。</p>
+
+<p>讓我們練習一下。定義一個動物列表，然後跟著做後面的習題，你需要寫出所指位置的動物名稱。如果我用的是「first」、「second」等說法。那說明我用的是敘述，所以你需要減去 1。如果我給你的是基數 ( 0, 1, 2 )，你只要直接使用即可。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;bear&#39;</span><span class="p">,</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="s1">&#39;peacock&#39;</span><span class="p">,</span> <span class="s1">&#39;kangaroo&#39;</span><span class="p">,</span> <span class="s1">&#39;whale&#39;</span><span class="p">,</span> <span class="s1">&#39;platypus&#39;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The animal at 1.
+The 3rd animal.
+The 1st animal.
+The animal at 3.
+The 5th animal.
+The animal at 2.
+The 6th animal.
+The animal at 4.</p>
+
+<p>對於上述某一條，以這樣的格式寫出一個完整的句子：「The 1st animal is at 0 and is a bear.」然後倒過來念「 &#8220;The animal at 0 is the 1st animal and is a bear.」</p>
+
+<p>使用 IRB 去檢查你的答案。</p>
+
+<p><strong>Hint:</strong> Ruby 還有一些便利的 method 是屬於在陣列中存取特定元素的用法。：<code>animals.first</code> 和 <code>animals.last</code>。</p>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>上網搜尋一下關於 序數 （ordinal number) 和基數 (cardinal number) 的知識並閱讀一下。</li>
+<li>以你對於這些數字類型的了解，解釋一下為什麼今年是 2010 年。呢是：你不能隨便挑選年份。</li>
+<li>再寫一些陣列，用一樣的方式做出索引，確認自己可以在兩種數字之間互相翻譯。</li>
+<li>使用 IRB 檢查自己的答案。</li>
+</ol>
+
+
+<blockquote><p><strong>Warning:</strong> 會有程式設計師告訴你，叫你去閱讀一個叫「Dijkstra」的人寫的關於數字的主題。我建議你還是不讀為妙，除非你喜歡聽一個在寫程式這一行剛興起時就停止了從事寫程式工作的人對你大吼大叫。</p></blockquote>
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex33/" title="Previous Post: 
+">&laquo; 習題 33: While 迴圈</a>
+       
+       || 
+        
+       <a href="/ex35/" title="next Post: 
+">習題 35: 分支 (Branches) 和函式 (Functions) &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex34/" data-via="" data-counturl="http://learnrubythehardway.org/ex34/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

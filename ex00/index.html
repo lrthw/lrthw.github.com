@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 0: 準備工作 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 0: 準備工作                        Jul 19th, 2011                    這道習題並沒有程式碼。它的主要目的是讓你在電腦上安裝好 Ruby，你應該儘量照著指示操作。這份教學已經預設你將使用 Ruby 1....">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex00/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 0: 準備工作</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>這道習題並沒有程式碼。它的主要目的是讓你在電腦上安裝好 Ruby，你應該儘量照著指示操作。</p>
+
+<p>這份教學已經預設你將使用 Ruby 1.9.2</p>
+
+<p>你的系統裡面可能已經裝好了 Ruby。打開 console 並嘗試運行:</p>
+
+<pre><code>$ ruby -v
+ruby 1.9.2
+</code></pre>
+
+<p>如果你的系統內並沒有 Ruby，不論你使用的是哪一套作業系統，我都高度建議你使用 <a href="https://rvm.beginrescueend.com/">Ruby Version Manager (RVM)</a> 安裝 Ruby。</p>
+
+<h2>Mac OSX</h2>
+
+<p>你需要做下列任務來完成這個習題：</p>
+
+<ol>
+<li>用瀏覽器打開 <a href="http://learnpythonthehardway.org/wiki/ExerciseZero">http://learnpythonthehardway.org/wiki/ExerciseZero</a> 下載並安裝 <code>gedit</code> 文字編輯器。</li>
+<li>把 <code>gedit</code> 放到桌面或者快速啟動列，這樣以後你就可以方便使用它了。這兩個選項在安裝時可以看到。
+
+<ol>
+<li>執行 gedit （也就是你的編輯器），我們要先改掉一些愚蠢的預設值。</li>
+<li>從 <code>gedit menu</code> 中打開 <code>Preferences</code> ，選擇 <code>Editor</code> 頁面。</li>
+<li>將 <code>Tab width:</code> 改為 2。</li>
+<li>選擇(確認有勾選到該選項) <code>Insert spaces instead of tabs</code> 。</li>
+<li>然後打開 「Automatic indentation」 選項。</li>
+<li>轉到 <code>View</code> 頁面，打開 「Display line numbers」 選項。</li>
+</ol>
+</li>
+<li>找到 「Terminal」 程式。它的名字是 <code>Command Promot</code> ，或者你可以直接執行 <code>cmd</code> 。</li>
+<li>為它建立一個捷徑，放到桌面或者是快速啟動列中以方便使用。</li>
+<li>執行 Terminal，這個程式看上去不怎麼地。</li>
+<li>在 Termnal 程式裡執行 <code>irb</code> 。在 Terminal 中執行程式的方式是輸入程式的名稱然後再敲一下 Return (Enter)。
+
+<ol>
+<li>如果你執行 <code>irb</code> 但發現不存在(不認得 <code>irb</code> 這個指令)。請用 <a href="https://rvm.beginrescueend.com/">Ruby Version Manager (RVM)</a> 安裝 Ruby。</li>
+</ol>
+</li>
+<li>敲擊 CTRL-Z (<sup>Z)</sup> 退出 <code>irb</code> 。</li>
+<li>這樣你就應該能回到敲 <code>irb</code> 前的提示介面了。如果沒有的話自己研究一下為什麼。</li>
+<li>學著使用 Terminal 創造一個目錄，你可以上網搜尋怎麼做。</li>
+<li>學著使用 Terminal 進入一個目錄，同樣你可以上網搜尋。</li>
+<li>使用你的編輯器在你進入的目錄下建立一個檔案。你將建立一個檔案。使用 「Save」 或者 「Save As&#8230;」 選項，然後選擇這個目錄。</li>
+<li>使用鍵盤切回到 Terminal 視窗，如果不知道怎樣使用鍵盤切換，你一樣可以上網搜尋。</li>
+<li>回到 Terminal，看看你能不能使用命令列列出你在目錄裡新建立的檔案，在網路上搜尋怎麼列出檔案夾裡的資料。</li>
+</ol>
+
+
+<blockquote><p><strong>Note:</strong> 如果你在使用 gedit 上有問題，很有可能這是 non-English keyboards layout 造成的，那麼我會建議你改使用 <a href="http://www.barebones.com/products/textwrangler/">http://www.barebones.com/products/textwrangler/</a>。</p></blockquote>
+
+<h2>OSX: 你應該看到的結果</h2>
+
+<p>以下是我在自己電腦的 Terminal 中練習上述習題時看到的內容。可能會跟你在自己電腦中看的到結果有些不同，所以看看你能不能搞清楚兩者的差異。</p>
+
+<pre><code>Last login: Sat Apr 24 00:56:54 on ttys001
+~ $ irb
+ruby-1.9.2-p180 :001 &gt;
+ruby-1.9.2-p180 :002 &gt; ^D
+~ $ mkdir mystuff
+~ $ cd mystuff
+mystuff $ ls
+# ... Use Gedit here to edit test.txt....
+mystuff $ ls
+test.txt
+mystuff $
+</code></pre>
+
+<h2>Windows</h2>
+
+<blockquote><p><strong>Note:</strong> Contributed by zhmark.</p></blockquote>
+
+<ol>
+<li>用瀏覽器打開 <a href="http://learnpythonthehardway.org/wiki/ExerciseZero">http://learnpythonthehardway.org/wiki/ExerciseZero</a> 下載並安裝 <code>gedit</code> 文字編輯器。</li>
+<li>把 <code>gedit</code> 放到桌面或者快速啟動列，這樣以後你就可以方便使用它了。這兩個選項在安裝時可以看到。
+ a. 執行 gedit （也就是你的編輯器），我們要先改掉一些愚蠢的預設值。
+ b. 從 <code>gedit menu</code> 中打開 <code>Preferences</code> ，選擇 <code>Editor</code> 頁面。
+ c. 將 <code>Tab width:</code> 改為 2。
+ d. 選擇(確認有勾選到該選項) <code>Insert spaces instead of tabs</code> 。
+ e. 然後打開 「Automatic indentation」 選項。
+ f. 轉到 <code>View</code> 頁面，打開 「Display line numbers」 選項。</li>
+<li>找到 「Terminal」 程式。它的名字是 <code>Command Promot</code> ，或者你可以直接執行 <code>cmd</code> 。</li>
+<li>為它建立一個捷徑，放到桌面或者是快速啟動列中以方便使用。</li>
+<li>執行 Terminal，這個程式看上去不怎麼地。</li>
+<li>在 Termnal 程式裡執行 <code>irb</code> 。在 Terminal 中執行程式的方式是輸入程式的名稱然後再敲一下 Return (Enter)。
+
+<ol>
+<li>如果你執行 <code>irb</code> 但發現不存在(不認得 <code>irb</code> 這個指令)。請用 <a href="https://rvm.beginrescueend.com/">Ruby Version Manager (RVM)</a> 安裝 Ruby。</li>
+</ol>
+</li>
+<li>敲擊 CTRL-Z (<sup>Z)</sup> 退出 <code>irb</code> 。</li>
+<li>這樣你就應該能回到敲 <code>irb</code> 前的提示介面了。如果沒有的話自己研究一下為什麼。
+.. _Ruby Version Manager (RVM): https://rvm.beginrescueend.com/</li>
+<li>學著使用 Terminal 創造一個目錄，你可以上網搜尋怎麼做。</li>
+<li>學著使用 Terminal 進入一個目錄，同樣你可以上網搜尋。</li>
+<li>使用你的編輯器在你進入的目錄下建立一個檔案。你將建立一個檔案。使用 「Save」 或者 「Save As&#8230;」 選項，然後選擇這個目錄。</li>
+<li>使用鍵盤切回到 Terminal 視窗，如果不知道怎樣使用鍵盤切換，你一樣可以上網搜尋。</li>
+<li>回到 Terminal，看看你能不能使用命令列列出你在目錄裡新建立的檔案，在網路上搜尋怎麼列出檔案夾裡的資料。</li>
+</ol>
+
+
+<blockquote><p><strong>Warning:</strong> 對於 Ruby 來說 Windows 是個大問題。有時候你在一台電腦上裝得好好的，但在另外一台電腦上卻會漏掉一堆重要功能。如果遇到問題的話，你可以訪問： http://rubyinstaller.org/。</p></blockquote>
+
+<h2>Windows: 你應該看到的結果</h2>
+
+<pre><code>C:\Documents and Settings\you&gt;irb
+ruby-1.9.2-p180 :001 &gt;
+ruby-1.9.2-p180 :001 &gt; ^Z
+
+C:\Documents and Settings\you&gt;mkdir mystuff
+
+C:\Documents and Settings\you&gt;cd mystuff
+
+... Here you would use gedit to make test.txt in mystuff ...
+
+C:\Documents and Settings\you\mystuff&gt;
+   &lt;bunch of unimportant errors if you istalled it as non-admin - ignore them - hit Enter&gt;
+C:\Documents and Settings\you\mystuff&gt;dir
+ Volume in drive C is
+ Volume Serial Number is 085C-7E02
+
+ Directory of C:\Documents and Settings\you\mystuff
+
+04.05.2010  23:32    &lt;DIR&gt;          .
+04.05.2010  23:32    &lt;DIR&gt;          ..
+04.05.2010  23:32                 6 test.txt
+               1 File(s)              6 bytes
+               2 Dir(s)  14 804 623 360 bytes free
+
+C:\Documents and Settings\you\mystuff&gt;
+</code></pre>
+
+<p>你會看到的提示介面、Ruby 資訊，以及一些其他東西可能非常不一樣，不過應該大致上不會差多少。如果你的系統差太多的話，反映給我們，我們會修正過來。</p>
+
+<h1>Linux</h1>
+
+<p>Linux 系統可謂五花八門，安裝軟體的方式也個有不同。我們假設作為 Linux 使用者的你應該知道如何安裝軟體了，以下是給你的操作指示：</p>
+
+<ol>
+<li>用瀏覽器打開 http://learnpythonthehardway.org/wiki/ExerciseZero 下載並安裝 <code>gedit</code> 文字編輯器。</li>
+<li>把 <code>gedit</code> 放到 Window Manager 明顯的位置，以方便之後使用。
+
+<ol>
+<li>執行 gedit （也就是你的編輯器），我們要先改掉一些愚蠢的預設值。</li>
+<li>從 <code>gedit menu</code> 中打開 <code>Preferences</code> ，選擇 <code>Editor</code> 頁面。</li>
+<li>將 <code>Tab width:</code> 改為 2。</li>
+<li>選擇(確認有勾選到該選項) <code>Insert spaces instead of tabs</code> 。</li>
+<li>然後打開 「Automatic indentation」 選項。</li>
+<li>轉到 <code>View</code> 頁面，打開 「Display line numbers」 選項。</li>
+</ol>
+</li>
+<li>找到 「Terminal」 程式。它的名字可能是 <code>GNOME Terminal</code>\、\ <code>Konsole</code>\、或者 <code>xterm</code>\。</li>
+<li>把 Terminal 也放到 Dock 上。</li>
+<li>執行 Terminal，這個程式看上去不怎麼地。</li>
+<li>在 Termnal 程式裡執行 <code>irb</code> 。在 Terminal 中執行程式的方式是輸入程式的名稱然後再敲一下 Return (Enter)。
+
+<ol>
+<li>如果你執行 <code>irb</code> 但發現不存在(不認得 <code>irb</code> 這個指令)。請用 <a href="https://rvm.beginrescueend.com/">Ruby Version Manager (RVM)</a> 安裝 Ruby。</li>
+</ol>
+</li>
+<li>敲擊 CTRL-D (<sup>D)</sup> 退出 <code>irb</code> 。</li>
+<li>這樣你就應該能回到敲 <code>irb</code> 前的提示介面了。如果沒有的話自己研究一下為什麼。</li>
+<li>學著使用 Terminal 創造一個目錄，你可以上網搜尋怎麼做。</li>
+<li>學著使用 Terminal 進入一個目錄，同樣你可以上網搜尋。</li>
+<li>使用你的編輯器在你進入的目錄下建立一個檔案。你將建立一個檔案。使用 「Save」 或者 「Save As&#8230;」 選項，然後選擇這個目錄。</li>
+<li>使用鍵盤切回到 Terminal 視窗，如果不知道怎樣使用鍵盤切換，你一樣可以上網搜尋。</li>
+<li>回到 Terminal，看看你能不能使用命令列列出你在目錄裡新建立的檔案，在網路上搜尋怎麼列出檔案夾裡的資料。</li>
+</ol>
+
+
+<h2>Linux: 你應該看到的結果</h2>
+
+<pre><code>$ irb
+ruby-1.9.2-p180 :001 &gt; 
+ruby-1.9.2-p180 :002 &gt; ^D
+$ mkdir mystuff
+$ cd mystuff
+# ... Use gedit here to edit test.txt ...
+$ ls
+test.txt
+$
+</code></pre>
+
+<p>你會看到的提示介面、Ruby 資訊，以及一些其他東西可能非常不一樣，不過應該大致上不會差多少。如果你的系統差太多的話，反映給我們，我們會修正過來。</p>
+
+<h2>給新手的告誡</h2>
+
+<p>你已經完成了這節習題，取決於你對電腦的熟悉程度，這個練習對你而言可能會有些難。如果你覺得有難度的話，你要自己克服困難，多花點時間學習一下。因為如果你不會這些基礎操作的話，寫程式對你來說將會是相當艱難的一件事。</p>
+
+<p>如果有程式設計師叫你去使用 <code>vim</code> 或者 <code>emacs</code> ，你應該拒絕他們。當你成為一個更好的程式設計師的時候，這些編輯器才會適合你使用。你現在需要的一個可以編輯文字的編輯器。我們使用 <code>gedit</code> 是因為它很簡單，而且在不同的系統上面使用起來也是一樣的。就連專業程式設計師也用 <code>gedit</code> ，所以對於初學者而言它已經夠用了。</p>
+
+<p>總有一天你會聽到有程式設計師建議你使用 Mac OSX 或者 Linux。如果他喜歡字體美觀，他會叫你弄台 Mac OSX 電腦，如果他們喜歡操作控制而且留了一把大鬍子，他會叫你安裝 Linux。這裡再度向你說明，只要是一台手上能用的電腦就夠了。你需要的只有三樣東西<code>gedit</code> 、一個 Terminal、還有 <code>IRB</code>。</p>
+
+<p>Finally the purpose of this setup is so you can do three things very reliably while you work on the exercises:</p>
+
+<p>最後要說的是這節習題的準備工作的目的，也就是讓你可以在以後的習題中順利做到下面的這些事情：</p>
+
+<ol>
+<li>使用 <code>gedit</code> 編寫程式碼。</li>
+<li><em>執行</em>你寫的習題答案。</li>
+<li><em>修改</em>錯誤的習題答案。</li>
+<li>重複上述步驟。</li>
+</ol>
+
+
+<p>其他的事情只會讓你更困惑，所以還是堅持照著這個計畫進行吧。</p>
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/intro/" title="Previous Post: 
+">&laquo; 笨方法更簡單</a>
+       
+       || 
+        
+       <a href="/ex01/" title="next Post: 
+">習題 1: 第一個程式 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex00/" data-via="" data-counturl="http://learnrubythehardway.org/ex00/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 27: 記住邏輯關係 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 27: 記住邏輯關係                        Jul 19th, 2011                    到此為止你已經學會了讀寫檔案，命令列處理，以及很多 Ruby 數學運算功能。今天，你將要開始學習邏輯了。你要學習的不是研究院...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex27/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 27: 記住邏輯關係</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>到此為止你已經學會了讀寫檔案，命令列處理，以及很多 Ruby 數學運算功能。</p>
+
+<p>今天，你將要開始學習邏輯了。你要學習的不是研究院裡的高深邏輯理論，只是程式設計師每天都用到的讓程式跑起來的基礎邏輯知識。</p>
+
+<p>學習邏輯之前你需要先記住一些東西。這個練習我要求你一個星期完成，不要擅自修改 schedule，就算你煩得不得了，也要堅持下去。這個練習會讓你背下來一系列的邏輯表格，這會讓你更容易地完成後面的習題。</p>
+
+<p>需要事先警告你的是：這件事情一開始一點樂趣都沒有，你會一開始就覺得它很無聊乏味，但它的目的是教你程式設計師必須的一個重要技能 &#8212; 一些重要的概念是必須記住的，一旦你明白了這些概念，你會獲得相當的成就感，但是一開始你會覺得它們很難掌握，就跟和烏賊摔跤一樣，而等到某一天，你會刷的一下豁然開朗。你會從這些基礎的記憶學習中得到豐厚的回報。</p>
+
+<p>這裡告訴你一個記住某樣東西，而不讓自己抓狂的方法：在一整天裡，每次記憶一小部分，把你最需要加強的部分標記起來。不要想著在兩小時內連續不停地背誦，這不會有什麼好的結果。不管你花多長時間，你的大腦也只會留住你在前15 或者30 分鐘內看過的東西。</p>
+
+<p>取而代之，你需要做的是創建一些索引卡片，卡片有兩列內容，正面寫下邏輯關係，反面寫下答案。你需要做到的結果是：拿出一張卡片來，看到正面的表達式，例如「True or False」，你可以立即說出背面的結果是「True」！堅持練習，直到你能做到這一點為止。</p>
+
+<p>一旦你能做到這一點了，接下來你需要每天晚上自己在筆記​​本上寫一份真值表出來。不要只是抄寫它們，試著默寫真值表，如果發現哪裡沒記住的話，就飛快地撇一眼這裡的答案。這樣將訓練你的大腦讓它記住整個真值表。</p>
+
+<p>不要在這上面花超過一周的時間，因為你在後面的應用過程中還會繼續學習它們。</p>
+
+<h2>邏輯術語</h2>
+
+<p>在 Ruby 中我們會用到下面的術語（符號或者詞彙）來定義事物的真(True)或者假(False)。電腦的邏輯就是在程式的某個位置檢查這些符號或者變數組合在一起表達的結果是真是假。</p>
+
+<ul>
+<li><code>and</code> 和</li>
+<li><code>or</code> 或</li>
+<li><code>not</code> 非</li>
+<li><code>!=</code> (not equal) 不等於</li>
+<li><code>==</code> (equal) 等於</li>
+<li><code>&gt;=</code> (greater-than-equal) 大於等於</li>
+<li><code>&lt;=</code> (less-than-equal) 小於等於</li>
+<li>true 真</li>
+<li>false 假</li>
+</ul>
+
+
+<p>其實你已經見過這些符號了，但這些詞彙你可能還沒見過。這些詞彙(and, or, not)和你期望的效果其實是一樣的，跟英語裡的意思一模一樣。</p>
+
+<h2>真值表</h2>
+
+<p>我們將使用這些符號來創建你需要記住的真值表。</p>
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="64%">
+<col width="36%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">NOT</th>
+<th class="head">True?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>not False</td>
+<td>True</td>
+</tr>
+<tr><td>not True</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="74%">
+<col width="26%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">OR</th>
+<th class="head">True?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>True or False</td>
+<td>True</td>
+</tr>
+<tr><td>True or True</td>
+<td>True</td>
+</tr>
+<tr><td>False or True</td>
+<td>True</td>
+</tr>
+<tr><td>False or False</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="75%">
+<col width="25%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">AND</th>
+<th class="head">True?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>True and False</td>
+<td>False</td>
+</tr>
+<tr><td>True and True</td>
+<td>True</td>
+</tr>
+<tr><td>False and True</td>
+<td>False</td>
+</tr>
+<tr><td>False and False</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="80%">
+<col width="20%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">NOT OR</th>
+<th class="head">True?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>not (True or False)</td>
+<td>False</td>
+</tr>
+<tr><td>not (True or True)</td>
+<td>False</td>
+</tr>
+<tr><td>not (False or True)</td>
+<td>False</td>
+</tr>
+<tr><td>not (False or False)</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="81%">
+<col width="19%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">NOT AND</th>
+<th class="head">True?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>not (True and False)</td>
+<td>True</td>
+</tr>
+<tr><td>not (True and True)</td>
+<td>False</td>
+</tr>
+<tr><td>not (False and True)</td>
+<td>True</td>
+</tr>
+<tr><td>not (False and False)</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="75%">
+<col width="25%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">!=</th>
+<th class="head">True?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1 != 0</td>
+<td>True</td>
+</tr>
+<tr><td>1 != 1</td>
+<td>False</td>
+</tr>
+<tr><td>0 != 1</td>
+<td>True</td>
+</tr>
+<tr><td>0 != 0</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="1" class="docutils">
+<colgroup>
+<col width="75%">
+<col width="25%">
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">==</th>
+<th class="head">True?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1 == 0</td>
+<td>False</td>
+</tr>
+<tr><td>1 == 1</td>
+<td>True</td>
+</tr>
+<tr><td>0 == 1</td>
+<td>False</td>
+</tr>
+<tr><td>0 == 0</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>現在使用這些表格創建你自己的卡片，再花一個星期慢慢記住它們。記住一點，這本書不會要求你成功或者失敗，只要每天盡力去學，在盡力的基礎上多花一點功夫就可以了。</p>
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex26/" title="Previous Post: 
+">&laquo; 習題 26: 恭喜你，現在來考試了！</a>
+       
+       || 
+        
+       <a href="/ex28/" title="next Post: 
+">習題 28: 布林（Boolean）表示式練習 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex27/" data-via="" data-counturl="http://learnrubythehardway.org/ex27/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

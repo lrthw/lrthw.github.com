@@ -1,0 +1,1026 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 52: 創造你的網頁遊戲 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 52: 創造你的網頁遊戲                        Jul 19th, 2011                    這本書馬上就要結束了。本章的練習對你是一個真正的挑戰。當你完成以後，你就可以算是一個能力不錯的 Ruby 初學者了。為了...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex52/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 52: 創造你的網頁遊戲</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>這本書馬上就要結束了。本章的練習對你是一個真正的挑戰。當你完成以後，你就可以算是一個能力不錯的 Ruby 初學者了。為了進一步學習，你還需要多讀一些書，多寫一些程式，不過你已經具備進一步學習的技能了。接下來的學習就只是時間、動力、以及資源的問題了。</p>
+
+<p>在本章習題中，我們不會去創建一個完整的遊戲，取而代之的是我們會為《習題42》中的遊戲建立一個“引擎(engine)”，讓這個遊戲能夠在瀏覽器中運行起來。這會涉及到將《習題42》中的遊戲「重構(refactor)」，將《習題47》中的架構混合進來，添加自動測試程式碼，最後建立一個可以運行遊戲的web 引擎。</p>
+
+<p>這是一節很「龐大」的習題。我預測你要花一周到一個月才能完成它。最好的方法是一點一點來，每晚上完成一點，在進行下一步之前確認上一步有正確完成。</p>
+
+<h2>重構《習題42》的遊戲</h2>
+
+<p>你已經在兩個練習中修改了 <code>gothonweb</code> 專案，這節習題中你會再修改一次。這種修改的技術叫做「重構(refactoring)」，或者用我喜歡的講法來說，叫「修修補補(fixing stuff)」。重構是一個程式術語，它指的是清理舊程式碼或者為舊程式碼添加新功能的過程。你其實已經做過這樣的事情了，只不過不知道這個術語而已。這是寫軟體過程的第二個自然屬性。</p>
+
+<p>你在本節中要做的，是將《習題47》中的可以測試的房間地圖，以及《習題42》中的遊戲這兩樣東西歸併到一起，創建一個新的遊戲架構。遊戲的內容不會發生變化，只不過我們會通過“重構”讓它有一個更好的架構而已。</p>
+
+<p>第一步是將 <code>ex47.rb</code> 的內容複製到 <code>gothonweb/lib/map.rb</code> 中，然後將 <code>ex47_tests.rb</code> 的內容複製到 <code>gothonweb/test/test_map.rb</code>中，然後再次運行測試，確認他們還能正常運作。</p>
+
+<blockquote><p><strong>Note:</strong> 從現在開始我不會再向你展示運行測試的輸出了，我就假設你回去運行這些測試，而且知道怎樣的輸出是正確的。</p></blockquote>
+
+<p>將《習題47》的程式碼拷貝完畢後，你就該開始重構它，讓它包含《習題42》中的地圖。我一開始會把基本架構為你準備好，然後你需要去完成<code>map.rb</code>和<code>map_tests.rb</code> 裡邊的內容。</p>
+
+<p>首先要做的是使用 <code>Room</code> 類來構建基本的地圖架構：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Room</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:description</span><span class="p">,</span> <span class="ss">:paths</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>    <span class="vi">@description</span> <span class="o">=</span> <span class="n">description</span>
+</span><span class='line'>    <span class="vi">@paths</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">go</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@paths</span><span class="o">[</span><span class="n">direction</span><span class="o">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">add_paths</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@paths</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">central_corridor</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Central Corridor&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="sx">%q{</span>
+</span><span class='line'><span class="sx">The Gothons of Planet Percal #25 have invaded your ship and destroyed</span>
+</span><span class='line'><span class="sx">your entire crew.  You are the last surviving member and your last</span>
+</span><span class='line'><span class="sx">mission is to get the neutron destruct bomb from the Weapons Armory,</span>
+</span><span class='line'><span class="sx">put it in the bridge, and blow the ship up after getting into an </span>
+</span><span class='line'><span class="sx">escape pod.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sx">You&#39;re running down the central corridor to the Weapons Armory when</span>
+</span><span class='line'><span class="sx">a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume</span>
+</span><span class='line'><span class="sx">flowing around his hate filled body.  He&#39;s blocking the door to the</span>
+</span><span class='line'><span class="sx">Armory and about to pull a weapon to blast you.</span>
+</span><span class='line'><span class="sx">}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">laser_weapon_armory</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Laser Weapon Armory&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="sx">%q{</span>
+</span><span class='line'><span class="sx">Lucky for you they made you learn Gothon insults in the academy.</span>
+</span><span class='line'><span class="sx">You tell the one Gothon joke you know:</span>
+</span><span class='line'><span class="sx">Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr.</span>
+</span><span class='line'><span class="sx">The Gothon stops, tries not to laugh, then busts out laughing and can&#39;t move.</span>
+</span><span class='line'><span class="sx">While he&#39;s laughing you run up and shoot him square in the head</span>
+</span><span class='line'><span class="sx">putting him down, then jump through the Weapon Armory door.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sx">You do a dive roll into the Weapon Armory, crouch and scan the room</span>
+</span><span class='line'><span class="sx">for more Gothons that might be hiding.  It&#39;s dead quiet, too quiet.</span>
+</span><span class='line'><span class="sx">You stand up and run to the far side of the room and find the</span>
+</span><span class='line'><span class="sx">neutron bomb in its container.  There&#39;s a keypad lock on the box</span>
+</span><span class='line'><span class="sx">and you need the code to get the bomb out.  If you get the code</span>
+</span><span class='line'><span class="sx">wrong 10 times then the lock closes forever and you can&#39;t</span>
+</span><span class='line'><span class="sx">get the bomb.  The code is 3 digits.</span>
+</span><span class='line'><span class="sx">}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">the_bridge</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;The Bridge&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="sx">%q{</span>
+</span><span class='line'><span class="sx">The container clicks open and the seal breaks, letting gas out.</span>
+</span><span class='line'><span class="sx">You grab the neutron bomb and run as fast as you can to the</span>
+</span><span class='line'><span class="sx">bridge where you must place it in the right spot.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sx">You burst onto the Bridge with the netron destruct bomb</span>
+</span><span class='line'><span class="sx">under your arm and surprise 5 Gothons who are trying to</span>
+</span><span class='line'><span class="sx">take control of the ship.  Each of them has an even uglier</span>
+</span><span class='line'><span class="sx">clown costume than the last.  They haven&#39;t pulled their</span>
+</span><span class='line'><span class="sx">weapons out yet, as they see the active bomb under your</span>
+</span><span class='line'><span class="sx">arm and don&#39;t want to set it off.</span>
+</span><span class='line'><span class="sx">}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">escape_pod</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Escape Pod&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="sx">%q{</span>
+</span><span class='line'><span class="sx">You point your blaster at the bomb under your arm</span>
+</span><span class='line'><span class="sx">and the Gothons put their hands up and start to sweat.</span>
+</span><span class='line'><span class="sx">You inch backward to the door, open it, and then carefully</span>
+</span><span class='line'><span class="sx">place the bomb on the floor, pointing your blaster at it.</span>
+</span><span class='line'><span class="sx">You then jump back through the door, punch the close button</span>
+</span><span class='line'><span class="sx">and blast the lock so the Gothons can&#39;t get out.</span>
+</span><span class='line'><span class="sx">Now that the bomb is placed you run to the escape pod to</span>
+</span><span class='line'><span class="sx">get off this tin can.</span>
+</span><span class='line'>
+</span><span class='line'><span class="sx">You rush through the ship desperately trying to make it to</span>
+</span><span class='line'><span class="sx">the escape pod before the whole ship explodes.  It seems like</span>
+</span><span class='line'><span class="sx">hardly any Gothons are on the ship, so your run is clear of</span>
+</span><span class='line'><span class="sx">interference.  You get to the chamber with the escape pods, and</span>
+</span><span class='line'><span class="sx">now need to pick one to take.  Some of them could be damaged</span>
+</span><span class='line'><span class="sx">but you don&#39;t have time to look.  There&#39;s 5 pods, which one</span>
+</span><span class='line'><span class="sx">do you take?</span>
+</span><span class='line'><span class="sx">}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">the_end_winner</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;The End&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="sx">%q{</span>
+</span><span class='line'><span class="sx">You jump into pod 2 and hit the eject button.</span>
+</span><span class='line'><span class="sx">The pod easily slides out into space heading to</span>
+</span><span class='line'><span class="sx">the planet below.  As it flies to the planet, you look</span>
+</span><span class='line'><span class="sx">back and see your ship implode then explode like a</span>
+</span><span class='line'><span class="sx">bright star, taking out the Gothon ship at the same</span>
+</span><span class='line'><span class="sx">time.  You won!</span>
+</span><span class='line'><span class="sx">}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">the_end_loser</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;The End&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="sx">%q{</span>
+</span><span class='line'><span class="sx">You jump into a random pod and hit the eject button.</span>
+</span><span class='line'><span class="sx">The pod escapes out into the void of space, then</span>
+</span><span class='line'><span class="sx">implodes as the hull ruptures, crushing your body</span>
+</span><span class='line'><span class="sx">into jam jelly.</span>
+</span><span class='line'><span class="sx">}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">escape_pod</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span>
+</span><span class='line'>    <span class="s1">&#39;2&#39;</span> <span class="o">=&gt;</span> <span class="n">the_end_winner</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;*&#39;</span> <span class="o">=&gt;</span> <span class="n">the_end_loser</span>
+</span><span class='line'><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">generic_death</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;death&quot;</span><span class="p">,</span> <span class="s2">&quot;You died.&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">the_bridge</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span>
+</span><span class='line'>    <span class="s1">&#39;throw the bomb&#39;</span> <span class="o">=&gt;</span> <span class="n">generic_death</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;slowly place the bomb&#39;</span> <span class="o">=&gt;</span> <span class="n">escape_pod</span>
+</span><span class='line'><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">laser_weapon_armory</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span>
+</span><span class='line'>    <span class="s1">&#39;0132&#39;</span> <span class="o">=&gt;</span> <span class="n">the_bridge</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;*&#39;</span> <span class="o">=&gt;</span> <span class="n">generic_death</span>
+</span><span class='line'><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">central_corridor</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span>
+</span><span class='line'>    <span class="s1">&#39;shoot!&#39;</span> <span class="o">=&gt;</span> <span class="n">generic_death</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;dodge!&#39;</span><span class="o">=&gt;</span> <span class="n">generic_death</span><span class="p">,</span>
+</span><span class='line'>    <span class="s1">&#39;tell a joke&#39;</span> <span class="o">=&gt;</span> <span class="n">laser_weapon_armory</span>
+</span><span class='line'><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">START</span> <span class="o">=</span> <span class="n">central_corridor</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你會發現我們的 <code>Room</code> 類和地圖有一些問題：</p>
+
+<ol>
+<li><p>在進入一個房間以前會打出一段文字作為房間的描述，我們需要將這些描述和每個房間關聯起來，這樣房間的次序就不會被打亂了，這對我們的遊戲是一件好事。這些描述本來是在 <code>if-else</code> 結構中的，這是我們後面要修改的東西。</p></li>
+<li><p>原版遊戲中我們使用了專門的程式來生成一些內容，例如炸彈的激活鍵碼，艦艙的選擇等，這次我們做遊戲時就先使用預設值好了，不過後面的加分習題裡，我會要求你把這些功能再加到遊戲中。</p></li>
+<li><p>我為所有的遊戲中的失敗結尾寫了一個 <code>generic_death</code>，你需要去補全這個函式。你需要把原版遊戲中所有的失敗結尾都加進去，並確保程式碼能正確運行。</p></li>
+<li><p>我添加了一種新的轉換模式，以<code>"*"</code>為標記，用來在遊戲引擎中實現「catch-all」動作。</p></li>
+</ol>
+
+
+<p>等你把上面的程式碼基本寫好以後，接下來就是引導你繼續寫下去的自動測試的內容 <code>test/test_map.rb</code> 了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;test/unit&#39;</span>
+</span><span class='line'><span class="n">require_relative</span> <span class="s1">&#39;../lib/map&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MapTests</span> <span class="o">&lt;</span> <span class="no">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_room</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">gold</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;GoldRoom&quot;</span><span class="p">,</span>
+</span><span class='line'>                <span class="sx">%q{This room has gold in it you can grab. There&#39;s a</span>
+</span><span class='line'><span class="sx">                door to the north.}</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">gold</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;GoldRoom&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">gold</span><span class="o">.</span><span class="n">paths</span><span class="p">,</span> <span class="p">{})</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_room_paths</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">center</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Center&quot;</span><span class="p">,</span> <span class="s2">&quot;Test room in the center.&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">north</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;North&quot;</span><span class="p">,</span> <span class="s2">&quot;Test room in the north.&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">south</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;South&quot;</span><span class="p">,</span> <span class="s2">&quot;Test room in the south.&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">center</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span><span class="s1">&#39;north&#39;</span> <span class="o">=&gt;</span> <span class="n">north</span><span class="p">,</span> <span class="s1">&#39;south&#39;</span> <span class="o">=&gt;</span> <span class="n">south</span><span class="p">})</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">center</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;north&#39;</span><span class="p">),</span> <span class="n">north</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">center</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;south&#39;</span><span class="p">),</span> <span class="n">south</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_map</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">start</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Start&quot;</span><span class="p">,</span> <span class="s2">&quot;You can go west and down a hole.&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">west</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Trees&quot;</span><span class="p">,</span> <span class="s2">&quot;There are trees here, you can go east.&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">down</span> <span class="o">=</span> <span class="no">Room</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Dungeon&quot;</span><span class="p">,</span> <span class="s2">&quot;It&#39;s dark down here, you can go up.&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">start</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span><span class="s1">&#39;west&#39;</span> <span class="o">=&gt;</span> <span class="n">west</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span> <span class="o">=&gt;</span> <span class="n">down</span><span class="p">})</span>
+</span><span class='line'>    <span class="n">west</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span><span class="s1">&#39;east&#39;</span> <span class="o">=&gt;</span> <span class="n">start</span><span class="p">})</span>
+</span><span class='line'>    <span class="n">down</span><span class="o">.</span><span class="n">add_paths</span><span class="p">({</span><span class="s1">&#39;up&#39;</span> <span class="o">=&gt;</span> <span class="n">start</span><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;west&#39;</span><span class="p">),</span> <span class="n">west</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;west&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;east&#39;</span><span class="p">),</span> <span class="n">start</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;down&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;up&#39;</span><span class="p">),</span> <span class="n">start</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_gothon_game_map</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="no">START</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;shoot!&#39;</span><span class="p">),</span> <span class="n">generic_death</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="no">START</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;dodge!&#39;</span><span class="p">),</span> <span class="n">generic_death</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">room</span> <span class="o">=</span> <span class="no">START</span><span class="o">.</span><span class="n">go</span><span class="p">(</span><span class="s1">&#39;tell a joke&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">laser_weapon_armory</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你在這部分練習中的任務是完成地圖，並且讓自動測試可以完整地檢查過整個地圖。這包括將所有的 <code>generic_death</code> 物件修正為遊戲中實際的失敗結尾。讓你的程式碼成功運行起來，並讓你的測試越全面越好。後面我們會對地圖做一些修改，到時候這些測試將保證修改後的程式碼還可以正常工作。</p>
+
+<h2>會話(session)和用戶跟踪</h2>
+
+<p>在你的 web 程式運行的某個位置，你需要追踪一些信息，並將這些信息和用戶的瀏覽器關聯起來。在HTTP 協議的框架中，web 環境是「無狀態(stateless)」的，這意味著你的每一次請求和你其它的請求都是相互獨立的。如果你請求了頁面A，輸入了一些資料，然後點了一個頁面B 的鏈接，那你在頁面A 輸入的數據就全部消失了。</p>
+
+<p>解決這個問題的方法是為 web 程式建立一個很小的資料儲存功能，給每個瀏覽器賦予一個獨一無二的數字，用來跟踪瀏覽器所作的事情。這個功能通常適用資料庫或者是存儲在磁碟上的檔案來實現。在 Sinatra 這個框架中實現這樣的功能是很容易的，以下就是一個這樣的例子（使用 Rack middleware)：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Session</span><span class="o">::</span><span class="no">Pool</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/count&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">session</span><span class="o">[</span><span class="ss">:count</span><span class="o">]</span> <span class="o">||=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="n">session</span><span class="o">[</span><span class="ss">:count</span><span class="o">]</span> <span class="o">+=</span><span class="mi">1</span>
+</span><span class='line'>  <span class="s2">&quot;Count: </span><span class="si">#{</span><span class="n">session</span><span class="o">[</span><span class="ss">:count</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">get</span> <span class="s1">&#39;/reset&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">session</span><span class="o">.</span><span class="n">clear</span>
+</span><span class='line'>  <span class="s2">&quot;Count reset to 0.&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>建立引擎</h2>
+
+<p>你應該已經寫好了遊戲地圖和它的單元測試程式碼碼。現在我要求你製作一個簡單的遊戲引擎，用來讓遊戲中的各個房間運轉起來，從玩家收集輸入，並且記住玩家到了那一幕。我們將用到你剛學過的會話來製作一個簡單的引擎，讓它可以：</p>
+
+<ol>
+<li>為新使用者啟動新的遊戲。</li>
+<li>將房間展示給使用者。</li>
+<li>接受使用者的輸入。</li>
+<li>在遊戲中處理使用者的輸入。</li>
+<li>顯示遊戲的結果，繼續遊戲的下一幕，知道玩家角色死亡為止。</li>
+</ol>
+
+
+<p>為了建立這個引擎，你需要將我們久經考驗的<code>lib/gothonsweb.rb</code> 搬過來，建立一個功能完備的、基於 session 的遊戲引擎。這裡的難點是我會先使用基本的 HTML 檔案創建一個非常簡單的版本，接下來將由你完成它，基本的引擎是這個樣子的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">require_relative</span> <span class="s2">&quot;gothonweb/version&quot;</span>
+</span><span class='line'><span class="n">require_relative</span> <span class="s2">&quot;map&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;sinatra&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;erb&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Gothonweb</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Session</span><span class="o">::</span><span class="no">Pool</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="c1"># this is used to &quot;setup&quot; the session with starting values</span>
+</span><span class='line'>    <span class="nb">p</span> <span class="no">START</span>
+</span><span class='line'>    <span class="n">session</span><span class="o">[</span><span class="ss">:room</span><span class="o">]</span> <span class="o">=</span> <span class="no">START</span>
+</span><span class='line'>    <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;/game&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/game&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">session</span><span class="o">[</span><span class="ss">:room</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">erb</span> <span class="ss">:show_room</span><span class="p">,</span> <span class="ss">:locals</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:room</span> <span class="o">=&gt;</span> <span class="n">session</span><span class="o">[</span><span class="ss">:room</span><span class="o">]</span><span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="c1"># why is there here? do you need it?</span>
+</span><span class='line'>      <span class="n">erb</span> <span class="ss">:you_died</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">post</span> <span class="s1">&#39;/game&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span> <span class="o">||</span> <span class="kp">nil</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="c1"># there is a bug here, can you fix it?</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">session</span><span class="o">[</span><span class="ss">:room</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">session</span><span class="o">[</span><span class="ss">:room</span><span class="o">]</span> <span class="o">=</span> <span class="n">session</span><span class="o">[</span><span class="ss">:room</span><span class="o">].</span><span class="n">go</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">redirect</span><span class="p">(</span><span class="s2">&quot;/game&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下一步，你應該刪除 <code>lib/views/hello_form.erb</code> 和 <code>lib/views/index.erb</code> 然後創作兩個在上述 code 提到的 template，這裡是一個非常簡單的 <code>lib/views/show_room.erb</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;h1&gt;</span><span class="cp">&lt;%=</span> <span class="n">room</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="x">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;pre&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">room</span><span class="o">.</span><span class="n">description</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;death&quot;</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;p&gt;</span>
+</span><span class='line'><span class="x">  &lt;a href=&quot;/&quot;&gt;Play Again?&lt;/a&gt;</span>
+</span><span class='line'><span class="x">  &lt;/p&gt;</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">else</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">  &lt;p&gt;</span>
+</span><span class='line'><span class="x">  &lt;form action=&quot;/game&quot; method=&quot;POST&quot;&gt;</span>
+</span><span class='line'><span class="x">    - &lt;input type=&quot;text&quot; name=&quot;action&quot;&gt; &lt;input type=&quot;SUBMIT&quot;&gt;</span>
+</span><span class='line'><span class="x">  &lt;/form&gt;</span>
+</span><span class='line'><span class="x">  &lt;/p&gt;</span>
+</span><span class='line'><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這就用來顯示遊戲中的房間的模板。接下來，你需要在使用者跑到地圖的邊界時，用一個模板告訴使用者他的角色的死亡信息，也就是<code>lib/views/you_died.erb</code> 這個模板：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;h1&gt;You Died!&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;p&gt;Looks like you bit the dust.&lt;/p&gt;</span>
+</span><span class='line'><span class="x">&lt;p&gt;&lt;a href=&quot;/&quot;&gt;Play Again&lt;/a&gt;&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>準備好了這些文件，你現在可以做下面的事情了：</p>
+
+<ol>
+<li>讓測試代碼 <code>test/test_gothonsweb.rb</code> 再次運行起來，這樣你就可以去測試這個遊戲。由於 session 的存在，你可能頂多只能實現幾次點擊，不過你應該可以做出一些基本的測試來。</li>
+<li>執行 lib/gothonsweb.rb` 腳本，試玩一下你的遊戲。</li>
+<li>你需要和往常一樣刷新和修正你的遊戲，慢慢修改遊戲的HTML 檔案和引擎，直到你實現遊戲需要的所有功能為止。</li>
+</ol>
+
+
+<h2>你的期末考試</h2>
+
+<p>你有沒有覺著我一下子給了你超多的資訊呢？那就對了，我想要你在學習技能的同時可以有一些可以用來鼓搗的東西。為了完成這節習題，我將給你最後一套需要你自己完成的練習。你將注意到，到目前為止你寫的遊戲並不是很好，這只是你的第一版程式碼而已。你現在的任務是讓遊戲更加完善，實現下面的這些功能：</p>
+
+<ol>
+<li>修正程式碼中所有我提到和沒提到的bug，如果你發現了新的bug，你可以告訴我。</li>
+<li>改進所有的自動測試，讓你可以測試更多的內容，直到你可以不用瀏覽器就能測到所有的內容為止。</li>
+<li>讓HTML 頁面看上去更美觀一些。</li>
+<li>研究一下網頁登錄系統，為這個程式創建一個登錄界面，這樣人們就可以登錄這個遊戲，並且可以保存遊戲高分。</li>
+<li>完成遊戲地圖，盡可能地把遊戲做大，功能做全。</li>
+<li>給用戶一個「幫助系統」，讓他們可以查詢每個房間裡可以執行哪些命令。</li>
+<li>為你的遊戲添加新功能，想到什麼功能就添加什麼功能。</li>
+<li>創建多個地圖，讓用戶可以選擇他們想要玩的一張來進行遊戲。你的 <code>lib/gothonsweb.rb</code> 應該可以運行提供給它的任意的地圖，這樣你的引擎就可以支持多個不同的遊戲。</li>
+<li>最後，使用你在習題 48 和49 中學到的東西來創建一個更好的輸入處理器。你手頭已經有了大部分必要的程式碼，你只需要改進語法，讓它和你的輸入表單以及遊戲引擎掛鉤即可。</li>
+</ol>
+
+
+<p>祝你好運！</p>
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex51/" title="Previous Post: 
+">&laquo; 習題 51: 從瀏覽器中取得輸入</a>
+       
+       || 
+        
+       <a href="/next/" title="next Post: 
+">下一步 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex52/" data-via="" data-counturl="http://learnrubythehardway.org/ex52/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

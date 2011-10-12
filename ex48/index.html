@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 48: 更進階的使用者輸入 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 48: 更進階的使用者輸入                        Jul 19th, 2011                    你的遊戲可能一路跑得很爽，不過你處理使用者輸入的方式肯定讓你不勝其煩了。每一個房間都需要一套自己的語句，而且只有使用者...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex48/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 48: 更進階的使用者輸入</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>你的遊戲可能一路跑得很爽，不過你處理使用者輸入的方式肯定讓你不勝其煩了。每一個房間都需要一套自己的語句，而且只有使用者完全輸入正確後才能執行。你需要一個設備，它可以允許使用者以各種方式輸入語彙。例如下面的幾種表述都應該被支援才對：</p>
+
+<ul>
+<li>open door</li>
+<li>open the door</li>
+<li>go THROUGH the door</li>
+<li>punch bear</li>
+<li>Punch The Bear in the FACE</li>
+</ul>
+
+
+<p>也就是說，如果使用者的輸入和常用英語很接近也應該是可以的，而你的遊戲要識別出它們的意思。為了達到這個目的，我們將寫一個模組專門做這件事情。這個模組裡邊會有若干個類，它們互相配合，接受使用者輸入，並且將使用者輸入轉換成你的遊戲可以識別的命令。</p>
+
+<p>英語的簡單格式是這個樣子的：</p>
+
+<ul>
+<li>單詞由空格隔開。</li>
+<li>句子由單詞組成。</li>
+<li>語法控制句子的含義。</li>
+</ul>
+
+
+<p>所以最好的開始方式是先搞定如何得到使用者輸入的詞彙，並且判斷出它們是什麼。</p>
+
+<h2>我們的遊戲語彙</h2>
+
+<p>我在遊戲裡建立了下面這些語彙：</p>
+
+<ul>
+<li>表示方向: north, south, east, west, down, up, left, right, back.</li>
+<li>動詞: go, stop, kill, eat.</li>
+<li>修飾詞: the, in, of, from, at, it</li>
+<li>名詞: door, bear, princess, cabinet.</li>
+<li>數字詞: 由 0-9 構成的數字。</li>
+</ul>
+
+
+<p>說到名詞，我們會碰到一個小問題，那就是不一樣的房間會用到不一樣的一組名詞，不過讓我們先挑一小組出來寫程式，以後再做改進吧。</p>
+
+<h2>如何斷句</h2>
+
+<p>我們已經有了詞彙表，為了分析句子的意思，接下來我們需要找到一個斷句的方法。我們對於句子的定義是「空格隔開的單詞」，所以只要這樣就可以了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">stuff</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span><span class="p">()</span>
+</span><span class='line'><span class="n">words</span> <span class="o">=</span> <span class="n">stuff</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>目前做到這樣就可以了，不過這招在相當一段時間內都不會有問題。</p>
+
+<h2>語彙結構</h2>
+
+<p>一旦我們知道瞭如何將句子轉化成詞彙列表，剩下的就是逐一檢查這些詞彙，看它們是什麼類型。為了達到這個目的，我們將用到一個非常便利的 Ruby 資料結構「struct」。「struct」其實就是一個可以把一串的 attrbutes 綁在一起的方式，使用 accessor 函式，但不需要寫一個複雜的 class。它的建立方式就像這樣：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Pair</span> <span class="o">=</span> <span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:token</span><span class="p">,</span> <span class="ss">:word</span><span class="p">)</span>
+</span><span class='line'><span class="n">first_word</span> <span class="o">=</span> <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span> <span class="s2">&quot;north&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">second_word</span> <span class="o">=</span> <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;verb&quot;</span><span class="p">,</span> <span class="s2">&quot;go&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">sentence</span> <span class="o">=</span> <span class="o">[</span><span class="n">first_word</span><span class="p">,</span> <span class="n">second_word</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這建立了一對 (TOKEN, WORD) 可以讓你看到 word 和在裡面做事。</p>
+
+<p>這只是一個例子，不過最後做出來的樣子也差不多。你接受使用者輸入，用split 將其分隔成單詞列表，然後分析這些單詞，識別它們的類型，最後重新組成一個句子。</p>
+
+<h2>掃描輸入資料</h2>
+
+<p>現在你要寫的是詞彙掃描器。這個掃描器會將使用者的輸入字符串當做參數，然後返回由多個(TOKEN, WORD) struct 組成的列表，這個列表實現類似句子的功能。如果一個單詞不在預定的詞彙表中，那它返回時 WORD 應該還在，但TOKEN 應該設置成一個專門的錯誤標記。這個錯誤標記將告訴使用者哪裡出錯了。</p>
+
+<p>有趣的地方來了。我不會告訴你這些該怎樣做，但我會寫一個「單元測試(unit test)」，而你要把掃描器寫出來，並保證單元測試能夠正常通過。</p>
+
+<h2>Exceptions And Numbers</h2>
+
+<p>有一件小事情我會先幫幫你，那就是數字轉換。為了做到這一點，我們會作一點弊，使用「異常(exceptions)」來做。「異常」指的是你運行某個函數時得到的錯誤。你的函數在碰到錯誤時，就會「提出(raise)」一個「異常」，然後你就要去處理(handle)這個異常。假如你在 IRB  裡寫了這些東西：</p>
+
+<pre><code>ruby-1.9.2-p180 :001 &gt; Integer("hell")
+ArgumentError: invalid value for Integer(): "hell"
+    from (irb):1:in `Integer'
+    from (irb):1
+    from /home/rob/.rvm/rubies/ruby-1.9.2-p180/bin/irb:16:in `&lt;main&gt;'
+</code></pre>
+
+<p>這個 <code>ArgumentError</code> 就是 <code>Integer()</code> 函式拋出的一個異常。因為你給<code>Integer()</code> 的參數不是一個數字。<code>Integer()</code>函數其實也可以傳回一個值來告訴你它碰到了錯誤，不過由於它只能傳回整數值，所以很難做到這一點。它不能返回-1，因為這也是一個數字。 <code>Integer()</code>沒有糾結在它「究竟應該返回什麼」上面，而是提出了一個叫做<code>TypeError</code>的異常，然後你只要處理這個異常就可以了。</p>
+
+<p>處理異常的方法是使用 <code>begin</code> 和 <code>rescue</code> 這兩個關鍵字：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">convert_number</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">begin</span>
+</span><span class='line'>    <span class="nb">Integer</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">rescue</span> <span class="no">ArgumentError</span>
+</span><span class='line'>    <span class="kp">nil</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>你把要試著運行的程式碼放到「begin」的區段裡，再將出錯後要運行的程式碼放到「except」區段裡。在這裡，我們要試著呼叫 <code>Integer()</code> 去處理某個可能是數字的東西，如果中間出了錯，我們就「rescue」這個錯誤，然後返回 「nil」。</p>
+
+<p>在你寫的掃描器裡面，你應該使用這個函數來測試某個東西是不是數字。做完這個檢查，你就可以聲明這個單詞是一個錯誤單詞了。</p>
+
+<h2>What You Should Test</h2>
+
+<p>這裡是你應該使用的測試檔案 <code>test/test_lexicon.rb</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;test/unit&#39;</span>
+</span><span class='line'><span class="n">require_relative</span> <span class="s2">&quot;../lib/lexicon&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">LexiconTests</span> <span class="o">&lt;</span> <span class="no">Test</span><span class="o">::</span><span class="no">Unit</span><span class="o">::</span><span class="no">TestCase</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">Pair</span> <span class="o">=</span> <span class="no">Lexicon</span><span class="o">::</span><span class="no">Pair</span>
+</span><span class='line'>  <span class="vc">@@lexicon</span> <span class="o">=</span> <span class="no">Lexicon</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_directions</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:direction</span><span class="p">,</span> <span class="s1">&#39;north&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">,</span> <span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;north&quot;</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;north south east&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:direction</span><span class="p">,</span> <span class="s1">&#39;north&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:direction</span><span class="p">,</span> <span class="s1">&#39;south&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:direction</span><span class="p">,</span> <span class="s1">&#39;east&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_verbs</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;go&quot;</span><span class="p">),</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:verb</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;go kill eat&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:verb</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:verb</span><span class="p">,</span> <span class="s1">&#39;kill&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:verb</span><span class="p">,</span> <span class="s1">&#39;eat&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_stops</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;the&quot;</span><span class="p">),</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:stop</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;the in of&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:stop</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:stop</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:stop</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_nouns</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;bear&quot;</span><span class="p">),</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:noun</span><span class="p">,</span> <span class="s1">&#39;bear&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;bear princess&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:noun</span><span class="p">,</span> <span class="s1">&#39;bear&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:noun</span><span class="p">,</span> <span class="s1">&#39;princess&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_numbers</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;1234&quot;</span><span class="p">),</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:number</span><span class="p">,</span> <span class="mi">1234</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;3 91234&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:number</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:number</span><span class="p">,</span> <span class="mi">91234</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_errors</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;ASDFADFASDF&quot;</span><span class="p">),</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="s1">&#39;ASDFADFASDF&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="vc">@@lexicon</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;bear IAS princess&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">assert_equal</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="o">[</span><span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:noun</span><span class="p">,</span> <span class="s1">&#39;bear&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="s1">&#39;IAS&#39;</span><span class="p">),</span>
+</span><span class='line'>                 <span class="no">Pair</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:noun</span><span class="p">,</span> <span class="s1">&#39;princess&#39;</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>記住你要使用你的專案骨架來建立新專案項目，將這個 Test Case 寫下來（不許複製貼上！），然後編寫你的掃描器，直至所有的測試都能通過。注意細節並確認結果一切工作良好。</p>
+
+<h2>設計提示</h2>
+
+<p>集中一次實現一個測試，盡量保持簡單，只要把你的 <code>lexicon.rb</code> 詞彙表中所有的單詞放那裡就可以了。不要修改輸入的單詞表，不過你需要建立自己的新列表，裡邊包含你的語彙元組。另外，記得使用 <code>include?</code> 函式來檢查這些語彙陣列，以確認某個單詞是否在你的語彙表中。</p>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>改進單元測試，讓它覆蓋到更多的語彙。</li>
+<li>向語彙列表添加更多的語彙，並且更新單元測試程式碼。</li>
+<li>讓你的掃描器能夠識別任意大小寫的詞彙。更新你的單元測試以確認其功能。</li>
+<li>找出另外一種轉換為數字的方法。</li>
+<li>我的解決方案用了37 行程式碼，你的是更長還是更短呢？</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex47/" title="Previous Post: 
+">&laquo; 習題 47: 自動化測試</a>
+       
+       || 
+        
+       <a href="/ex49/" title="next Post: 
+">習題 49: 創造句子 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex48/" data-via="" data-counturl="http://learnrubythehardway.org/ex48/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

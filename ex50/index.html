@@ -1,0 +1,612 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>習題 50: 你的第一個網站 - Learn Ruby The Hard Way</title>
+  <meta name="author" content="xdite">
+
+  
+  <meta name="description" content="              習題 50: 你的第一個網站                        Jul 19th, 2011                    這節以及後面的習題中，你的任務是把前面建立的遊戲做成網頁版。這是本書的最後三個章節，這些內容對你來說難度會相當大，你要在上...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://learnrubythehardway.org/ex50/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Learn Ruby The Hard Way" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Learn Ruby The Hard Way</a></h1>
+  
+    <h2>笨方法學 Ruby</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:learnrubythehardway.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">習題 50: 你的第一個網站</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>這節以及後面的習題中，你的任務是把前面建立的遊戲做成網頁版。這是本書的最後三個章節，這些內容對你來說難度會相當大，你要在上面花些時間才能做出來。在你開始這節練習以前，你必須已經成功地完成過了《習題46》的內容，正確安裝了 <strong>RubyGems</strong>，而且學會瞭如何安裝軟體套件以及如何建立專案骨架。如果你不記得這些內容，就回到《習題46》重新複習一遍。</p>
+
+<h2>安裝 Sinatra</h2>
+
+<p>在建立你的第一個網頁應用程式之前，你需要安裝一個「Web框架」，它的名字叫 <strong>Sinatra</strong>。所謂的「框架」通常是指「讓某件事情做起來更容易的軟體套件」。在網頁應用的世界裡，人們建立了各種各樣的「網頁框架」，用來解決他們在建立網站時碰到的問題，然後把這些解決方案用軟體套件的方式發佈出來，這樣你就可以利用它們引導建立你自己的專案了。</p>
+
+<p>可選的框架類型有很多很多，不過在這裡我們將使用 Sinatra 框架。你可以先學會它，等到差不多的時候再去接觸其它的框架，不過 Sinatra 本身挺不錯的，所以就算你一直使用也沒關係。</p>
+
+<p>使用 <code>gem</code> 安裝 Sinatra:</p>
+
+<pre><code>$ gem install sinatra
+Fetching: tilt-1.3.2.gem (100%)
+Fetching: sinatra-1.2.6.gem (100%)
+Successfully installed tilt-1.3.2
+Successfully installed sinatra-1.2.6
+2 gems installed
+Installing ri documentation for tilt-1.3.2...
+Installing ri documentation for sinatra-1.2.6...
+Installing RDoc documentation for tilt-1.3.2...
+Installing RDoc documentation for sinatra-1.2.6...
+</code></pre>
+
+<h2>寫一個簡單的「Hello World」專案</h2>
+
+<p>現在你將做一個非常簡單的「Hello World」專案出來，首先你要建立一個專案目錄：</p>
+
+<pre><code>$ cd projects
+$ bundle gem gothonweb
+</code></pre>
+
+<p>你最終的目的是把《習題42》中的遊戲做成一個 web 應用，所以你的專案名稱叫做 <code>gothonweb</code>，不過在此之前，你需要建立一個最基本的 Sinatra應用，將下面的代碼放到<code>lib/gothonweb.rb</code>中：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">require_relative</span> <span class="s2">&quot;gothonweb/version&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;sinatra&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Gothonweb</span>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello, World!&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">greeting</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然後使用下面的方法來運行這個 web 程式：</p>
+
+<pre><code>$ ruby lib/gothonweb.rb
+== Sinatra/1.2.6 has taken the stage on 4567 for development with backup from WEBrick
+[2011-07-18 11:27:07] INFO  WEBrick 1.3.1
+[2011-07-18 11:27:07] INFO  ruby 1.9.2 (2011-02-18) [x86_64-linux]
+[2011-07-18 11:27:07] INFO  WEBrick::HTTPServer#start: pid=6599 port=4567
+</code></pre>
+
+<p>最後，使用你的網頁瀏覽器，打開 URL <code>http://localhost:4567/</code>，你應該看到兩樣東西，首先是瀏覽器裡顯示了 <code>Hello, world!</code>，然後是你的命令行終端顯示了如下的輸出：</p>
+
+<pre><code>127.0.0.1 - - [18/Jul/2011 11:29:10] "GET / HTTP/1.1" 200 12 0.0015
+localhost - - [18/Jul/2011:11:29:10 EDT] "GET / HTTP/1.1" 200 12
+- -&gt; /
+127.0.0.1 - - [18/Jul/2011 11:29:10] "GET /favicon.ico HTTP/1.1" 404 447 0.0008
+localhost - - [18/Jul/2011:11:29:10 EDT] "GET /favicon.ico HTTP/1.1" 404 447
+- -&gt; /favicon.ico
+</code></pre>
+
+<p>這些是 Sinatra 印出的 log 資訊，從這些資訊你可以看出服務器有在運行，而且能了解到程式在瀏覽器背後做了些什麼事情。這些資訊還有助於你發現程式的問題。例如在最後一行它告訴你瀏覽器試圖存取 <code>/favicon.ico</code>，但是這個文件並不存在，因此它返回的狀態碼是 <code>404 Not Found</code>。</p>
+
+<p>到這裡，我還沒有講到任何 web 相關的工作原理，因為首先你需要完成準備工作，以便後面的學習能順利進行，接下來的兩節習題中會有詳細的解釋。我會要求你用各種方法把你的 Sinatra 應用程式弄壞，然後再將其重新構建起來：這樣做的目的是讓你明白運行 Sinatra 程式需要準備好哪些東西。</p>
+
+<h2>發生了什麼事情？</h2>
+
+<p>在瀏覽器訪問到你的網頁應用程式時，發生了下面一些事情：</p>
+
+<ol>
+<li>瀏覽器通過網路連接到你自己的電腦，它的名字叫做 <code>localhost</code>，這是一個標準稱謂，表示的誰就是網路中你自己的這台電腦，不管它實際名字是什麼，你都可以使用 <code>localhost</code>來訪問。它使用到<code>port 4567</code>。</li>
+<li>連接成功以後，瀏覽器對 lib/gothonweb.rb<code>這個應用程式發出了HTTP請求(request)，要求訪問URL</code>/`，這通常是一個網站的第一個URL。</li>
+<li>在<code>lib/gothonweb.rb</code> 裡，我們有一個程式碼區段，裡面包含了 URL 的匹配關係。我們這裡只定義了一組匹配，那就是「/」。它的含義是：如果有人使用瀏覽器訪問 <code>/</code> 這一級目錄，Sinatra 將找到它，從而用它處理這個瀏覽器請求。</li>
+<li>Sinatra 呼叫匹配到的程式碼區段，這段程式碼只簡單的回傳了一個字串傳回給瀏覽器。</li>
+<li>最後 Sinatra 完成了對於瀏覽器請求的處理將響應(response)回傳給瀏覽器，於是你就看到了現在的頁面。</li>
+</ol>
+
+
+<p>確定你真的弄懂了這些，你需要畫一個示意圖，來理清資訊是如何從瀏覽器傳遞到 Sinata，再到 <code>/</code> 區段，再回到你的瀏覽器的。</p>
+
+<h2>修正錯誤</h2>
+
+<p>第一步，把第 6 行的 <code>greeting</code> 變數刪掉，然後重新刷瀏覽器。你應該會看到一個錯誤畫面，你可以通過這一頁豐富的資訊看出你的程式崩潰的原因。當然你已經知道出錯的原因是 <code>greeting</code>的賦值遺失了，不過 Sinatra還是會給你一個挺好的錯誤頁面，讓你能找到出錯的具體位置。試試在這個錯誤頁面上做以下操作：</p>
+
+<ol>
+<li>看看 <code>sinatra.error</code> 變數。</li>
+<li>看看 <code>REQUEST_</code> 變數裡的資訊。裡面哪些知識是你已經熟悉了的。這是瀏覽器發給你的 gothonweb 應用程式的資訊。這些知識對於日常網頁瀏覽沒有什麼用處，但現在你要學會這些東西，以便寫出web應用程式來。</li>
+</ol>
+
+
+<h2>建立基本的模板</h2>
+
+<p>你已經試過用各種方法把這個Sinatra 程式改錯，不過你有沒有注意到「Hello World」不是一個好 HTML 網頁呢？這是一個 web 應用，所以需要一個合適的HTML 響應頁面才對。為了達到這個目的，下一步你要做的是將「Hello World」以較大的綠色字體顯示出來。</p>
+
+<p>第一步是建立一個 <code>lib/views/index.erb</code> 檔案，內容如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;html&gt;</span>
+</span><span class='line'><span class="x">    &lt;head&gt;</span>
+</span><span class='line'><span class="x">        &lt;title&gt;Gothons Of Planet Percal #25&lt;/title&gt;</span>
+</span><span class='line'><span class="x">    &lt;/head&gt;</span>
+</span><span class='line'><span class="x">&lt;body&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">greeting</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">    &lt;p&gt;I just wanted to say &lt;em style=&quot;color: green; font-size: 2em;&quot;&gt;</span><span class="cp">&lt;%=</span> <span class="n">greeting</span> <span class="cp">%&gt;</span><span class="x">&lt;/em&gt;.</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%</span> <span class="k">else</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'><span class="x">    &lt;em&gt;Hello&lt;/em&gt;, world!</span>
+</span><span class='line'><span class="x">  </span><span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="x"></span>
+</span><span class='line'>
+</span><span class='line'><span class="x">&lt;/body&gt;</span>
+</span><span class='line'><span class="x">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>什麼是一個 <code>.erb</code> 的檔案？ERB 的全名是 <strong>E</strong>mbedded <strong>R</strong>u<strong>b</strong>y。<code>.erb</code> 檔案其實是一個內嵌一點 Ruby 程式碼的 HTML。如果你學過HTML的話，這些內容你看上去應該很熟悉。如果你沒學過HTML，那你應該去研究一下，試著用HTML寫幾個網頁，從而知道它的運作原理。既然這是一個 <code>erb</code> 模版，Sinatra 就會在模板中找到對應的位置，將參數的內容填充到模板中。例如每一個出現 `&lt;%= greeting %> 的位置，內容都會被替換成對應這個變數名的參數。</p>
+
+<p>為了讓你的 <code>lib/gothonweb.rb</code> 處理模板，你需要寫一寫程式碼，告訴Sinatra 到哪裡去找到模板進行加載，以及如何渲染(render)這個模板，按下面的方式修改你的檔案：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">require_relative</span> <span class="s2">&quot;gothonweb/version&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;sinatra&quot;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s2">&quot;erb&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">module</span> <span class="nn">Gothonweb</span>
+</span><span class='line'>  <span class="n">get</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello, World!&quot;</span>
+</span><span class='line'>    <span class="n">erb</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">:locals</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:greeting</span> <span class="o">=&gt;</span> <span class="n">greeting</span><span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>特別注意我改了 <code>/</code> 這個程式碼區段最後一行的內容，這樣它就可以呼叫 <code>erb</code> 然後把 greeting 變數傳給它。</p>
+
+<p>改好上面的程式後，刷新一下瀏覽器中的網頁，你應該會看到一條和之前不同的綠色資訊輸出。你還可以在瀏覽器中通過「查看原始碼(View Source)」看到模板被渲染成了標準有效的HTML 原始碼。</p>
+
+<p>這麼講也許有些太快了，我來詳細解釋一下模板的運作原理吧：</p>
+
+<ol>
+<li>在 <code>lib/gothonweb.rb</code> 你添加了一個 <code>erb</code> 函式呼叫。</li>
+<li>這個 <code>erb</code> 函式知道怎麼載入 <code>lib/views</code> 目錄夾裡的 <code>.erb</code> 的檔案。它知道去抓哪些檔案（在這個例子裡是 <code>index.erb</code>)。因為你傳了一個參數進去（<code>erb :index …</code>)。</li>
+<li>現在，當瀏覽器讀取 <code>/</code> 且 <code>lib/gothonweb.eb</code> 匹配然後執行 <code>get '/' do</code> 區段，它再也沒有只是回傳字串 <code>greeting</code>，而是呼叫 <code>erb</code> 然後傳入 <code>greeting</code> 作為一個變數。</li>
+<li>最後，你讓 <code>lib/views/index.erb</code> 去檢查 <code>greeting</code> 這個變數，如果這個變數存在的話，就印出變數裡的內容。如果不存在的話，就會印出一個預設的訊息。</li>
+</ol>
+
+
+<p>要深入理解這個過程，你可以修改 <code>greeting 變數以及 HTML ，看看會友什麼效果。然後也創作另外一個叫做</code>lib/views/foo.erb<code>的模板。然後把</code>erb :index<code>改成</code>erb :foo<code>。從這個過程中你也可以看到，你傳入給</code>erb<code>的第一個參數只要匹配到</code>lib/views<code>下的</code>.erb` 檔案名稱，就可以被渲染出來了。</p>
+
+<h2>加分習題</h2>
+
+<ol>
+<li>到 <a href="http://www.sinatrarb.com">Sinatra</a> 這個框架的官方網站去閱讀更多文件。</li>
+<li>實驗一下你在上述網站中看到的所有東西，包括他們的範例程式碼。</li>
+<li>閱讀有關於 HTML5 和 CSS3 相關的東西，自己練習寫幾個 <code>.html</code> 和 <code>.css</code> 文件。</li>
+<li>如果你有一個懂 <strong>Rails</strong> 的朋友可以幫你的畫，你可以自己試著使用 Rails 完成一下習題 50,51,52，看看結果會是什麼樣子。</li>
+</ol>
+
+</div>
+
+
+  
+  <nav class="pagination">
+     <div>
+        
+         <a href="/ex49/" title="Previous Post: 
+">&laquo; 習題 49: 創造句子</a>
+       
+       || 
+        
+       <a href="/ex51/" title="next Post: 
+">習題 51: 從瀏覽器中取得輸入 &raquo; </a>
+       
+     </div>
+   </nav>
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">xdite</span></span>
+
+      
+
+
+
+
+
+  
+
+
+
+<time datetime="2011-07-19T00:00:00+08:00" pubdate  data-updated="true" >Jul 19<span>th</span>, 2011</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://learnrubythehardway.org/ex50/" data-via="" data-counturl="http://learnrubythehardway.org/ex50/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/intro/">笨方法更簡單</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex00/">習題 0: 準備工作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex01/">習題 1: 第一個程式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex02/">習題 2: 註釋和井號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex03/">習題 3: 數字和數學計算</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex04/">習題 4: 變數(variable)和命名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex05/">習題 5: 更多的變數和印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex06/">習題 6: 字串(string)和文字</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex07/">習題 7: 更多印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex08/">習題 8: 印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex09/">習題 9: 印出，印出，印出</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex10/">習題 10: 那是什麼？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex11/">習題 11: 提問</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex12/">習題 12: 模組 (Module)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex13/">習題 13: 参数、解包、參數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex14/">習題 14: 提示和傳遞</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex15/">習題 15: 讀取檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex16/">習題 16: 讀寫檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex17/">習題 17: 更多的檔案操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex18/">習題 18: 命名、變數、程式碼、函式</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex19/">習題 19: 函式和變數</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex20/">習題 20: 函式和檔案</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex21/">習題 21: 函式可以傳回東西</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex22/">習題 22: 到現在你學到了哪些東西？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex23/">習題 23: 閱讀一些程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex24/">習題 24: 更多練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex25/">習題 25: 更多更多的練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex26/">習題 26: 恭喜你，現在來考試了！</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex27/">習題 27: 記住邏輯關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex28/">習題 28: 布林（Boolean）表示式練習</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex29/">習題 29: 如果（If）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex30/">習題 30: Else 和 If</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex31/">習題 31: 做出決定</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex32/">習題 32: 迴圈和陣列</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex33/">習題 33: While 迴圈</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex34/">習題 34: 存取陣列裡的元素</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex35/">習題 35: 分支 (Branches) 和函式 (Functions)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex36/">習題 36: 設計和測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex37/">習題 37: 複習各種符號</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex38/">習題 38: 閱讀程式碼</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex39/">習題 39: 陣列的操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex40/">習題 40: Hash, 可愛的 Hash</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex41/">習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex42/">習題 42: 物以類聚</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex43/">習題 43: 你來製作一個遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex44/">習題 44: 評估你的遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex45/">習題 45: 物件、類和從屬關係</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex46/">習題 46: 一個專案骨架</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex47/">習題 47: 自動化測試</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex48/">習題 48: 更進階的使用者輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex49/">習題 49: 創造句子</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex50/">習題 50: 你的第一個網站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex51/">習題 51: 從瀏覽器中取得輸入</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ex52/">習題 52: 創造你的網頁遊戲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/next/">下一步</a>
+      </li>
+    
+      <li class="post">
+        <a href="/advice/">一個老程式設計師的建議</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2011 - xdite -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
