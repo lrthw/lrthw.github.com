@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Learn Ruby The Hard Way]]></title>
-  <link href="http://learnrubythehardway.org/atom.xml" rel="self"/>
-  <link href="http://learnrubythehardway.org/"/>
-  <updated>2011-10-12T23:44:34+08:00</updated>
-  <id>http://learnrubythehardway.org/</id>
+  <link href="http://lrthw.github.com/atom.xml" rel="self"/>
+  <link href="http://lrthw.github.com/"/>
+  <updated>2011-10-12T23:50:52+08:00</updated>
+  <id>http://lrthw.github.com/</id>
   <author>
     <name><![CDATA[xdite]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[一個老程式設計師的建議]]></title>
-    <link href="http://learnrubythehardway.org/advice/"/>
+    <link href="http://lrthw.github.com/advice/"/>
     <updated>2011-07-21T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/advice</id>
+    <id>http://lrthw.github.com/advice</id>
     <content type="html"><![CDATA[<p>你已經完成了這本書而且打算繼續寫程式。也許這會成為你的一門職業，也許你只是作為業餘愛好玩玩。無論如何，你都需要一些建議以保證你在正確的道路上繼續前行，並且讓這項新的愛好為你帶來最大程度的享受。</p>
 
 <p>我從事寫程式這行已經太長時間，長到對我來說寫程式已經是非常乏味的事情了。我寫這本書的時候，已經懂得大約20 種程式語言，而且可以在大約一天或者一個星期內學會一門程式語言(取決於這門語言有多古怪)。現在對我來說寫程式這件事情已經很無聊，已經談不上什麼興趣了。當然這不是說寫程式本身是一件無聊的事情，也不是說你以後也一定會這樣覺得，這只是我個人在當前的感覺而已。</p>
@@ -44,9 +44,9 @@
   
   <entry>
     <title type="html"><![CDATA[下一步]]></title>
-    <link href="http://learnrubythehardway.org/next/"/>
+    <link href="http://lrthw.github.com/next/"/>
     <updated>2011-07-20T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/next</id>
+    <id>http://lrthw.github.com/next</id>
     <content type="html"><![CDATA[<p>現在還不能說你是一個程式員。這本書的目的相當於給你一個「程式設計師棕帶」。你已經了解了足夠的寫程式基礎，並且有能力閱讀別的寫程式書籍了。讀完這本書，你應該已經掌握了一些學習的方法，並且具備了該有的學習態度，這樣你在閱讀其他 Ruby 書籍時也許會更順利，而且能學到更多東西。</p>
 
 <blockquote><p><strong>Rob says:</strong> 為了更有趣，我推薦你閱讀 Why&#8217;s (Poignant) Guide to Ruby:
@@ -63,9 +63,9 @@
   
   <entry>
     <title type="html"><![CDATA[習題 52: 創造你的網頁遊戲]]></title>
-    <link href="http://learnrubythehardway.org/ex52/"/>
+    <link href="http://lrthw.github.com/ex52/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex52</id>
+    <id>http://lrthw.github.com/ex52</id>
     <content type="html"><![CDATA[<p>這本書馬上就要結束了。本章的練習對你是一個真正的挑戰。當你完成以後，你就可以算是一個能力不錯的 Ruby 初學者了。為了進一步學習，你還需要多讀一些書，多寫一些程式，不過你已經具備進一步學習的技能了。接下來的學習就只是時間、動力、以及資源的問題了。</p>
 
 <p>在本章習題中，我們不會去創建一個完整的遊戲，取而代之的是我們會為《習題42》中的遊戲建立一個“引擎(engine)”，讓這個遊戲能夠在瀏覽器中運行起來。這會涉及到將《習題42》中的遊戲「重構(refactor)」，將《習題47》中的架構混合進來，添加自動測試程式碼，最後建立一個可以運行遊戲的web 引擎。</p>
@@ -675,9 +675,9 @@
   
   <entry>
     <title type="html"><![CDATA[習題 51: 從瀏覽器中取得輸入]]></title>
-    <link href="http://learnrubythehardway.org/ex51/"/>
+    <link href="http://lrthw.github.com/ex51/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex51</id>
+    <id>http://lrthw.github.com/ex51</id>
     <content type="html"><![CDATA[<p>雖然能讓瀏覽器顯示「Hello World」是很有趣的一件事情，但是如果能讓用戶通過表單(form)向你的應用程序提交資訊就更有趣了。這節習題中，我們將使用form 改進你的web 程式，並且搞懂如何為一個網站程式寫自動化測試。</p>
 
 <h2>Web 運作原理</h2>
@@ -1089,9 +1089,9 @@ Test run options: --seed 57414
   
   <entry>
     <title type="html"><![CDATA[習題 50: 你的第一個網站]]></title>
-    <link href="http://learnrubythehardway.org/ex50/"/>
+    <link href="http://lrthw.github.com/ex50/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex50</id>
+    <id>http://lrthw.github.com/ex50</id>
     <content type="html"><![CDATA[<p>這節以及後面的習題中，你的任務是把前面建立的遊戲做成網頁版。這是本書的最後三個章節，這些內容對你來說難度會相當大，你要在上面花些時間才能做出來。在你開始這節練習以前，你必須已經成功地完成過了《習題46》的內容，正確安裝了 <strong>RubyGems</strong>，而且學會瞭如何安裝軟體套件以及如何建立專案骨架。如果你不記得這些內容，就回到《習題46》重新複習一遍。</p>
 
 <h2>安裝 Sinatra</h2>
@@ -1287,9 +1287,9 @@ localhost - - [18/Jul/2011:11:29:10 EDT] "GET /favicon.ico HTTP/1.1" 404 447
   
   <entry>
     <title type="html"><![CDATA[習題 49: 創造句子]]></title>
-    <link href="http://learnrubythehardway.org/ex49/"/>
+    <link href="http://lrthw.github.com/ex49/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex49</id>
+    <id>http://lrthw.github.com/ex49</id>
     <content type="html"><![CDATA[<p>從我們這個小遊戲的詞彙掃描器中，我們應該可以得到類似下面的列表（你的看起來可能格式會不太一樣）：</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1648,9 +1648,9 @@ localhost - - [18/Jul/2011:11:29:10 EDT] "GET /favicon.ico HTTP/1.1" 404 447
   
   <entry>
     <title type="html"><![CDATA[習題 48: 更進階的使用者輸入]]></title>
-    <link href="http://learnrubythehardway.org/ex48/"/>
+    <link href="http://lrthw.github.com/ex48/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex48</id>
+    <id>http://lrthw.github.com/ex48</id>
     <content type="html"><![CDATA[<p>你的遊戲可能一路跑得很爽，不過你處理使用者輸入的方式肯定讓你不勝其煩了。每一個房間都需要一套自己的語句，而且只有使用者完全輸入正確後才能執行。你需要一個設備，它可以允許使用者以各種方式輸入語彙。例如下面的幾種表述都應該被支援才對：</p>
 
 <ul>
@@ -1902,9 +1902,9 @@ ArgumentError: invalid value for Integer(): "hell"
   
   <entry>
     <title type="html"><![CDATA[習題 47: 自動化測試]]></title>
-    <link href="http://learnrubythehardway.org/ex47/"/>
+    <link href="http://lrthw.github.com/ex47/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex47</id>
+    <id>http://lrthw.github.com/ex47</id>
     <content type="html"><![CDATA[<p>為了確認遊戲的功能是否正常，你需要一遍一遍地在你的遊戲中輸入命令。這個過程是很枯燥無味的。如果能寫一小段程式碼用來測試你的程式碼豈不是更好？然後只要你對程序做了任何修改，或者添加了什麼新東西，你只要「跑一下你的測試」，而這些測試能確認程序依然能正確運行。這些自動測試不會抓到所有的bug，但可以讓你無需重複輸入命令運行你的程式碼，從而為你節約很多時間。</p>
 
 <p>從這一章開始，以後的練習將不會有「你應該看到的結果」這一節，取而代之的是一個「你應該測試的東西」一節。從現在開始，你需要為自己寫的所有程式碼寫自動化測試，而這將讓你成為一個更好的程序員。</p>
@@ -2088,9 +2088,9 @@ Test run options: --seed 63537
   
   <entry>
     <title type="html"><![CDATA[習題 46: 一個專案骨架]]></title>
-    <link href="http://learnrubythehardway.org/ex46/"/>
+    <link href="http://lrthw.github.com/ex46/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex46</id>
+    <id>http://lrthw.github.com/ex46</id>
     <content type="html"><![CDATA[<p>這裡你將學會如何建立一個專案「骨架」目錄。這個骨架目錄具備讓專案跑起來的所有基本內容。它裡邊會包含你的專案檔案佈局、自動化測試程式碼，模組，以及安裝腳本。當你建立一個新專案的時候，只要把這個目錄複製過去，改改目錄的名字，再編輯裡面的檔案就行了。</p>
 
 <h2>骨架內容: Linux/OSX</h2>
@@ -2253,9 +2253,9 @@ $ touch lib/NAME/version.rb
   
   <entry>
     <title type="html"><![CDATA[習題 45: 物件、類和從屬關係]]></title>
-    <link href="http://learnrubythehardway.org/ex45/"/>
+    <link href="http://lrthw.github.com/ex45/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex45</id>
+    <id>http://lrthw.github.com/ex45</id>
     <content type="html"><![CDATA[<p>有一個重要的概念你需要弄明白，那就是 <code>Class</code>「類」和 <code>Object</code>「物件」的區別。問題在於，class 和 object 並沒有真正的不同。它們其實是同樣的東西，只是在不同的時間名字不同罷了。我用禪語來解釋一下吧：</p>
 
 <p><code>魚(Fish)和鮭魚(Salmon)有什麼區別？</code></p>
@@ -2492,9 +2492,9 @@ $ touch lib/NAME/version.rb
   
   <entry>
     <title type="html"><![CDATA[習題 44: 評估你的遊戲]]></title>
-    <link href="http://learnrubythehardway.org/ex44/"/>
+    <link href="http://lrthw.github.com/ex44/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex44</id>
+    <id>http://lrthw.github.com/ex44</id>
     <content type="html"><![CDATA[<p>這節練習的目的是檢查評估你的遊戲。也許你只完成了一半，卡在那裡沒有進行下去，也許你勉強做出來了。不管怎樣，我們將串一下你應該弄懂的一些東西，並確認你的遊戲裡有使用到它們。我們將學習如何用正確的格式構建class，使用class 的一些通用習慣，另外還有很多的「書本知識」讓你學習。</p>
 
 <p>為什麼我會讓你先行嘗試，然後才告訴你正確的做法呢？因為從現在開始你要學會「自給自足」，以前是我牽著你前行，以後就得靠你自己了。後面的習題我只會告訴你你的任務，你需要自己去完成，在你完成後我再告訴你如何可以改進你的作業。</p>
@@ -2557,9 +2557,9 @@ $ touch lib/NAME/version.rb
   
   <entry>
     <title type="html"><![CDATA[習題 43: 你來製作一個遊戲]]></title>
-    <link href="http://learnrubythehardway.org/ex43/"/>
+    <link href="http://lrthw.github.com/ex43/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex43</id>
+    <id>http://lrthw.github.com/ex43</id>
     <content type="html"><![CDATA[<p>你要開始學會自食其力了。通過閱讀這本書你應該已經學到了一點，那就是你需要的所有的資訊網路上都有，你只要去搜尋就能找到。唯一困擾你的就是如何使用正確的詞彙進行搜尋。學到現在，你在挑選搜尋關鍵字方面應該已經有些感覺了。現在已經是時候了，你需要嘗試寫一個大的專案，並讓它運行起來。</p>
 
 <p>以下是你的需求：</p>
@@ -2582,9 +2582,9 @@ $ touch lib/NAME/version.rb
   
   <entry>
     <title type="html"><![CDATA[習題 42: 物以類聚]]></title>
-    <link href="http://learnrubythehardway.org/ex42/"/>
+    <link href="http://lrthw.github.com/ex42/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex42</id>
+    <id>http://lrthw.github.com/ex42</id>
     <content type="html"><![CDATA[<p>雖說將函式放到 Hash 裡是很有趣的一件事情，你應該也會想到「如果 Ruby 內建這件事情該多好」。事實上也的確有，那就是 <code>class</code> 這個關鍵字。你可以使用 <code>class</code> 創建更棒的 「函式 Hash」，比你在上節練習中做的強大多了。Class（類）有著各種各樣強​​大的功能和用法，但本書不會深入講這些內容，在這裡，你只要你學會把它們當作高級的「函式字典」使用就可以了。</p>
 
 <p>用到「class」的程式語言被稱作「Object Oriented Programming（面向對象編程式語言」。這是一種傳統的寫程式的方式，你需要做出「東西」來，然後你「告訴」這些東西去完成它們的工作。類似的事情你其實已經做過不少了，只不過還沒有意識到而已。記得你做過的這個吧：</p>
@@ -3079,9 +3079,9 @@ $ touch lib/NAME/version.rb
   
   <entry>
     <title type="html"><![CDATA[習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)]]></title>
-    <link href="http://learnrubythehardway.org/ex41/"/>
+    <link href="http://lrthw.github.com/ex41/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex41</id>
+    <id>http://lrthw.github.com/ex41</id>
     <content type="html"><![CDATA[<p>你在上一節中發現 Hash 的秘密功能了嗎？你可以解釋給自己嗎？讓我來給你解釋一下，順便和你自己的理解對比看有什麼不同。這裡是我們要討論的程式碼：</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -3607,9 +3607,9 @@ You died.  You kinda suck at this.
   
   <entry>
     <title type="html"><![CDATA[習題 40: Hash, 可愛的 Hash]]></title>
-    <link href="http://learnrubythehardway.org/ex40/"/>
+    <link href="http://lrthw.github.com/ex40/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex40</id>
+    <id>http://lrthw.github.com/ex40</id>
     <content type="html"><![CDATA[<p>接下來我要教你另外一種讓你傷腦筋的容器型資料結構，因為一旦你學會這種資料結構，你將擁有超酷的能力。這是最有用的容器：Hash。</p>
 
 <p>Ruby 將這種資料類型叫做「Hash」，有的語言裡它的名稱是「dictionaries」。這兩種名字我都會用到，不過這並不重要，重要的是它們和陣列的區別。你看，針對陣列你可以做這樣的事情：</p>
@@ -3824,9 +3824,9 @@ State? (ENTER to quit) &gt;
   
   <entry>
     <title type="html"><![CDATA[習題 39: 陣列的操作]]></title>
-    <link href="http://learnrubythehardway.org/ex39/"/>
+    <link href="http://lrthw.github.com/ex39/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex39</id>
+    <id>http://lrthw.github.com/ex39</id>
     <content type="html"><![CDATA[<p>你已經學過了陣列。在你學習“<code>while</code> 迴圈的時候，你對陣列進行過「pushed」動作，而且將陣列的內容印了出來。另外你應該還在加分習題裡研究過 Ruby 文件，看了陣列支援的其他操作。這已經是一段時間以前了，所以如果你不記得了的話，就回到本書的前面再複習一遍吧。</p>
 
 <p>找到了嗎？還記得嗎？很好。那時候你對一個陣列執行了 <code>push</code> 函式。不過，你也許還沒有真正明白發生的事情，所以我們再來看看我們可以對陣列進行什麼樣的操作。</p>
@@ -3927,9 +3927,9 @@ $
   
   <entry>
     <title type="html"><![CDATA[習題 38: 閱讀程式碼]]></title>
-    <link href="http://learnrubythehardway.org/ex38/"/>
+    <link href="http://lrthw.github.com/ex38/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex38</id>
+    <id>http://lrthw.github.com/ex38</id>
     <content type="html"><![CDATA[<p>現在去找一些 Ruby 程式碼閱讀一下。你需要自己找程式碼，然後從中學習一些東西。你學到的東西已經足夠讓你看懂一些程式碼了，但你可能還無法理解這些程式碼的功能。這節課我要教給你的是：如何運用你學到的東西理解別人的程式碼。</p>
 
 <p>首先把你想要理解的程式碼印到紙上。沒錯，你需要印出來，因為和螢幕輸出相比，你的眼睛和大腦更習慣於接受紙質列印的內容。一次最多列印幾頁就可以了。</p>
@@ -3965,9 +3965,9 @@ $
   
   <entry>
     <title type="html"><![CDATA[習題 37: 複習各種符號]]></title>
-    <link href="http://learnrubythehardway.org/ex37/"/>
+    <link href="http://lrthw.github.com/ex37/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex37</id>
+    <id>http://lrthw.github.com/ex37</id>
     <content type="html"><![CDATA[<p>現在該複習你學過的符號和 Ruby 關鍵字了，而且你在本節還會學到一些新的東西。我在這裡所作的是將所有的 Ruby 符號和關鍵字列出來，這些都是值得掌握的重點。</p>
 
 <p>在這節課中，你需要複習每一個關鍵字，從記憶中想起它的作用並且寫下來，接著上網搜索它真正的功能。有些內容可能是無法搜索的，所以這對你可能有些難度，不過你還是需要堅持嘗試。</p>
@@ -4099,9 +4099,9 @@ $
   
   <entry>
     <title type="html"><![CDATA[習題 36: 設計和測試]]></title>
-    <link href="http://learnrubythehardway.org/ex36/"/>
+    <link href="http://lrthw.github.com/ex36/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex36</id>
+    <id>http://lrthw.github.com/ex36</id>
     <content type="html"><![CDATA[<p>現在你已經學會了「<code>if</code> 語句」，我將給你一些使用 <code>for</code> 迴圈和 <code>while</code> 迴圈的規則，一面你日後碰到麻煩。我還會教你一些測試的小技巧，以便你能發現自己程式的問題。最後，你將需要設計一個和上節類似的小遊戲，不過內容略有更改。</p>
 
 <h2>If 語句的規則</h2>
@@ -4150,9 +4150,9 @@ $
   
   <entry>
     <title type="html"><![CDATA[習題 35: 分支 (Branches) 和函式 (Functions)]]></title>
-    <link href="http://learnrubythehardway.org/ex35/"/>
+    <link href="http://lrthw.github.com/ex35/"/>
     <updated>2011-07-19T00:00:00+08:00</updated>
-    <id>http://learnrubythehardway.org/ex35</id>
+    <id>http://lrthw.github.com/ex35</id>
     <content type="html"><![CDATA[<p>你已經學會了 <code>if</code> 語句、函式、還有陣列。現在你要練習扭轉一下思維了。把下面的代碼寫下來，看你是否能弄懂它實現的是什麼功能。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
