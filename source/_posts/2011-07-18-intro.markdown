@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "笨辦法更簡單"
+title: "笨方法更簡單"
 ---
 
 這本小書的目的是讓你起步學習程式。雖然書名說是「笨辦法」，但其實並非如此。所謂的「笨辦法」是指本書教授的方式。在這本書的幫助下，你將通過非常簡單的練習學會一門程式語言。寫練習題是每個程序設計師的必經之路：
@@ -22,43 +22,40 @@ title: "笨辦法更簡單"
 
 ## 讀和寫
 
+很顯然，如果你連打字都成問題的話，那你學習寫程式也會成問題​​。尤其如果你連程式原始碼中的那些奇怪符號都打不出來的話，就根本別提寫程式了。沒有這樣基本技能的話，你將連最基本的軟體運作原理都難以學會。
 
+為了讓你記住各種符號的名字並對它們熟悉起來，你需要將程式碼寫下來並且運行起來。這個過程也會讓你對程式語言更加熟悉。
 
-It seems stupidly obvious, but, if you have a problem typing, you will have a problem learning to code. Especially if you have a problem typing the fairly odd characters in source code. Without this simple skill you will be unable to learn even the most basic things about how software works.
+## 注重細節
 
-Typing the code samples and getting them to run will help you learn the names of the symbols, get familiar with typing them, and get you reading the language.
+區分差程式設計師和差程式設計師的最重要的一個技能就是對於細節的注重程度。事實上這是任何行業區分好壞的標準。如果缺乏對於工作的每一個微小細節的注意，你的工作成果將缺乏重要的元素。以寫程式來講，這樣你得到的結果只能是毛病多多難以使用的軟體。
 
-## Attention to Detail
+通過將本書裡的每一個例子一字不差地打出來，你將通過實踐訓練自己，讓自己集中精力到你作品的細節上面。
 
-區分好程序員和差程式設計師的最重要的一個技能就是對於細節的注重程度。事實上這是任何行業區分好壞的標準。如果缺乏對於工作的每一個微小細節的注意，你的工作成果將缺乏重要的元素。以寫程式來講，這樣你得到的結果只能是毛病多多難以使用的軟體。
+## 發現不同
 
-By going through this book, and copying each example *exactly*, you will be training your brain to focus on the details of what you are doing, as you are doing it.
+程式設計師長年累月的工作會培養出一個重要技能，那就是對於不同點的區分能力。有經驗的程式設計師拿著兩份僅有細微不同的程式，可以立即指出裡邊的不同點來。程式設計師甚至造出工具來讓這件事更加容易，不過我們不會用到這些工具。你要先用笨辦法訓練自己，等你具備一些相關能力的時候才可以使用這些工具。
 
-## Spotting Differences
-A very important skill -- that most programmers develop over time -- is the ability to visually notice differences between things. An experienced programmer can take two pieces of code that are slightly different and immediately start pointing out the differences. Programmers have invented tools to make this even easier, but we won't be using any of these. You first have to train your brain the hard way, then you can use the tools.
+在你做這些練習並且打字進去的時候，你一定會寫錯東西。這是不可避免的，即使有經驗的程式設計師也會偶爾寫錯。你的任務是把自己寫的東西和要求的正確答案對比，把所有的不同點都修正過來。這樣的過程可以讓你對於程式裡的錯誤和 bug 更加敏感。
 
-While you do these exercises, typing each one in, you will be making mistakes. It's inevitable; even seasoned programmers would make a few. Your job is to compare what you have written to what's required, and fix all the differences. By doing so, you will train yourself to notice mistakes, bugs, and other problems.
+## 不要複製貼上
 
-## Do Not Copy-Paste
-You must *type* each of these exercises in, manually. If you copy and paste, you might as well just not even do them. The point of these exercises is to train your hands, your brain, and your mind in how to read, write, and see code. If you copy-paste, you are cheating yourself out of the effectiveness of the lessons.
+你必須手動將每個習題練習「打」出來。複製貼上會讓這些練習變得毫無意義。這些習題的目的是訓練你的雙手和大腦思維，讓你有能力讀程式碼、寫程式碼、觀察程式碼。如果你複製貼上的話，那你就是在欺騙自己，而且這些練習的效果也將大打折扣。
 
-## A Note On Practice And Persistence
-While you are studying programming, I'm studying how to play guitar. I practice it every day for at least 2 hours a day. I play scales, chords, and arpeggios for an hour at least and then learn music theory, ear training, songs and anything else I can. Some days I study guitar and music for 8 hours because I feel like it and it's fun. To me repetitive practice is natural and just how to learn something. I know that to get good at anything you have to practice every day, even if I suck that day (which is often) or it's difficult. Keep trying and eventually it'll be easier and fun.
+## 對於堅持練習的一點提示
 
-As you study this book, and continue with programming, remember that anything worth doing is difficult at first. Maybe you are the kind of person who is afraid of failure so you give up at the first sign of difficulty. Maybe you never learned self-discipline so you can't do anything that's "boring". Maybe you were told that you are "gifted" so you never attempt anything that might make you seem stupid or not a prodigy. Maybe you are competitive and unfairly compare yourself to someone like me who's been programming for 20+ years.
+在你通過這本書學習寫程式時，我正在學習彈吉他。我每天至少訓練2 小時，至少花一個小時練習音階、和聲、和琶音，剩下的時間用來學習音樂理論和歌曲演奏以及訓練聽力等。有時我一天會花8 個小時來練習，因為我覺得這是一件有趣的事情。對我來說，要學好一樣東西，每天的練習是必不可少的。就算這天個人狀態很差，或者說學習的課題實在太難，你也不必介意，只要堅持嘗試，總有一天困難會變得容易，枯燥也會變得有趣了。
 
-Whatever your reason for wanting to quit, keep at it. Force yourself. If you run into an Extra Credit you can't do, or a lesson you just do not understand, then skip it and come back to it later. Just keep going because with programming there's this very odd thing that happens.
+在你通過這本書學習寫程式的過程中要記住一點，就是所謂的「萬事起頭難」，對於有價值的事情尤其如此。也許你是一個害怕失敗的人，一碰到困難就想放棄。也許你是一個缺乏自律的人，一碰到「無聊」的事情就不想上手。也許因為有人誇你“有天分”而讓你自視甚高，不願意做這些看上去很笨拙的事情，怕有負你「神童」的稱號。也許你太過激進，把自己跟有20多年經驗的程式老手相比，讓自己失去了信心。
 
-At first, you will not understand anything. It'll be weird, just like with learning any human language. You will struggle with words, and not know what symbols are what, and it'll all be very confusing. Then one day *BANG* your brain will snap and you will suddenly "get it". If you keep doing the exercises and keep trying to understand them, you will get it. You might not be a master coder, but you will at least understand how programming works.
+不管是什麼原因，你一定要堅持下去。如果你碰到做不出來的加分習題，或者碰到一節看不懂的習題，你可以暫時跳過去，過一陣子回來再看。只要堅持下去，你總會弄懂的。
 
-If you give up, you won't ever reach this point. You will hit the first confusing thing (which is everything at first) and then stop. If you keep trying, keep typing it in, trying to understand it and reading about it, you will eventually get it.
+一開始你可能什麼都看不懂。這會讓你感覺很不舒服，就像學習人類的自然語言一樣。你會發現很難記住一些單詞和特殊符號的用法，而且會經常感到很迷茫，直到有一天，忽然一下子你會覺得豁然開朗，以前不明白的東西忽然就明白了。如果你堅持練習下去，堅持去上下求索，你最終會學會這些東西的。也許你不會成為一個編程大師，但你至少會明白程序是怎麼工作的。
 
-But, if you go through this whole book, and you still do not understand how to code, at least you gave it a shot. You can say you tried your best and a little more and it didn't work out, but at least you tried. You can be proud of that.
+如果你放棄的話，你會失去達到這個程度的機會。你會在第一次碰到不明白的東西時(幾乎是所有的東西)放棄。如果你堅持嘗試，堅持寫習題，堅持嘗試弄懂習題的話，你最終一定會明白裡邊的內容的。
+
+如果你通讀了這本書，卻還是不知道寫程式編程是怎麼回事。那也沒關係，至少你嘗試過了。你可以說你已經盡過力但成效不佳，但至少你嘗試過了。這也是一件值得你驕傲的事情。
 
 ## License
+
 This book is Copyright (C) 2011 by Zed A. Shaw. You are free to distribute this book to anyone you want, so long as you do *not* charge anything for it, *and* it is not altered. You must give away the book in its entirety, or not at all. This means it's alright for you to teach a class using the book, so long as you aren't charging students for the *book* and you give them the whole book unmodified.
-
-## Special Thanks
-I'd like to thank a few people who helped with this edition of the book. First is my editor at *Pretty Girl Editing Services* who helped me edit the book and is just lovely all by herself. Then there's *Greg Newman*, who did the cover jacket and artwork, plus reviewed copies of the book. His artwork made the book look like a real book, and didn't mind that I totally forgot to give him credit in the first edition. I'd also like to thank *Brian Shumate* for doing the website landing page and other site design help, which I need a lot of help on.
-
-Finally, I'd like to thank the hundreds of thousands of people who read the first edition and especially the ones who submitted bug reports and comments to improve the book. It really made this edition solid and I couldn't have done it without all of you. Thank you.
