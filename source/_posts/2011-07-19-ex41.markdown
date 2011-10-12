@@ -3,50 +3,53 @@ layout: post
 title: "習題 41: 來自 Percal 25 號行星的哥頓人(Gothons)"
 ---
 
-Did you figure out the secret of the method in the hash from the last exercise? Can you explain it to yourself? I'll explain it and you can compare your explanation with mine. Here are the lines of code we are talking about:
+你在上一節中發現 Hash 的秘密功能了嗎？你可以解釋給自己嗎？讓我來給你解釋一下，順便和你自己的理解對比看有什麼不同。這裡是我們要討論的程式碼：
 
 ```ruby
 cities[:find] = method(:find_city)
 puts cities[:find].call(cities, state)
 ```
 
-Remember that code can be stored in variables too.  In order to store a block of code in a variable, we create something called a `proc`, which is short for procedure.  In this code, first we are calling Ruby's built-in method called `method`, which returns a proc version of the `find_city` method, which we then store in the hash `cities` with the key `:find`. This is the same as all the others where we set states to some cities, but in this case it's actually the proc.
+你要記住一個函式也可以作為一個變數，為了要將一個程式碼區段儲存在一個變數裡，我們創造了一個東西叫「proc」，proc 是 procedure 縮寫。在這段程式碼中，首先我們呼叫了 Ruby 內建的函式 `method`，它會回傳一個 proc 版的 `find_city` 函式。然後我們將之除存在一個 Hash 裡：key 是 `:find`，value 是 `cities`。。這和我們將州和市關聯起來的程式碼做的事情一樣，只不過在這個情況裡是個 proc。
 
-Alright, so once we know that `find_city` is in the hash at `:find`, that means we can do work with it. The 2nd line of code (used later in the previous exercise) can be broken down like this:
 
-1. Ruby reads `cities` and finds that variable, it's a `hash`.
-2. Then there's `[:find]` which will index into the cities hash and pull out whatever is at `:find`.
-3. What is at `[:find]` is our proc `find_city` so Ruby then knows it's got a proc, and when it hits `.call` it calls the proc code.
-4. The parameters `cities`, `state` are passed to the proc `find_city`, and it runs because it's called.
-5. `find_city` then tries to look up `states` inside `cities`, and returns what it finds or a message saying it didn't find anything.
-6. Ruby takes what `find_city` returned, and prints it out using the `puts` method we've been using all along.
+好了，所以一旦我們知道 `find_city` 是在Hash中 `:find` 的位置，這就意味著我們可以去呼叫它。第二行程式碼可以分解成如下步驟：
 
-Here's a trick. Sometimes these things read better in English if you read the code backwards. This is how I would do it for that same line (remember backwards):
+1. Ruby 讀到了 `cities`，然後知道了它是一個 「Hash」。
+2. 然後看到了`[:find]`，於是 Ruby 就從索引找到了 cities Hash 中對應的位置，並且獲取了該位置的內容。
+3. `[:find]` 這個位置的內容是我們的函式 `find_city`，所以Ruby就知道了這裡表示一個函式，於是當它碰到`.call`就開始了 proc呼叫。
+4. `cities`、`state` 這兩個參數將被傳遞到函式 `find_city` 中，然後這個函式就被運行了。
+5. `find_city` 接著從 `cities` 中尋找 `states`，並且回傳它找到的內容，如果什麼都沒找到，就返回一個信息說它什麼都沒找到。
+6. Ruby 接受 `find_city` 傳回的資訊，最後將該資訊賦值給一開始的 `city_found` 這個變數。
 
-1. `state` and `city` are...
-2. passed as parameters to...
-3. a proc at...
-4. `:find` inside...
-5. the hash `cities`...
-6. and finally printed on the screen
+我再教你一個小技巧。如果你倒著閱讀的話，程式碼可能會變得更容易理解。讓我們來試一下，一樣是那行：
 
-Here's another way to read it, this time "inside-out".
+1. `state` 和 `city` 是...
+2. 最為參數傳遞給...
+3. 一個 proc 位於...
+4. `:find` 然後尋找，目的地為...
+5. `cities` 這個 Hash...
+6. 最後印到螢幕上
 
-1. Find the center item of the expression, in this case `[:find]`.
-2. Go counter-clock-wise and you have a hash `cities`, so this finds the element `:find` in `cities`.
-3. That gives us a proc. Keep going counter-clock-wise and you get to the parameters.
-4. The parameters are passed to the proc, and that returns a result. Go counter-clock-wise again.
-5. Finally, we are at the `puts` statement, and we have our end result.
+還有一種方法讀它，這回是「由裡向外」。
 
-After decades of programming I don't even think about these three ways to read code. I just glance at it and know what it means. I can even glance at a whole screen of code, and all the bugs and errors jump out at me. That took an incredibly long time and quite a bit more study than is sane. To get that way, I learned these three ways of reading most any programming language:
 
-1. Front to back.
-2. Back to front.
-3. Counter-clock-wise.
+1. 找到表示式的中心位置，此次為`[:find]`。
+2. 逆時針追溯，首先看到的是一個叫 `cities`的 Hash，這樣就知道了 `cities` 中的 `:find` 元素。
+3. 上一步得到一個函式。繼續逆時針尋找，看到的是參數。
+4. 參數傳遞給函式後，函式會傳回一個值。然後再逆時針尋找。
+5. 最後，我們到了`city_found` =的賦值位置，並且得到了最終結果。
 
-Try them out when you have a difficult statement to figure out.
+數十年的程式經驗下來，我在讀程式碼的過程中已經用不到上面的三種方法了。我只要瞄一眼就能知道它的意思。甚至給我一整頁的程式碼，我也可以一眼瞄出裡邊的 bug 和錯誤。這樣的技能是花了超乎常人的時間和精力才鍛煉得來的。在磨練的過程中，我學會了下面三種讀程式碼的方法：
 
-Now type in your next exercise, then go over it. This one is gonna be fun.
+1. 從前向後。
+2. 從後向前。
+3. 逆時針方向。
+
+現在我們來寫這次的練習，寫完後再過一遍，這節習題其實挺有趣的。
+
+程式碼不少，不過還是從頭寫完吧。確認它能運行，然後玩一下看看。
+
 
 ```ruby
 def prompt()
@@ -316,10 +319,12 @@ runner(ROOMS, :central_corridor)
     
     --------
     You died.  You kinda suck at this.
+
 ## 加分習題
-1. Explain how returning the next room works.
-2. Add cheat codes to the game so you can get past the more difficult rooms.
-3. Instead of having each function print itself, learn about "here document" strings. 
-4. Write the room description as here document strings, and change the runner to use them.
-5. Once you have here document strings as the room description, do you need to have the function prompt even? Have the runner prompt the user, and pass that in to each function. Your functions should just be `if-statements` printing the result and returning the next room.
-6. This is actually a small version of something called a "finite state machine". Read about them. They might not make sense but try anyway.
+
+1. 解釋一下返回至下一個房間的運作原理。
+2.建立更多的房間，讓遊戲規模變大。
+3. 除了讓每個函式印出自己以外，試試學習一下「文件註解(doc comments)」。
+4. 看看你能不能將房間描述寫成文件註解，然後修改運行它的程式碼，讓它把文檔註解打印出來。
+5. 一旦你用了文件註解作為房間描述，你還需要讓這個函式打出用戶提示嗎？試著讓運行函數的代碼打出用戶提示來，然後將用戶輸入傳遞到各個函式。你的函式應該只是一些 `if` 語句組合，將結果印出來，並且返回下一個房間。
+6. 這其實是一個小版本的「有限狀態機(finite state machine)」，找資料閱讀了解一下，雖然你可能看不懂，但還是找來看看吧

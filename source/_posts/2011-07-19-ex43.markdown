@@ -3,17 +3,17 @@ layout: post
 title: "習題 43: 你來製作一個遊戲"
 ---
 
-You need to start learning to feed yourself. Hopefully as you have worked through this book, you have learned that all the information you need is on the internet, you just have to go search for it. The only thing you have been missing are the right words and what to look for when you search. Now you should have a sense of it, so it's about time you struggled through a big project and tried to get it working.
+你要開始學會自食其力了。通過閱讀這本書你應該已經學到了一點，那就是你需要的所有的資訊網路上都有，你只要去搜尋就能找到。唯一困擾你的就是如何使用正確的詞彙進行搜尋。學到現在，你在挑選搜尋關鍵字方面應該已經有些感覺了。現在已經是時候了，你需要嘗試寫一個大的專案，並讓它運行起來。
 
-Here are your requirements:
+以下是你的需求：
 
-1. Make a different game from the one I made.
-2. Use more than one file, and use `require` to use them. Make sure you know what that is.
-3. Use one class per room and give the classes names that fit their purpose. Like `GoldRoom`, `KoiPondRoom`.
-4. Your runner will need to know about these rooms, so make a class that runs them and knows about them. There's plenty of ways to do this, but consider having each room return what room is next or setting a variable of what room is next.
+1. 製作一個截然不同的遊戲。
+2. 使用多個檔案，並使用 `require `呼叫這些檔案。確認自己知道 `require`的用法。
+3. 對於每個房間使用一個 `class`，`class` 的命名要能體現出它的用處。例如`GoldRoom`、`KoiPondRoom`。
+4. 你的執行器程式碼應該了解這些房間，所以創建一個 class 來呼叫並且記錄這些房間。有很多種方法可以達到這個目的，不過你可以考慮讓每個房間傳回下一個房間，或者設置一個變數，讓它指定下一個房間是什麼。
 
-Other than that I leave it to you. Spend a whole week on this and make it the best game you can. Use classes, functions, dicts, lists anything you can to make it nice. The purpose of this lesson is to teach you how to structure classes that need other classes inside other files.
+其他的事情就全靠你了。花一個星期完成這件任務，做一個你能做出來的最好的遊戲。使用你學過的任何東西（類，函數，Hash，陣列……）來改進你的程式。這節課的目的是教你如何構建 class 出來，而這些 class 又能調用到其它 Ruby 檔案中的 class。
 
-Remember, I'm not telling you exactly how to do this because you have to do this yourself. Go figure it out. Programming is problem solving, and that means trying things, experimenting, failing, scrapping your work, and trying again. When you get stuck, ask for help and show people your code. If they are mean to you, ignore them, focus on the people who are not mean and offer to help. Keep working it and cleaning it until it's good, then show it some more.
+我不會詳細地告訴你告訴你怎樣做，你需要自己完成。試著下手吧，寫程式就是解決問題的過程，這就意味著你要嘗試各種可能性，進行實驗，經歷失敗，然後丟掉你做出來的東西重頭開始。當你被某個問題卡住的時候，你可以向別人尋求幫助，並把你的程式貼出來給他們看。如果有人刻薄你，別理他們，你只要集中精力在幫你的人身上就可以了。持續修改和清理你的程式碼，直到它完整可執行為止，然後再研究一下看它還能不能被改進。
 
-Good luck, and see you in a week with your game.
+祝你好運，下個星期你做出遊戲後我們再見。

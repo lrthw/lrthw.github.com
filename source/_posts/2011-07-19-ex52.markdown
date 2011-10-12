@@ -292,7 +292,7 @@ end
 
 You should next delete `lib/views/hello_form.erb` and `lib/views/index.erb` and create the two templates mentioned in the above code. Here's a very simple `lib/views/show_room.erb`:
 
-{% highlight erb linenos %}
+``` erb
 <h1><%= room.name %></h1>
 
 <pre>
@@ -314,7 +314,7 @@ You should next delete `lib/views/hello_form.erb` and `lib/views/index.erb` and 
 
 That is the template to show a room as you travel through the game. Next you need one to tell someone they died in the case that they got to the end of the map on accident, which is `lib/views/you_died.erb`:
 
-{% highlight erb linenos %}
+``` erb
 <h1>You Died!</h1>
 
 <p>Looks like you bit the dust.</p>

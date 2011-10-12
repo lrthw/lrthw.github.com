@@ -2,15 +2,16 @@
 layout: post
 title: "習題 50: 你的第一個網站"
 ---
+這節以及後面的習題中，你的任務是把前面建立的遊戲做成網頁版。這是本書的最後三個章節，這些內容對你來說難度會相當大，你要在上面花些時間才能做出來。在你開始這節練習以前，你必須已經成功地完成過了《習題46》的內容，正確安裝了 **RubyGems**，而且學會瞭如何安裝軟體套件以及如何建立專案骨架。如果你不記得這些內容，就回到《習題46》重新複習一遍。
 
-These final three exercises will be very hard and you should take your time with them. In this first one you'll build a simple web version of one of your games. Before you attempt this exercise you must have completed Exercise 46 successfully and have a working **RubyGems** installed such that you can install packages and know how to make a skeleton project directory. If you don't remember how to do this, go back to Exercise 46 and do it all over again.
 
-## Installing Sinatra
-Before creating your first web application, you'll first need to install the "web framework" called **Sinatra**. The term "framework" generally means "some package that makes it easier for me to do something". In the world of web applications, people create "web frameworks" to compensate for the difficult problems they've encountered when making their own sites. They share these common solutions in the form of a package you can download to bootstrap your own projects.
+## 安裝 Sinatra
 
-In our case, we'll be using the Sinatra framework, but there are many, many, many others you can choose from. For now, learn Sinatra then branch out to another one when you're ready (or just keep using Sinatra since it's good enough).
+在建立你的第一個網頁應用程式之前，你需要安裝一個「Web框架」，它的名字叫 **Sinatra**。所謂的「框架」通常是指「讓某件事情做起來更容易的軟體套件」。在網頁應用的世界裡，人們建立了各種各樣的「網頁框架」，用來解決他們在建立網站時碰到的問題，然後把這些解決方案用軟體套件的方式發佈出來，這樣你就可以利用它們引導建立你自己的專案了。
 
-Using `gem` install Sinatra:
+可選的框架類型有很多很多，不過在這裡我們將使用 Sinatra 框架。你可以先學會它，等到差不多的時候再去接觸其它的框架，不過 Sinatra 本身挺不錯的，所以就算你一直使用也沒關係。
+
+使用 `gem` 安裝 Sinatra:
 
     $ gem install sinatra
     Fetching: tilt-1.3.2.gem (100%)
@@ -23,13 +24,14 @@ Using `gem` install Sinatra:
     Installing RDoc documentation for tilt-1.3.2...
     Installing RDoc documentation for sinatra-1.2.6...
 
-## Make A Simple "Hello World" Project
-Now you're going to make an initial very simple "Hello World" web application and project directory using Sinatra. First, make your project directory:
+## 寫一個簡單的「Hello World」專案
+
+現在你將做一個非常簡單的「Hello World」專案出來，首先你要建立一個專案目錄：
 
     $ cd projects
     $ bundle gem gothonweb
 
-You'll be taking the game from Exercise 42 and making it into a web application, so that's why you're calling it `gothonweb`. Before you do that, we need to create the most basic Sinatra application possible. Put the following code into `lib/gothonweb.rb`:
+你最終的目的是把《習題42》中的遊戲做成一個 web 應用，所以你的專案名稱叫做 `gothonweb`，不過在此之前，你需要建立一個最基本的 Sinatra應用，將下面的代碼放到`lib/gothonweb.rb`中：
 
 ```ruby
 require_relative "gothonweb/version"
@@ -43,7 +45,7 @@ module Gothonweb
 end
 ```
 
-Then run the application like this:
+然後使用下面的方法來運行這個 web 程式：
 
     $ ruby lib/gothonweb.rb
     == Sinatra/1.2.6 has taken the stage on 4567 for development with backup from WEBrick
@@ -51,7 +53,7 @@ Then run the application like this:
     [2011-07-18 11:27:07] INFO  ruby 1.9.2 (2011-02-18) [x86_64-linux]
     [2011-07-18 11:27:07] INFO  WEBrick::HTTPServer#start: pid=6599 port=4567
 
-Finally, use your web browser and go to the URL `http://localhost:4567/` and you should see two things. First, in your browser you'll see `Hello, World!`. Second, you'll see your terminal with new output like this:
+最後，使用你的網頁瀏覽器，打開 URL `http://localhost:4567/`，你應該看到兩樣東西，首先是瀏覽器裡顯示了 `Hello, world!`，然後是你的命令行終端顯示了如下的輸出：
 
     127.0.0.1 - - [18/Jul/2011 11:29:10] "GET / HTTP/1.1" 200 12 0.0015
     localhost - - [18/Jul/2011:11:29:10 EDT] "GET / HTTP/1.1" 200 12
@@ -60,33 +62,35 @@ Finally, use your web browser and go to the URL `http://localhost:4567/` and you
     localhost - - [18/Jul/2011:11:29:10 EDT] "GET /favicon.ico HTTP/1.1" 404 447
     - -> /favicon.ico
 
-Those are log messages that Sinatra prints out so you can see that the server is working, and what the browser is doing behind the scenes. The log messages help you debug and figure out when you have problems. For example, it's saying that your browser tried to get `/favicon.ico` but that file didn't exist so it returned `404 Not Found` status code.
+這些是 Sinatra 印出的 log 資訊，從這些資訊你可以看出服務器有在運行，而且能了解到程式在瀏覽器背後做了些什麼事情。這些資訊還有助於你發現程式的問題。例如在最後一行它告訴你瀏覽器試圖存取 `/favicon.ico`，但是這個文件並不存在，因此它返回的狀態碼是 `404 Not Found`。
 
-I haven't explained the way any of this web stuff works yet, because I want to get you setup and ready to roll so that I can explain it better in the next two exercises. To accomplish this, I'll have you break your Sinatra application in various ways and then restructure it so that you know how it's setup.
+到這裡，我還沒有講到任何 web 相關的工作原理，因為首先你需要完成準備工作，以便後面的學習能順利進行，接下來的兩節習題中會有詳細的解釋。我會要求你用各種方法把你的 Sinatra 應用程式弄壞，然後再將其重新構建起來：這樣做的目的是讓你明白運行 Sinatra 程式需要準備好哪些東西。
 
-## What's Going On?
-Here's what's happening when your browser hits your application:
+## 發生了什麼事情？
+在瀏覽器訪問到你的網頁應用程式時，發生了下面一些事情：
 
-1. Your browser makes a network connection to your own computer, which is called `localhost` and is a standard way of saying "whatever my own computer is called on the network". It also uses `port 4567`.
-2. Once it connects, it makes an HTTP request to the `lib/gothonweb.rb` application and asks for the `/` URL, which is commonly the first URL on any website.
-3. Inside `lib/gothonweb.rb` you've got blocks of code that map to URLs. The only one we have is the `'/'` mapping. This means that whenever someone goes to `/` with a browser, Sinatra will find the code block to handle the request.
-4. Sinatra calls the matching block, which simply returns a string for what Sinatra should send to the browser.
-4. Finally, Sinatra has handled the request and sends this response to the browser which is what you are seeing.
+1. 瀏覽器通過網路連接到你自己的電腦，它的名字叫做 `localhost`，這是一個標準稱謂，表示的誰就是網路中你自己的這台電腦，不管它實際名字是什麼，你都可以使用 `localhost`來訪問。它使用到`port 4567`。
+2. 連接成功以後，瀏覽器對 lib/gothonweb.rb` 這個應用程式發出了HTTP請求(request)，要求訪問URL `/`，這通常是一個網站的第一個URL。
+3. 在`lib/gothonweb.rb` 裡，我們有一個程式碼區段，裡面包含了 URL 的匹配關係。我們這裡只定義了一組匹配，那就是「/」。它的含義是：如果有人使用瀏覽器訪問 `/` 這一級目錄，Sinatra 將找到它，從而用它處理這個瀏覽器請求。
+4. Sinatra 呼叫匹配到的程式碼區段，這段程式碼只簡單的回傳了一個字串傳回給瀏覽器。
+5. 最後 Sinatra 完成了對於瀏覽器請求的處理將響應(response)回傳給瀏覽器，於是你就看到了現在的頁面。
 
-Make sure you really understand this. Draw up a diagram of how this information flows from your browser, to Sinatra, then to the `/` block and back to your browser.
+確定你真的弄懂了這些，你需要畫一個示意圖，來理清資訊是如何從瀏覽器傳遞到 Sinata，再到 `/` 區段，再回到你的瀏覽器的。
 
-## Fixing Errors
-First, delete line 6 where you assign the `greeting` variable, then hit refresh in your browser. You should see an error page now that gives you lots of information on how your application just exploded. You know that the variable `greeting` is now missing, but Sinatra gives you this nice error page to track down exactly where. Do each of the following with this page:
+## 修正錯誤
 
-1. Look at the `sinatra.error` variable.
-2. Look at the `REQUEST_` variables and see if they match anything you're already familiar with. This is information that your web browser is sending to your gothonweb application. You normally don't even know that it's sending this stuff, so now you get to see what it does.
+第一步，把第 6 行的 `greeting` 變數刪掉，然後重新刷瀏覽器。你應該會看到一個錯誤畫面，你可以通過這一頁豐富的資訊看出你的程式崩潰的原因。當然你已經知道出錯的原因是 `greeting`的賦值遺失了，不過 Sinatra還是會給你一個挺好的錯誤頁面，讓你能找到出錯的具體位置。試試在這個錯誤頁面上做以下操作：
 
-# Create Basic Templates
-You can break your Sinatra application, but did you notice that "Hello World" isn't a very good HTML page? This is a web application, and as such it needs a proper HTML response. To do that you will create a simple template that says "Hello World" in a big green font.
+1. 看看 `sinatra.error` 變數。
+2. 看看 `REQUEST_` 變數裡的資訊。裡面哪些知識是你已經熟悉了的。這是瀏覽器發給你的 gothonweb 應用程式的資訊。這些知識對於日常網頁瀏覽沒有什麼用處，但現在你要學會這些東西，以便寫出web應用程式來。
 
-The first step is to create a `lib/views/index.erb` file that looks like this:
+## 建立基本的模板
 
-{% highlight erb linenos %}
+你已經試過用各種方法把這個Sinatra 程式改錯，不過你有沒有注意到「Hello World」不是一個好 HTML 網頁呢？這是一個 web 應用，所以需要一個合適的HTML 響應頁面才對。為了達到這個目的，下一步你要做的是將「Hello World」以較大的綠色字體顯示出來。
+
+第一步是建立一個 `lib/views/index.erb` 檔案，內容如下：
+
+```erb
 <html>
     <head>
         <title>Gothons Of Planet Percal #25</title>
@@ -102,10 +106,10 @@ The first step is to create a `lib/views/index.erb` file that looks like this:
 </body>
 </html>
 ```
+什麼是一個 `.erb` 的檔案？ERB 的全名是 **E**mbedded **R**u**b**y。`.erb` 檔案其實是一個內嵌一點 Ruby 程式碼的 HTML。如果你學過HTML的話，這些內容你看上去應該很熟悉。如果你沒學過HTML，那你應該去研究一下，試著用HTML寫幾個網頁，從而知道它的運作原理。既然這是一個 `erb` 模版，Sinatra 就會在模板中找到對應的位置，將參數的內容填充到模板中。例如每一個出現 `<%= greeting %> 的位置，內容都會被替換成對應這個變數名的參數。
 
-What is a `.erb` file?  ERB stands for **E**mbedded **R**u**b**y. `.erb` files are HTML with bits of Ruby code embedded within.  If you know what HTML is then this should look fairly familiar. If not, research HTML and try writing a few web pages by hand so you know how it works.  Since this is an `erb` template, Sinatra will fill in "holes" in the text depending on variables you pass in to the template. Every place you see `<%= greeting %>` will be a variable you'll pass to the template that alters its contents.
 
-To make your `lib/gothonweb.rb` script do this, you need to add some code to tell Sinatra where to load the template and to render it. Take that file and change it like this:
+為了讓你的 `lib/gothonweb.rb` 處理模板，你需要寫一寫程式碼，告訴Sinatra 到哪裡去找到模板進行加載，以及如何渲染(render)這個模板，按下面的方式修改你的檔案：
 
 ```ruby
 require_relative "gothonweb/version"
@@ -119,22 +123,23 @@ module Gothonweb
   end
 end
 ```
+特別注意我改了 `/` 這個程式碼區段最後一行的內容，這樣它就可以呼叫 `erb` 然後把 greeting 變數傳給它。
 
-Pay close attention to how I changed the last line of the `/` block so it calls `erb` passing in your greeting variable.
+改好上面的程式後，刷新一下瀏覽器中的網頁，你應該會看到一條和之前不同的綠色資訊輸出。你還可以在瀏覽器中通過「查看原始碼(View Source)」看到模板被渲染成了標準有效的HTML 原始碼。
 
-Once you have that in place, reload the web page in your browser and you should see a different message in green. You should also be able to do a View Source on the page in your browser to see that it is valid HTML.
+這麼講也許有些太快了，我來詳細解釋一下模板的運作原理吧：
 
-This may have flown by you very fast, so let me explain how a template works:
+1. 在 `lib/gothonweb.rb` 你添加了一個 `erb` 函式呼叫。
+2. 這個 `erb` 函式知道怎麼載入 `lib/views` 目錄夾裡的 `.erb` 的檔案。它知道去抓哪些檔案（在這個例子裡是 `index.erb`)。因為你傳了一個參數進去（`erb :index …`)。
+3. 現在，當瀏覽器讀取 `/` 且 `lib/gothonweb.eb` 匹配然後執行 `get '/' do` 區段，它再也沒有只是回傳字串 `greeting`，而是呼叫 `erb` 然後傳入 `greeting` 作為一個變數。
+4. 最後，你讓 `lib/views/index.erb` 去檢查 `greeting` 這個變數，如果這個變數存在的話，就印出變數裡的內容。如果不存在的話，就會印出一個預設的訊息。
 
-1. In your `lib/gothonweb.rb` you've added a new `erb` method call.
-2. The `erb` method knows how to load `.erb` files out of the `lib/views/` directory.  It knows which file to grab (`index.erb` in this case) because you pass it as a parameter (`erb :index ...`).
-3. Now, when the browser hits `/` and `lib/gothonweb.rb` matches and executes the `get '/' do` block, instead of just returning the string `greeting`, it calls `erb` and pass `greeting` to it as a variable.
-4. Finally, you have the HTML in `lib/views/index.erb` that contains a bit of Ruby code that tests the `greeting variable`, and if it's there, prints one message using the `greeting`, or a default message.
+要深入理解這個過程，你可以修改 `greeting 變數以及 HTML ，看看會友什麼效果。然後也創作另外一個叫做 `lib/views/foo.erb` 的模板。然後把 `erb :index` 改成 `erb :foo` 。從這個過程中你也可以看到，你傳入給 `erb` 的第一個參數只要匹配到 `lib/views` 下的 `.erb` 檔案名稱，就可以被渲染出來了。
 
-To get deeper into this, change the `greeting` variable and the HTML to see what effect it has. Also create another template named `lib/views/foo.lib` and render that using `erb :foo` instead of `erb :index` like before. This will show you how the first parameter you pass to `erb` is just matched to a `.erb` file in `lib/views/`.
 
 ## 加分習題
-1. Read the documentation at [http://www.sinatrarb.com](http://www.sinatrarb.com).
-2. Experiment with everything you can find there, including their example code.
-3. Read about HTML5 and CSS3 and make some `.html` and `.css` files for practice.
-4. If you have a friend who knows **Rails** and is willing to help you, then consider doing Ex 50, 51, and 52 in Rails instead to see what that's like.
+
+1. 到 [Sinatra](http://www.sinatrarb.com) 這個框架的官方網站去閱讀更多文件。
+2. 實驗一下你在上述網站中看到的所有東西，包括他們的範例程式碼。
+3. 閱讀有關於 HTML5 和 CSS3 相關的東西，自己練習寫幾個 `.html` 和 `.css` 文件。
+4. 如果你有一個懂 **Rails** 的朋友可以幫你的畫，你可以自己試著使用 Rails 完成一下習題 50,51,52，看看結果會是什麼樣子。

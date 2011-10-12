@@ -3,20 +3,22 @@ layout: post
 title: "習題 47: 自動化測試"
 ---
 
-Having to type commands into your game over and over to make sure it's working is annoying. Wouldn't it be better to write little pieces of code that test your code? Then when you make a change, or add a new thing to your program, you just "run your tests" and the tests make sure things are still working. These automated tests won't catch all your bugs, but they will cut down on the time you spend repeatedly typing and running your code.
+為了確認遊戲的功能是否正常，你需要一遍一遍地在你的遊戲中輸入命令。這個過程是很枯燥無味的。如果能寫一小段程式碼用來測試你的程式碼豈不是更好？然後只要你對程序做了任何修改，或者添加了什麼新東西，你只要「跑一下你的測試」，而這些測試能確認程序依然能正確運行。這些自動測試不會抓到所有的bug，但可以讓你無需重複輸入命令運行你的程式碼，從而為你節約很多時間。
 
-Every exercise after this one will not have a `What You Should See section`, but instead it will have a `What You Should Test section`. You will be writing automated tests for all of your code starting now, and this will hopefully make you an even better programmer.
+從這一章開始，以後的練習將不會有「你應該看到的結果」這一節，取而代之的是一個「你應該測試的東西」一節。從現在開始，你需要為自己寫的所有程式碼寫自動化測試，而這將讓你成為一個更好的程序員。
 
-I won't try to explain why you should write automated tests. I will only say that, you are trying to be a programmer, and programmers automate boring and tedious tasks. Testing a piece of software is definitely boring and tedious, so you might as well write a little bit of code to do it for you.
+我不會試圖解釋為什麼你需要寫自動化測試。我要告訴你的是，你想要成為一個程式設計師，而程序的作用是讓無聊冗繁的工作自動化，測試軟件毫無疑問是無聊冗繁的，所以你還是寫點程式碼讓它為你測試的更好。
 
-That should be all the explanation you need because your reason for writing unit tests is to make your brain stronger. You have gone through this book writing code to do things. Now you are going to take the next leap and write code that knows about other code you have written. This process of writing a test that runs some code you have written forces you to understand clearly what you have just written. It solidifies in your brain exactly what it does and why it works and gives you a new level of attention to detail.
+這應該是你需要的所有的解釋了。因為你寫單元測試的原因是讓你的大腦更加強健。你讀了這本書，寫了很多程式碼讓它們實現一些事情。現在你將更進一步，寫出懂得你寫的其他程式碼的程式碼。這個寫程式碼測試你寫的其他程式碼的過程將強迫你清楚的理解你之前寫的程式碼。這會讓你更清晰地了解你寫的程式碼實現的功能及其原理，而且讓你對細節的注意更上一個台階。
 
-## Writing A Test Case
-We're going to take a very simple piece of code and write one simple test. We're going to base this little test on a new project from your project skeleton.
 
-First, make a `ex47` project from your project skeleton. Make sure you do it right and rename the library and get that first `test/test_ex47.rb` test file going right.
+## 撰寫 Test Case
 
-Next, create a simple file `ex47/lib/game.rb` where you can put the code to test. This will be a very silly little class that we want to test with this code in it:
+我們將拿一段非常簡單的程式碼為例，寫一個簡單的測試，這個測試將建立在上節我們創建的項目骨架上面。
+
+首先從你的專案骨架創建一個叫做 `ex47` 的專案。確認該改名稱的地方都有改過，尤其是 `tests/ex47_tests.rb` 這處不要寫錯。
+
+接下來建立一個簡單的 `ex47/lib/game.rb` 檔案，裡邊放一些用來被測試的程式碼。我們現在放一個傻乎乎的小 class 進去，用來作為我們的測試對象：
 
 ```ruby
 class Room
@@ -39,8 +41,7 @@ class Room
 
 end
 ```
-
-Once you have that file, change unit test skeleton to this:
+一旦你有了這個檔案，修改你的 unit test 骨架變成這樣：
 
 ```ruby
 require 'test/unit'
@@ -83,18 +84,19 @@ class MyUnitTests < Test::Unit::TestCase
 end
 ```
 
-This file requires the `Room` class you made in the `lib/ex47.rb` file so that you can do tests on it. There are then a set of tests that are functions starting with `test_`. Inside each test case there's a bit of code that makes a `Room` or a set of `Rooms`, and then makes sure the rooms work the way you expect them to work. It tests out the basic room features, then the paths, then tries out a whole map.
+這個文件 require 了你在 `lib/ex47.rb` 裡建立的 `Room`這個類，接下來我們要做的就是測試它。於是我們看到一系列的以 `test_` 開頭的測試函式，它們就是所謂的「Test Case」，每一個Test Case裡面都有一小段程式碼，它們會建立一個或者一些房間，然後去確認房間的功能和你期望的是否一樣。它測試了基本的房間功能，然後測試了路徑，最後測試了整個地圖。
 
-The important functions here are `assert_equal` which makes sure that variables you have set or paths you have built in a `Room` are actually what you think they are. If you get the wrong result, then Ruby's `Test::Unit` module will print out an error message so you can go figure it out.
+這裡最重要的函數時 `assert_equal`，它保證了你設置的變數，以及你在`Room` 裡設置的路徑和你的期望相符。如果你得到錯誤的結果的話，Ruby 的 `Test::Unit` 模組將會印出一個錯誤信息，這樣你就可以找到出錯的地方並且修正過來。
 
-## Testing Guidelines
-Follow these general loose set of guidelines when making your tests:
+## 測試指南
 
-1. Test files go in `test/` and are named `test_NAME.rb`. This keeps your tests from clashing with your other code.
-2. Write one test file for each module or class you make.
-3. Keep your test cases (functions) short, but do not worry if they are a bit messy. Test cases are usually kind of messy.
-4. Even though test cases are messy, try to keep them clean and remove any repetitive code you can. Create helper functions that get rid of duplicate code. You will thank me later when you make a change and then have to change your tests. Duplicated code will make changing your tests more difficult.
-5. Finally, do not get too attached to your tests. Sometimes, the best way to redesign something is to just delete it, the tests, and start over.
+在寫測試程式碼時，你可以照著下面這些不是很嚴格的指南來做：
+
+1. 測試腳本要放到 `tests/` 目錄下，並且命名為 `test_NAME.rb`。這樣做還有一個好處就是防止測試程式碼和別的程式碼互相混掉。
+2. 為你的每一個模組寫一個測試。
+3. Test Cast 函式保持簡短，但如果看上去不怎麼整潔也沒關係，Test Cast一般都有點亂。
+4. 就算Test Cast有些亂，也要試著讓他們保持整潔，把裡邊重複的程式碼刪掉。建立一些輔助函數來避免重複的程式碼。當你下次在改完程式碼需要改測試的時候，你會感謝我這一條建議的。重複的程式碼會讓修改測試變得很難操作。
+5. 最後一條是別太把測試當做一回事。有時候，更好的方法是把程式碼和測試全部刪掉，然後重新設計程式碼。
 
 ## 你應該看到的結果
     $ ruby test_ex47.rb 
@@ -110,6 +112,7 @@ Follow these general loose set of guidelines when making your tests:
 That's what you should see if everything is working right. Try causing an error to see what that looks like and then fix it.
 
 ## 加分習題
-1. Go read about `Test::Unit` more, and also read about alternatives.
-2. Learn about `Rspec` and see if you like it better.
-3. Make your Room more advanced, and then use it to rebuild your game yet again but this time, unit test as you go.
+
+1. 仔細閱讀 `Test::Unit`相關的文件，再去了解一下其他的替代方案。
+2. 了解一下 `Rspec`，看看它是否可以幹得更出色。
+3. 改進你遊戲裡的 Room，然後用它重建你的遊戲。這次重寫，你需要一邊寫程式碼，一般把單元測試寫出來。

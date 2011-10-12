@@ -3,8 +3,7 @@ layout: post
 title: "習題 49: 創造句子"
 ---
 
-What we should be able to get from our little game lexicon scanner is a list that looks like this (yours
-will be formatted differently):
+從我們這個小遊戲的詞彙掃描器中，我們應該可以得到類似下面的列表（你的看起來可能格式會不太一樣）：
 
 ```ruby
 ruby-1.9.2-p180 :003 > print Lexicon.scan("go north")
@@ -31,23 +30,23 @@ ruby-1.9.2-p180 :006 > print Lexicon.scan("open the door and smack the bear in t
     #<struct Lexicon::Pair token=:error, word="nose">] => nil 
 ruby-1.9.2-p180 :007 >
 ```
+現在讓我們把它轉化成遊戲可以使用的東西，也就是一個 Sentence 類。
 
-Now let us turn this into something the game can work with, which would be some kind of Sentence class.
+如果你還記得學校學過的東西的話，一個句子是由這樣的結構組成的：
 
-If you remember grade school, a sentence can be a simple structure like:
+> 主語(Subject) + 謂語(動詞Verb) + 賓語(Object)
 
-> Subject Verb Object
+很顯然實際的句子可能會比這複雜，而你可能已經在英語的語法課上面被折騰得夠嗆了。我們的目的，是將上面的 struct 列表轉換為一個 Sentence 物件，而這個對象又包含主謂賓各個成員。
 
-Obviously it gets more complex than that, and you probably did many days of annoying sentence graphs for English class. What we want is to turn the above lists of structs into a nice Sentence object that has subject, verb, and object.
+## 匹配(Match) And 窺視(Peek)
 
-## Match And Peek
-To do this we need four tools:
+為了達到這個效果，你需要四樣工具：
 
-1. A way to loop through the list of structs. That's easy.
-2. A way to "match" different types of structs that we expect in our Subject Verb Object setup.
-3. A way to "peek" at a potential struct so we can make some decisions.
-4. A way to "skip" things we do not care about, like stop words.
-5. We use the peek function to say look at the next element in our struct array, and then match to take one off and work with it. Let's take a look at a first peek function:
+1. 一個循環存取 struct 列表的方法，這挺簡單的。
+2. 「匹配」我們的主謂賓設置中不同種類 struct 的方法。
+3. 一個「窺視」潛在struct的方法，以便做決定時用到。
+4. 「跳過(skip)」我們不在乎的內容的方法，例如形容詞、冠詞等沒有用處的詞彙。
+5. 我們使用 peek 函式查看 struct 列表中的下一個成員，做匹配以後再對它做下一步動作。讓我們先看看這個 peek 函式：
 
 ```ruby
 def peek(word_list)
@@ -59,7 +58,7 @@ def peek(word_list)
 end
 ```
 
-Very easy. Now for the match function:
+很簡單。再看看 match 函式：
 
 ```ruby
 def match(word_list, expecting)
@@ -76,7 +75,7 @@ def match(word_list, expecting)
 end
 ```
 
-Again, very easy, and finally our skip function:
+還是很簡單，最後我們看看 skip 函式:
 
 ```ruby
 def skip(word_list, word_type)
@@ -86,19 +85,20 @@ def skip(word_list, word_type)
 end
 ```
 
-By now you should be able to figure out what these do. Make sure you understand them.
+以你現在的水準，你應該可以看出它們的功能來。確認自己真的弄懂了它們。
 
-## The Sentence Grammar
-With our tools we can now begin to build Sentence objects from our array of structs. What we do is a process of:
+## 句子的語法
 
-1. Identify the next word with `peek`.
-2. If that word fits in our grammar, we call a function to handle that part of the grammar, say `parse_subject`.
-3. If it doesn't, we `raise` an error, which you will learn about in this lesson.
-4. When we're all done, we should have a Sentence object to work with in our game.
+有了工具，我們現在可以從 struct 列表來構建句子(Sentence)對象了。我們的處理流程如下：
 
-The best way to demonstrate this is to give you the code to read, but here's where this exercise is different from the previous one: You will write the test for the parser code I give you. Rather than giving you the test so you can write the code, I will give you the code, and you have to write the test.
+1. 使用 `peek` 識別下一個單詞。
+2. 如果這個單詞和我們的語法匹配，我們就調用一個函式來處理這部分語法。假設函式的名字叫 `parse_subject` 好了。
+3. 如果語法不匹配，我們就 `raise` 一個錯誤，接下來你會學到這方面的內容。
+4. 全部分析完以後，我們應該能得到一個 Sentence 物件，然後可以將其應用在我們的遊戲中。
 
-Here's the code that I wrote for parsing simple sentences using the `ex48` Lexicon class:
+演示這個過程最簡單的方法是把程式碼展示給你讓你閱讀，不過這節習題有個不一樣的要求，前面是我給你測試程式碼，你照著寫出程式碼來，而這次是我給你的程序，而你要為它寫出測試程式碼來。
+
+以下就是我寫的用來解析簡單句子的程式碼，它使用了 `ex48` 這個 Lexicon class。
 
 ```ruby
 class ParserError < Exception
@@ -191,20 +191,23 @@ def parse_sentence(word_list)
 end
 ```
 
-## A Word On Exceptions
-You briefly learned about exceptions, but not how to raise them. This code demonstrates how to do that with the `ParserError` at the top. Notice that it uses classes to give it the type of `Exception`. Also notice the use of `raise` keyword to raise the exception.
+## 關於異常(Exception) 
 
-In your tests, you will want to work with these exceptions, which I'll show you how to do.
+你已經簡單學過關於異常的一些東西，但還沒學過怎樣拋出(raise)它們。這節的程式碼示範了如何 raise。首先在最前面，你要定義好 `ParserException`這個類，而它又是 `Exception` 的一種。另外要注意我們是怎樣使用 `raise`這個關鍵字來拋出異常的。
 
-## What You Should Test
-For Exercise 49 is write a complete test that confirms everything in this code is working. That includes making exceptions happen by giving it bad sentences.
+你的測試程式碼應該也要測試到這些異常，這個我也會示範給你如何實現。
 
-Check for an exception by using the function `assert_raise` from the Test::Unit documentation. Learn how to use this so you can write a test that is expected to fail, which is very important in testing. Learn about this function (and others) by reading the Test::Unit documentation.
+## 你應該測試的東西
 
-When you are done, you should know how this bit of code works, and how to write a test for other people's code even if they do not want you to. Trust me, it's a very handy skill to have.
+為《習題49》寫一個完整的測試方案，確認程式碼中所有的東西都能正常工作，其中異常的測試——輸入一個錯誤的句子它會拋出一個異常來。
+
+使用 `assert_raises` 這個函式來檢查異常，在 Test::Unit 的文件裡查看相關的內容，學著使用它寫針對「執行失敗」的測試，這也是測試很重要的一個方面。從文件中學會使用 `assert_raises`，以及一些別的函式。
+
+寫完測試以後，你應該就明白了這段程式碼的運作原理，而且也學會了如何為別人的程式碼寫測試程式碼。相信我，這是一個非常有用的技能。
 
 ## 加分習題
-1. Change the `parse_` methods and try to put them into a class rather than be just methods. Which design do you like better?
-2. Make the parser more error resistant so that you can avoid annoying your users if they type words your lexicon doesn't understand.
-3. Improve the grammar by handling more things like numbers.
-4. Think about how you might use this Sentence class in your game to do more fun things with a user's input.
+
+1. 修改 `parse_` method，將它們放到一個類裡邊，而不僅僅是獨立的方法函式。這兩種設計你喜歡哪一種呢？
+2. 提高parser 對於錯誤輸入的抵禦能力，這樣即使使用者輸入了你預定義語彙之外的詞語，你的程式碼也能正常運行下去。
+3. 改進語法，讓它可以處理更多的東西，例如數字。
+4. 想想在遊戲裡你的 Sentence 類可以對使用者輸入做哪些有趣的事情。
